@@ -1,14 +1,14 @@
 import java.util.List;
 
 public class Event {
-  String name;
-  String location;
-  boolean online;
-  String startDay;
-  int startTime;
-  String endDay;
-  int endTime;
-  List<String> invitedUsers;
+  private String name;
+  private String location;
+  private boolean online;
+  private String startDay;
+  private int startTime;
+  private String endDay;
+  private int endTime;
+  private List<String> invitedUsers;
 
   Event(String name, String location, boolean online,
         String startDay, int startTime, String endDay,
