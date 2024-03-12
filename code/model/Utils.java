@@ -14,6 +14,10 @@ import java.io.Writer;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import model.Event;
 
@@ -50,8 +54,8 @@ public class Utils {
       Document schedule = builder.newDocument();
       Element scheduleID = schedule.createElement("schedule");
       scheduleID.setAttribute("id", user.uid);
-      schedule.appendChild(scheduleID);
       for (Event e : user.schedule) {
+        System.out.print("HERE FOR SOME REASON");
         Element event = schedule.createElement("event");
         Element name = schedule.createElement("name");
         name.appendChild(schedule.createTextNode(e.getName()));
@@ -59,11 +63,11 @@ public class Utils {
 
         Element time = schedule.createElement("time");
         Element startDay = schedule.createElement("start-day");
-        startDay.appendChild(schedule.createTextNode(e.getStartDay()));
+        startDay.appendChild(schedule.createTextNode(e.getStartDay().toString()));
         Element start = schedule.createElement("start");
         start.appendChild(schedule.createTextNode(String.format("%d", e.getStartTime())));
         Element endDay = schedule.createElement("end-day");
-        endDay.appendChild(schedule.createTextNode(e.getEndDay()));
+        endDay.appendChild(schedule.createTextNode(e.getEndDay().toString()));
         Element end = schedule.createElement("end");
         end.appendChild(schedule.createTextNode(String.format("%d", e.getEndTime())));
         time.appendChild(startDay);
@@ -91,9 +95,21 @@ public class Utils {
         scheduleID.appendChild(event);
       }
       schedule.appendChild(scheduleID);
-    } catch (ParserConfigurationException e) {
+      saveDomToFile(schedule, user.uid);
+    } catch (Exception e) {
       throw new RuntimeException(e);
     }
+  }
+
+  private static void saveDomToFile(Document document, String fileName)
+          throws Exception {
+
+    DOMSource dom = new DOMSource(document);
+    Transformer transformer = TransformerFactory.newInstance()
+            .newTransformer();
+
+    StreamResult result = new StreamResult(new File(fileName));
+    transformer.transform(dom, result);
   }
 
   /**

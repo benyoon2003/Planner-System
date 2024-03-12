@@ -25,13 +25,13 @@ public class Event {
     this.location = Objects.requireNonNull(location);
     this.online = online;
     this.startDay = Objects.requireNonNull(startDay);
-    if (startTime < 0){
+    if (startTime > 0){
       this.startTime = startTime;
     } else {
       throw new IllegalArgumentException("Start Time cannot be negative");
     }
     this.endDay = Objects.requireNonNull(endDay);
-    if (endTime < 0){
+    if (endTime > 0){
       this.endTime = endTime;
     } else {
       throw new IllegalArgumentException("Start Time cannot be negative");
