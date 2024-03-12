@@ -5,7 +5,7 @@ import java.util.List;
  * called NuPlanner where someone can manipulate events on multiple users'
  * schedules.
  */
-public interface NuPlannerModel {
+public interface PlannerModel {
 
   /**
    * Upload an XML file representing a single user's schedule.

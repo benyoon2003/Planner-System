@@ -8,11 +8,11 @@ public class Event {
   private int startTime;
   private String endDay;
   private int endTime;
-  private List<String> invitedUsers;
+  private List<User> invitedUsers;
 
-  Event(String name, String location, boolean online,
+  public Event(String name, String location, boolean online,
         String startDay, int startTime, String endDay,
-        int endTime, List<String> invitedUsers) {
+        int endTime, List<User> invitedUsers) {
     this.name = name;
     this.location = location;
     this.online = online;
@@ -21,5 +21,37 @@ public class Event {
     this.endDay = endDay;
     this.endTime = endTime;
     this.invitedUsers = invitedUsers;
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
+  public String getLocation() {
+    return this.location;
+  }
+
+  public boolean getOnline() {
+    return this.online;
+  }
+
+  public String getStartDay() {
+    return this.startDay;
+  }
+
+  public int getStartTime() {
+    return this.startTime;
+  }
+
+  public String getEndDay() {
+    return this.endDay;
+  }
+
+  public int getEndTime() {
+    return this.endTime;
+  }
+
+  public List<User> getInvitedUsers() {
+    return this.invitedUsers;
   }
 }

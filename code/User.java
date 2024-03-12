@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -6,6 +7,6 @@ public class User {
 
   public User(String uid, List<Event> schedule) {
     this.uid = uid;
-    this.schedule = schedule;
+    this.schedule = new ArrayList<>();
   }
 }
