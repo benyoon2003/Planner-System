@@ -1,8 +1,10 @@
+package model;
+
 import java.util.List;
 
 /**
  * The operations and observations required for a weekly planner system
- * called NuPlanner where someone can manipulate events on multiple users'
+ * called PlannerModel where someone can manipulate events on multiple users'
  * schedules.
  */
 public interface PlannerModel {
