@@ -106,4 +106,6 @@ public class Utils {
       throw new IllegalStateException("Error in parsing the file");
     }
   }
+
+  for ( event e : user)
 }
