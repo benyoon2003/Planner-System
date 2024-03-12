@@ -16,17 +16,17 @@ import javax.xml.parsers.ParserConfigurationException;
 /**
  * An example code file to show how to write to files
  * and read XML files using the built in XML parser.
- *
+ * <p>
  * The writing example is simple since not much is needed
  * for it. The reading example shows not only how to read
  * XML and extract information, but also WHY we need to dive
  * really deep: text content at higher levels requires
  * more parsing than it's worth.
- *
+ * <p>
  * Written by Lucia A. Nunez, using the tutorial.xml file and based
  * on the tutorial written by Baeldung
  * Source: https://www.baeldung.com/java-xerces-dom-parsing
- *
+ * <p>
  * Do NOT simply copy-paste this code into your projects. It's
  * useless in its current form to you. Instead, figure out what it
  * is doing and how, lookup any related Javadocs, and finally write your
@@ -36,31 +36,59 @@ public class Utils {
   /**
    * Creates an XML file in the directory where this code is run
    * For IntelliJ, that is the project's folder.
-   *
+   * <p>
    * SIDE-EFFECT: Calling this method twice will OVERWRITE the file.
    * If you want to add to an existing file, use append instead.
    */
   public static void writeToFile(User user) {
     try {
-      Writer file = new FileWriter(user.uid);
-      file.write("<?xml version=\"1.0\"?>\n");
-      file.write(String.format("<schedule id=\"%s\">", user.uid));
+      DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+      Document schedule = builder.newDocument();
+      Element scheduleID = schedule.createElement("schedule");
+      scheduleID.setAttribute("id", user.uid);
+      schedule.appendChild(scheduleID);
       for (Event e : user.schedule) {
-        file.write("<event>");
-        file.write(String.format("<name> %s </name>", e.getName()));
-        file.write("<time>");
-        file.write(String.format("<start-day> %s </start-day>", e.getName()));
-        file.write(String.format("<start> %s </start>", e.getName()));
-        file.write(String.format("<end-day> %s </end-day>", e.getName()));
-        file.write(String.format("<end> %s </end>", e.getName()));
-        file.write("</time>");
-        file.write("</event>");
+        Element event = schedule.createElement("event");
+        Element name = schedule.createElement("name");
+        name.appendChild(schedule.createTextNode(e.getName()));
+        event.appendChild(name);
 
+        Element time = schedule.createElement("time");
+        Element startDay = schedule.createElement("start-day");
+        startDay.appendChild(schedule.createTextNode(e.getStartDay()));
+        Element start = schedule.createElement("start");
+        start.appendChild(schedule.createTextNode(String.format("%d", e.getStartTime())));
+        Element endDay = schedule.createElement("end-day");
+        endDay.appendChild(schedule.createTextNode(e.getEndDay()));
+        Element end = schedule.createElement("end");
+        end.appendChild(schedule.createTextNode(String.format("%d", e.getEndTime())));
+        time.appendChild(startDay);
+        time.appendChild(start);
+        time.appendChild(endDay);
+        time.appendChild(end);
+        event.appendChild(time);
+
+        Element location = schedule.createElement("location");
+        Element online = schedule.createElement("online");
+        online.appendChild(schedule.createTextNode(String.format("%b", e.getOnline())));
+        Element place = schedule.createElement("place");
+        place.appendChild(schedule.createTextNode(e.getLocation()));
+        location.appendChild(online);
+        location.appendChild(place);
+        event.appendChild(location);
+
+        Element users = schedule.createElement("users");
+        for (User u : e.getInvitedUsers()) {
+          Element uid = schedule.createElement("uid");
+          uid.appendChild(schedule.createTextNode(u.uid));
+          users.appendChild(uid);
+        }
+        event.appendChild(users);
+        scheduleID.appendChild(event);
       }
-
-      file.close();
-    } catch (IOException ex) {
-      throw new RuntimeException(ex.getMessage());
+      schedule.appendChild(scheduleID);
+    } catch (ParserConfigurationException e) {
+      throw new RuntimeException(e);
     }
   }
 
@@ -69,10 +97,10 @@ public class Utils {
    * and prints useful information from the file.
    * For IntelliJ, that is the project's folder.
    */
-  public static void readXML() {
+  public static void readXML(User user) {
     try {
       DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-      Document xmlDoc = builder.parse(new File("tutorial.xml"));
+      Document xmlDoc = builder.parse(new File(user.uid));
       xmlDoc.getDocumentElement().normalize();
 
       Node tutorialsNode = xmlDoc.getElementsByTagName("tutorials").item(0);
@@ -86,7 +114,7 @@ public class Utils {
         Node current = nodeList.item(item);
         //We need to search for Elements (actual tags) and there
         //is only one: the tutorial tag
-        if(current.getNodeType() == Node.ELEMENT_NODE) {
+        if (current.getNodeType() == Node.ELEMENT_NODE) {
           Element elem = (Element) current;
           //Print out the attributes of this element
           System.out.println("Investigating the attributes:");
@@ -99,9 +127,9 @@ public class Utils {
 
           //... so let's dig even deeper!
           NodeList elemChildren = elem.getChildNodes();
-          for(int childIdx = 0; childIdx < elemChildren.getLength(); childIdx++ ) {
+          for (int childIdx = 0; childIdx < elemChildren.getLength(); childIdx++) {
             Node childNode = elemChildren.item(childIdx);
-            if(childNode.getNodeType() == Node.ELEMENT_NODE) {
+            if (childNode.getNodeType() == Node.ELEMENT_NODE) {
               Element child = (Element) childNode;
               //Now we're getting something more meaningful from each element!
               System.out.println("Investigating the text content inside the innermost tags");
