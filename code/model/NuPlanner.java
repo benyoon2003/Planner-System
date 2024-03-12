@@ -23,7 +23,9 @@ public class NuPlanner implements PlannerModel {
 
   @Override
   public void saveSchedule() {
-
+    for (User user : this.database) {
+      Utils.writeToFile(user);
+    }
   }
 
   @Override
