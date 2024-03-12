@@ -21,9 +21,12 @@ public class UtilsTest {
     user1 = new User("Ben", List.of(event1));
   }
 
+  // TODO: Test with bigger schedule
   @Test
   public void writeToFile() {
     Utils.writeToFile(user1);
   }
+
+
 
 }
