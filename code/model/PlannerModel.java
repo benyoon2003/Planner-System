@@ -23,7 +23,7 @@ public interface PlannerModel {
    * Select one of the users to display their schedule.
    * @param user a String
    */
-  public void selectSchedule(String user);
+  public List<Event> selectSchedule(String user);
 
   /**
    * Create, modify, or remove an event on a user’s schedule,

@@ -18,7 +18,6 @@ public class NuPlanner implements PlannerModel {
 
   @Override
   public void uploadSchedule() {
-
   }
 
   @Override
@@ -29,8 +28,18 @@ public class NuPlanner implements PlannerModel {
   }
 
   @Override
-  public void selectSchedule(String user) {
-
+  public List<Event> selectSchedule(String user) {
+    List<Event> selected = new ArrayList<>();
+    for (User u : this.database){
+      if (u.uid.equals(user)){
+        selected = u.schedule;
+      }
+    }
+    if (selected.isEmpty()){
+      throw new IllegalArgumentException("Not a Valid User");
+    }else{
+      return selected;
+    }
   }
 
   @Override
