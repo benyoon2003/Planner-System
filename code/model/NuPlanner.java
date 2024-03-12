@@ -1,5 +1,9 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import model.PlannerModel;
 
 public class NuPlanner implements PlannerModel {
   private List<User> database;

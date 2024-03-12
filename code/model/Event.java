@@ -1,5 +1,9 @@
+package model;
+
 import java.util.List;
 import java.util.Objects;
+
+import model.Day;
 
 public class Event {
   private String name;
@@ -15,7 +19,7 @@ public class Event {
         Day startDay, int startTime, Day endDay,
         int endTime, List<User> invitedUsers) {
     if (startDay.equals(endDay) && startTime == endTime){
-      throw new IllegalArgumentException("Invalid Times for an Event");
+      throw new IllegalArgumentException("Invalid Times for an model.Event");
     }
     this.name = Objects.requireNonNull(name);
     this.location = Objects.requireNonNull(location);

@@ -3,7 +3,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import model.Day;
+import model.Event;
+import model.User;
 
 public class EventTest {
 
@@ -13,19 +15,19 @@ public class EventTest {
 
   private void ExampleInvalidTimes(){
     this.user1 = new User("User1", new ArrayList<>());
-    this.example = new Event("Invalid Event", "Snell", false,
+    this.example = new Event("Invalid model.Event", "Snell", false,
             Day.Monday, 1800, Day.Monday, 1800, List.of(user1));
   }
 
   private void ExampleInvalidStartTimes(){
     this.user1 = new User("User1", new ArrayList<>());
-    this.example = new Event("Invalid Event", "Snell", false,
+    this.example = new Event("Invalid model.Event", "Snell", false,
             Day.Monday, -1800, Day.Tuesday, 1800, List.of(user1));
   }
 
   private void ExampleInvalidEndTimes(){
     this.user1 = new User("User1", new ArrayList<>());
-    this.example = new Event("Invalid Event", "Snell", false,
+    this.example = new Event("Invalid model.Event", "Snell", false,
             Day.Monday, 1800, Day.Tuesday, -1800, List.of(user1));
   }
 
