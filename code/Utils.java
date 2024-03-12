@@ -40,12 +40,24 @@ public class Utils {
    * SIDE-EFFECT: Calling this method twice will OVERWRITE the file.
    * If you want to add to an existing file, use append instead.
    */
-  public static void writeToFile() {
+  public static void writeToFile(User user) {
     try {
-      Writer file = new FileWriter("sample-written.xml");
+      Writer file = new FileWriter(user.uid);
       file.write("<?xml version=\"1.0\"?>\n");
-      file.write("<schedule id=\"You\">");
-      file.write("</schedule>");
+      file.write(String.format("<schedule id=\"%s\">", user.uid));
+      for (Event e : user.schedule) {
+        file.write("<event>");
+        file.write(String.format("<name> %s </name>", e.getName()));
+        file.write("<time>");
+        file.write(String.format("<start-day> %s </start-day>", e.getName()));
+        file.write(String.format("<start> %s </start>", e.getName()));
+        file.write(String.format("<end-day> %s </end-day>", e.getName()));
+        file.write(String.format("<end> %s </end>", e.getName()));
+        file.write("</time>");
+        file.write("</event>");
+
+      }
+
       file.close();
     } catch (IOException ex) {
       throw new RuntimeException(ex.getMessage());
