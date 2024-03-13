@@ -131,7 +131,13 @@ import model.Day;
    */
   void sendInvite(){
       for (User attendee : this.invitedUsers){
-        attendee.addEvent(this);
+        if (attendee.equals(this.host)){
+          attendee.addEvent(this);
+        }else {
+          try {
+            attendee.addEvent(this);
+          } catch(IllegalArgumentException ignored) {};
+        }
       }
   }
 

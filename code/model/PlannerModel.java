@@ -38,7 +38,7 @@ public interface PlannerModel {
    * @param invitedUsers of the event
    * @throws IllegalArgumentException if host is not at the start of invited list
    */
-  public void createEvent(String user, String name, String location, boolean online,
+  public Event createEvent(String user, String name, String location, boolean online,
                           Day startDay, int startTime, Day endDay,
                           int endTime, List<String> invitedUsers);
 
@@ -66,6 +66,6 @@ public interface PlannerModel {
    * Creates a user with no events.
    * @param Name the uid of the user
    */
-  public void addUser(String Name);
+  public User addUser(String Name);
 
 }

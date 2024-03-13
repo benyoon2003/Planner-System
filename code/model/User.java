@@ -24,7 +24,7 @@ import java.util.List;
     if (conflict(schedule)){
       throw new IllegalArgumentException("Schedule has conflicts");
     }else {
-      this.schedule = schedule;
+      this.schedule = new ArrayList<>(schedule);
     }
   }
 
@@ -80,10 +80,12 @@ import java.util.List;
    * @param e the event wanting to be added
    */
   void addEvent(Event e){
-    List<Event> copy = this.schedule;
+    List<Event> copy = new ArrayList<>(this.schedule);
     copy.add(e);
     if (!conflict(copy)){
       this.schedule.add(e);
+    }else {
+      throw new IllegalArgumentException("Event conflicts with schedule");
     }
   }
 }
