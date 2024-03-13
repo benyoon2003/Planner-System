@@ -226,12 +226,12 @@ import model.Day;
   @Override
   public String toString(){
     String output = "";
-    output += "name: " + this.name + "\n";
-    output += "time: " + this.startDay.toString() + String.format(": %d -> ", this.startTime);
+    output += "       name: " + this.name + "\n";
+    output += "       time: " + this.startDay.toString() + String.format(": %d -> ", this.startTime);
     output += this.endDay.toString() + String.format(": %d\n", this.endTime);
-    output += this.location + "\n";
-    output += "online: " + this.online + "\n";
-    output += convertListOfInvitees();
+    output += "       " + this.location + "\n";
+    output += "       online: " + this.online + "\n";
+    output += "       " + convertListOfInvitees();
     return output;
   }
 }
