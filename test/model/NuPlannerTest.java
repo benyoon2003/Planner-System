@@ -7,6 +7,10 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * This is the testing suite for our NUPlanner model. This tests all public functions and
+ * some edge cases.
+ */
 //TODO: Test all public methods
 public class NuPlannerTest {
 
@@ -20,15 +24,15 @@ public class NuPlannerTest {
 
   private void ExampleNuPlanner(){
     this.example = new NuPlanner(new ArrayList<User>());
-    this.example.addUser("Ben");
-    this.example.addUser("Nico");
+    ben = this.example.addUser("Ben");
+    nico = this.example.addUser("Nico");
     e1 = this.example.createEvent("Ben", "Working on OOD", "Snell",false,
             Day.Monday, 2000, Day.Thursday, 2059, List.of("Ben", "Nico"));
   }
   private void ExampleNuPlannerException(){
     this.example = new NuPlanner(new ArrayList<User>());
-    this.example.addUser("Ben");
-    this.example.addUser("Nico");
+    ben = this.example.addUser("Ben");
+    nico = this.example.addUser("Nico");
     e1 = this.example.createEvent("Ben", "Working on OOD", "Snell",false,
             Day.Monday, 2000, Day.Thursday, 2059, List.of("Ben", "Nico"));
   }
@@ -79,6 +83,36 @@ public class NuPlannerTest {
   @Test(expected = IllegalArgumentException.class)
   public void testIllegalModifyEvent(){
 
+  }
+
+  @Test
+  public void testeventAtThisTime(){
+
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testEventAtThisTimeWithInvalidTime(){
+
+  }
+
+  @Test
+  public void testAddUser(){
+
+  }
+
+  @Test
+  public void testAddUserWithExistingUser(){
+
+  }
+
+  @Test
+  public void testScheduleOnDay(){
+
+  }
+
+  @Test
+  public void testScheduleOnDayWithNoEvents(){
+    
   }
 
 

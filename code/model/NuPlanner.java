@@ -100,7 +100,7 @@ public class NuPlanner implements PlannerModel {
       }
     }
     if (specifcEvent == null){
-      throw new IllegalArgumentException("Not valid user or time");
+      throw new IllegalArgumentException("No event at this time");
     }else {
       return specifcEvent;
     }
@@ -108,9 +108,14 @@ public class NuPlanner implements PlannerModel {
 
   @Override
   public User addUser(String Name) {
-    User newUser = new User(Name, List.of());
-    this.database.add(newUser);
-    return newUser;
+    try{
+      Utils.findUser(Name, this.database);
+      throw new IllegalArgumentException("Given Name already exists");
+    } catch (IllegalArgumentException e){
+      User newUser = new User(Name, List.of());
+      this.database.add(newUser);
+      return newUser;
+    }
   }
 
   @Override

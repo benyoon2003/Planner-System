@@ -72,6 +72,10 @@ import java.util.List;
     }
   }
 
+  private void sortEvents(){
+
+  }
+
 
   /**
    * This is a method to add an event to a user while also ensureing the integrity of the
