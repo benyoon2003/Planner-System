@@ -51,6 +51,7 @@ public class UtilsTest {
   @Test
   public void testReadXML() {
     Utils.readXML("Lucia", database1);
+
   }
 
 

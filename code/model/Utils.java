@@ -115,98 +115,74 @@ public class Utils {
     transformer.transform(dom, result);
   }
 
-  // TODO: Implement read from XML
-
-  /**
-   * Reads the specific tutorial.xml file, assuming it's right next to the program,
-   * and prints useful information from the file.
-   * For IntelliJ, that is the project's folder.
-   */
   public static User readXML(String path, List<User> database) {
     try {
       DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
       Document xmlDoc = builder.parse(new File(path));
       xmlDoc.getDocumentElement().normalize();
 
-      // Gets the username from XML
-      Node userNameNode = xmlDoc.getElementsByTagName("users").item(0);
-      String userName = userNameNode.getTextContent();
-
-      // Gets the schedule from XML
       Node scheduleNode = xmlDoc.getElementsByTagName("schedule").item(0);
+      String userName = scheduleNode.getAttributes().getNamedItem("id").getNodeValue();
 
-      // User's schedule
       List<Event> schedule = new ArrayList<>();
 
-      // Traverses events in the schedule
-      NodeList eventsNodeList = scheduleNode.getChildNodes();
-      Node event;
-      for (int index = 0; index < eventsNodeList.getLength(); index++) {
-        event = eventsNodeList.item(index);
-        if (event.getNodeType() == Node.ELEMENT_NODE) {
-          createSchedule(schedule, event, database);
+      NodeList eventNodeList = scheduleNode.getChildNodes();
+      for (int i = 0; i < eventNodeList.getLength(); i++) {
+        Node eventNode = eventNodeList.item(i);
+        if (eventNode.getNodeType() == Node.ELEMENT_NODE) {
+          Event event = createEvent((Element) eventNode, database);
+          schedule.add(event);
         }
       }
-      User user = new User(userName, schedule);
-      return user;
 
-    } catch (ParserConfigurationException ex) {
-      throw new IllegalStateException("Error in creating the builder");
-    } catch (IOException ioEx) {
-      throw new IllegalStateException("Error in opening the file");
-    } catch (SAXException saxEx) {
-      throw new IllegalStateException("Error in parsing the file");
+      return new User(userName, schedule);
+    } catch (ParserConfigurationException | SAXException | IOException e) {
+      e.printStackTrace();
+      return null;
     }
-
   }
 
-  public static void createSchedule(List<Event> schedule, Node event, List<User> database) {
-    NodeList eventsChildrenNodeList = event.getChildNodes();
+  private static Event createEvent(Element eventElement, List<User> database) {
+    String eventName = getTextContent(eventElement, Tag.name);
 
-    // Gets name of the event
-    //TODO: This is null for some reason
-    String eventName = eventsChildrenNodeList.item(0).getTextContent();
-    System.out.print(eventName);
+    Element timeElement = (Element) eventElement.getElementsByTagName("time").item(0);
+    String startDay = getTextContent(timeElement, Tag.startDay);
+    int startTime = Integer.parseInt(getTextContent(timeElement, Tag.start));
+    String endDay = getTextContent(timeElement, Tag.endDay);
+    int endTime = Integer.parseInt(getTextContent(timeElement, Tag.end));
 
-    // Gets event's time children
-    Node eventsTimeNode = eventsChildrenNodeList.item(2);
-    NodeList eventsTimeChildrenNodeList = eventsTimeNode.getChildNodes();
-    Day startDay = Day.valueOf(eventsTimeChildrenNodeList.item(0).getTextContent());
-    int startTime = Integer.parseInt(eventsTimeChildrenNodeList.item(1).getTextContent());
-    Day endDay = Day.valueOf(eventsTimeChildrenNodeList.item(2).getTextContent());
-    int endTime = Integer.parseInt(eventsTimeChildrenNodeList.item(3).getTextContent());
+    Element locationElement = (Element) eventElement.getElementsByTagName("location").item(0);
+    boolean online = Boolean.parseBoolean(getTextContent(locationElement, Tag.online));
+    String place = getTextContent(locationElement, Tag.place);
 
-    // Gets event's location children
-    Node eventsLocationNode = eventsChildrenNodeList.item(2);
-    NodeList eventsLocationChildrenNodeList = eventsLocationNode.getChildNodes();
-    boolean online = Boolean.parseBoolean(eventsLocationChildrenNodeList.item(0).getTextContent());
-    String location = eventsLocationChildrenNodeList.item(1).getTextContent();
-
-    // Gets event's users children
-    Node eventsUsersNode = eventsChildrenNodeList.item(3);
-    NodeList eventsUsersChildrenNodeList = eventsUsersNode.getChildNodes();
-    List<String> listOfUsernames = new ArrayList<>();
-    for (int users = 0; users < eventsUsersChildrenNodeList.getLength(); users++) {
-      listOfUsernames.add(eventsUsersChildrenNodeList.item(users).getTextContent());
-    }
-
-    List<User> listOfInvitees = matchUsernameToUser(listOfUsernames, database);
-    Event e = new Event(eventName, location, online, startDay,
-            startTime, endDay, endTime, listOfInvitees);
-    schedule.add(e);
-  }
-
-  public static List<User> matchUsernameToUser(List<String> listOfUsernames, List<User> database) {
-    List<User> listOfInvitees = new ArrayList<>();
-    for (String username : listOfUsernames) {
-      for (User user : database) {
-        if (username.equals(user.uid)) {
-          listOfInvitees.add(user);
-        }
+    NodeList usersNodeList = eventElement.getElementsByTagName("uid");
+    List<User> invitees = new ArrayList<>();
+    for (int i = 0; i < usersNodeList.getLength(); i++) {
+      String userName = usersNodeList.item(i).getTextContent();
+      try {
+        User user = findUser(userName, database);
+        invitees.add(user);
+      }
+      catch (IllegalArgumentException ignored) {
+        // TODO: this catch block is hit when we are finding the host, which does not exist
+        // in the database yet or an invalid user in the users tag
       }
     }
-    return listOfInvitees;
+    return new Event(eventName, place, online, Day.valueOf(startDay),
+            startTime, Day.valueOf(endDay), endTime, invitees);
   }
 
+  private static String getTextContent(Element element, Tag tag) {
+    return element.getElementsByTagName(tag.toString()).item(0).getTextContent();
+  }
+
+  public static User findUser(String userName, List<User> database) {
+    for (User user : database) {
+      if (user.uid.equals(userName)) {
+        return user;
+      }
+    }
+    throw new IllegalArgumentException("User not found");
+  }
 
 }

@@ -2,8 +2,8 @@ package model;
 
 public enum Tag {
 
-  name("name"), startDay("start-day"), start("start"), endDay("end-day"),
-  end("end"), online("online"), place("place"), users("users");
+  name("name"), time("time"), startDay("start-day"), start("start"), endDay("end-day"),
+  end("end"), location("location"), online("online"), place("place"), users("users"), uid("uid");
 
   protected final String tag;
 

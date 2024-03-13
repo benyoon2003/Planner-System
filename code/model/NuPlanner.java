@@ -17,9 +17,9 @@ public class NuPlanner implements PlannerModel {
   }
 
   @Override
-  public void uploadSchedule() {
-
-
+  public void uploadSchedule(String path) {
+    User user = Utils.readXML(path, this.database);
+    this.database.add(user);
   }
 
   @Override
@@ -29,33 +29,24 @@ public class NuPlanner implements PlannerModel {
     }
   }
 
-  private User findUser(String uid) {
-    for (User u : this.database) {
-      if (u.uid.equals(uid)) {
-        return u;
-      }
-    }
-    throw new IllegalArgumentException("User not found");
-  }
-
   List<User> mapUserList(List<String> users){
     List<User> userList = new ArrayList<>();
     for (String user : users){
-      userList.add(findUser(user));
+      userList.add(Utils.findUser(user, this.database));
     }
     return userList;
   }
 
   @Override
   public List<Event> selectSchedule(String user) {
-    return findUser(user).schedule;
+    return Utils.findUser(user, this.database).schedule;
   }
 
   @Override
   public void createEvent(String user, String name, String location, boolean online,
                           Day startDay, int startTime, Day endDay,
-                          int endTime, List<User> invitedUsers) {
-    User u = findUser(user);
+                          int endTime, List<String> invitedUsers) {
+    User u = Utils.findUser(user, this.database);
     if(this.database.contains(u)){
       Event newEvent = new Event(name, location, online, startDay, startTime, endDay
       , endTime, mapUserList(invitedUsers));
@@ -71,7 +62,7 @@ public class NuPlanner implements PlannerModel {
 
   @Override
   public void removeEvent(String user, Event e) {
-    User u = findUser(user);
+    User u = Utils.findUser(user, this.database);
       if (this.database.contains(u)){
         if (e.getHost().equals(u)){
           e.removeAll();
@@ -94,13 +85,13 @@ public class NuPlanner implements PlannerModel {
     e.setEndDay(endDay);
     e.setEndTime(endTime);
     e.setInvitedUsers(mapUserList(invitedUsers));
-    e.setHost(findUser(host));
+    e.setHost(Utils.findUser(host, this.database));
   }
 
 
   @Override
   public Event eventsAtThisTime(String user, int time) {
-    User selected = findUser(user);
+    User selected = Utils.findUser(user, this.database);
     Event specifcEvent = null;
     for (Event e : selected.schedule){
       if (e.getStartTime() == time){

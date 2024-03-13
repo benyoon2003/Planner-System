@@ -12,7 +12,7 @@ public interface PlannerModel {
   /**
    * Upload an XML file representing a single user's schedule.
    */
-  public void uploadSchedule();
+  public void uploadSchedule(String path);
 
   /**
    * Save each user’s schedule to an XML file.
