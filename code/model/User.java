@@ -101,5 +101,6 @@ import java.util.List;
         events.add(e);
       }
     }
+    return events;
   }
 }
