@@ -48,12 +48,34 @@ public class NuPlanner implements PlannerModel {
   }
 
   @Override
-  public void automaticEventSchedule() {
+  private void automaticEventSchedule() {
 
   }
 
   @Override
-  public void eventsAtThisTime() {
+  public Event eventsAtThisTime(User selected, int time) {
+    Event specifcEvent = null;
+    for (Event e : selected.schedule){
+      if (e.getStartTime() == time){
+        e = specifcEvent;
+      }
+    }
+    if (specifcEvent == null){
+      throw new IllegalArgumentException("Not valid user or time");
+    }else {
+      return specifcEvent;
+    }
+  }
+
+  @Override
+  public void makeUser(String Name) {
+    
+  }
+
+  @Override
+  public void makeEvent(String name, String location, boolean online, Day startDay, int startTime, Day endDay, int endTime, List<User> invitedUsers) {
 
   }
+
+
 }

@@ -53,6 +53,9 @@ public class Event {
     if (!this.invitedUsers.isEmpty()){
       this.host = this.invitedUsers.get(0);
     }
+    for (User attendee : this.invitedUsers){
+      attendee.schedule.add(this);
+    }
   }
 
   public String getName() {
@@ -88,8 +91,13 @@ public class Event {
   }
 
   public void setInvitedUsers(List<User> invited){
-    this.invitedUsers = invited;
-    this.host = this.invitedUsers.get(0);
+    if (this.invitedUsers.isEmpty()){
+      this.invitedUsers = invited;
+      this.host = this.invitedUsers.get(0);
+      for (User attendee : this.invitedUsers){
+        attendee.schedule.add(this);
+      }
+    }
   }
 
   public User getHost(){

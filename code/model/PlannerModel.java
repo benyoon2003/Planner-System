@@ -40,5 +40,11 @@ public interface PlannerModel {
   /**
    * See events occurring at a given time for the given user.
    */
-  public void eventsAtThisTime();
+  public Event eventsAtThisTime(User selected, int time);
+
+  public void makeUser(String Name);
+
+  public void makeEvent(String name, String location, boolean online,
+                        Day startDay, int startTime, Day endDay,
+                        int endTime, List<User> invitedUsers);
 }
