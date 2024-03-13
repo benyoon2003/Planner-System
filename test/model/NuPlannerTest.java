@@ -1,5 +1,6 @@
 package model;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ public class NuPlannerTest {
   User ben;
 
   User nico;
+
+  User lucia;
 
   Event e1;
 
@@ -97,12 +100,27 @@ public class NuPlannerTest {
 
   @Test
   public void testAddUser(){
+    ExampleNuPlanner();
+    // Tests if given uid is already in system
+    try {
+      example.addUser("Ben");
+    }
+    catch (IllegalArgumentException ignored) {
+    }
 
+    // Tests if given uid is not in system
+    example.addUser("Lucia");
+    assertEquals(Utils.findUser("Lucia", example.getListOfUser()),
+            new User("Lucia", List.of()));
   }
 
   @Test
   public void testAddUserWithExistingUser(){
+    // Tests if the given user contains a conflicting schedule with pre-existing user
 
+    // Tests if the given user does not contain a conflicting schedule
+
+    // Tests if the given user does not exist in the database
   }
 
   @Test

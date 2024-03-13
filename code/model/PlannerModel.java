@@ -76,4 +76,6 @@ public interface PlannerModel {
    */
   public List<Event> scheduleOnDay(String user, Day day);
 
+
+  public List<User> getListOfUser();
 }

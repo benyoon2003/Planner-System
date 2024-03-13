@@ -14,6 +14,7 @@ import model.Utils;
 
 public class UtilsTest {
 
+  NuPlanner model1;
   Event event1;
   Event event2;
   Event event3;
@@ -24,6 +25,7 @@ public class UtilsTest {
   User user4;
 
   List<User> database1;
+  List<User> database2;
 
   @Before
   public void setup() {
@@ -38,8 +40,11 @@ public class UtilsTest {
     user2 = new User("Nico", List.of(event2));
     event3 = new Event("event3", "Matthews", true,
             Day.Wednesday, 300, Day.Wednesday, 400, List.of(user1, user2));
-    user3 = new User("Lucia", List.of(event3));
+    user3 = new User("Jack", List.of(event3));
     database1 = List.of(user1);
+    database2 = List.of(user1, user2, user3);
+
+    model1 = new NuPlanner(database1);
   }
 
   // TODO: Test with bigger schedule
@@ -51,9 +56,5 @@ public class UtilsTest {
   @Test
   public void testReadXML() {
     Utils.readXML("Lucia", database1);
-
   }
-
-
-
 }
