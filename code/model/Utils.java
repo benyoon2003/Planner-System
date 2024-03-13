@@ -50,6 +50,8 @@ public class Utils {
    * SIDE-EFFECT: Calling this method twice will OVERWRITE the file.
    * If you want to add to an existing file, use append instead.
    */
+
+
   public static void writeToFile(User user) {
     try {
       DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();

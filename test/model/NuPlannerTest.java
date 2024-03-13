@@ -23,7 +23,7 @@ public class NuPlannerTest {
     this.example.addUser("Ben");
     this.example.addUser("Nico");
     this.example.createEvent("Ben", "Working on OOD", "Snell",false,
-            Day.Monday, 2000, Day.Thursday, 2059, List.of(ben, nico));
+            Day.Monday, 2000, Day.Thursday, 2059, List.of("Ben", "Nico"));
   }
 
   @Test

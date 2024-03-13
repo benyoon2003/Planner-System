@@ -38,6 +38,14 @@ public class NuPlanner implements PlannerModel {
     throw new IllegalArgumentException("User not found");
   }
 
+  List<User> mapUserList(List<String> users){
+    List<User> userList = new ArrayList<>();
+    for (String user : users){
+      userList.add(findUser(user));
+    }
+    return userList;
+  }
+
   @Override
   public List<Event> selectSchedule(String user) {
     return findUser(user).schedule;
@@ -50,7 +58,7 @@ public class NuPlanner implements PlannerModel {
     User u = findUser(user);
     if(this.database.contains(u)){
       Event newEvent = new Event(name, location, online, startDay, startTime, endDay
-      , endTime, invitedUsers);
+      , endTime, mapUserList(invitedUsers));
       if (!newEvent.getHost().equals(u)){
         throw new IllegalArgumentException("Host is not first on invited list");
       }
@@ -77,7 +85,7 @@ public class NuPlanner implements PlannerModel {
   @Override
   public void modifyEvent(Event e, String name, String location, boolean online,
                           Day startDay, int startTime, Day endDay,
-                          int endTime, List<User> invitedUsers, String host) {
+                          int endTime, List<String> invitedUsers, String host) {
     e.setName(name);
     e.setLocation(location);
     e.setOnline(online);
@@ -85,7 +93,7 @@ public class NuPlanner implements PlannerModel {
     e.setStartTime(startTime);
     e.setEndDay(endDay);
     e.setEndTime(endTime);
-    e.setInvitedUsers(invitedUsers);
+    e.setInvitedUsers(mapUserList(invitedUsers));
     e.setHost(findUser(host));
   }
 
