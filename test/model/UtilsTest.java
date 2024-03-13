@@ -40,7 +40,7 @@ public class UtilsTest {
   @Test
   public void writeToFile() {
     Utils.writeToFile(user2);
-    System.out.print(Utils.readXML("Nico", Tag.users).toString());
+    //System.out.print(Utils.readXML("Nico", Tag.users).toString());
   }
 
 
