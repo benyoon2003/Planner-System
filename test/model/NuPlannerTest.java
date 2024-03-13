@@ -6,6 +6,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import view.PlannerView;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -117,17 +119,27 @@ public class NuPlannerTest {
   @Test
   public void testAddUserWithExistingUser(){
     ExampleNuPlanner();
-    NuPlanner copyOfExample = example;
-    User conflictedBen = new User("Ben", List.of(new Event("Golf", "course", false,
-            Day.Monday, 2000, Day.Thursday, 2059, List.of())));
+    PlannerModel copyOfExample = example;
+    Event conflictedGolf = new Event("Golf", "course", false,
+            Day.Monday, 2000, Day.Thursday, 2059, List.of());
+    Event unconflictedGolf = new Event("Golf", "course", false,
+            Day.Friday, 2000, Day.Friday, 2059, List.of());
+    User conflictedBen = new User("Ben", List.of(conflictedGolf));
+    User unconflictedBen = new User("Ben", List.of(unconflictedGolf));
+    User hunter = new User("Hunter", List.of());
 
     // Tests if the given user contains a conflicting schedule with pre-existing user
     example.addUser(conflictedBen);
-    assertEquals();
+    assertEquals(example, copyOfExample);
 
     // Tests if the given user does not contain a conflicting schedule
+    example.addUser(unconflictedBen);
+    assertEquals(example.scheduleOnDay("Ben", Day.Friday), List.of(unconflictedGolf));
 
     // Tests if the given user does not exist in the database
+    example.addUser(hunter);
+    assertEquals(Utils.findUser("Hunter", example.getListOfUser()),
+            new User("Hunter", List.of()));
   }
 
   @Test
