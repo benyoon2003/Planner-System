@@ -37,6 +37,7 @@ public class UtilsTest {
   @Test
   public void writeToFile() {
     Utils.writeToFile(user2);
+    Utils.readXML("Nico");
   }
 
 
