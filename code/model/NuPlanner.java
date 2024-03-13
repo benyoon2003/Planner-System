@@ -64,15 +64,27 @@ public class NuPlanner implements PlannerModel {
   public void removeEvent(User u, Event e) {
       if (this.database.contains(u)){
         if (e.getHost().equals(u)){
-          
+          e.removeAll();
+        }else {
+          u.schedule.remove(e);
         }
       }
   }
 
 
   @Override
-  public void modifyEvent() {
-
+  public void modifyEvent(Event e, String name, String location, boolean online,
+                          Day startDay, int startTime, Day endDay,
+                          int endTime, List<User> invitedUsers, User host) {
+    e.setName(name);
+    e.setLocation(location);
+    e.setOnline(online);
+    e.setStartDay(startDay);
+    e.setStartTime(startTime);
+    e.setEndDay(endDay);
+    e.setEndTime(endTime);
+    e.setInvitedUsers(invitedUsers);
+    e.setHost(host);
   }
 
 
