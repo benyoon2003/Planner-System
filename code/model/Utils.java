@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -117,50 +119,25 @@ public class Utils {
    * and prints useful information from the file.
    * For IntelliJ, that is the project's folder.
    */
-  public static void readXML(String path) {
-
+  public static List<String> readXML(String path, Tag tag) {
+    List<String> listOfTagContents = new ArrayList<>();
     try {
       DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
       Document xmlDoc = builder.parse(new File(path));
       xmlDoc.getDocumentElement().normalize();
 
-      Node tutorialsNode = xmlDoc.getElementsByTagName("schedule").item(0);
-
-      //So let's dig deeper into the other elements!
-      NodeList nodeList = tutorialsNode.getChildNodes();
-      for (int item = 0; item < nodeList.getLength(); item++) {
-        Node event = nodeList.item(item);
-        //We need to search for Elements (actual tags) and there
-        //is only one: the tutorial tag
-        if (event.getNodeType() == Node.ELEMENT_NODE) {
-          Element elem = (Element) event;
-
-          //... so let's dig even deeper!
-          NodeList elemChildren = elem.getChildNodes();
-          for (int childIdx = 0; childIdx < elemChildren.getLength(); childIdx++) {
-            Node childNode = elemChildren.item(childIdx);
-            if (childNode.getNodeType() == Node.ELEMENT_NODE) {
-              Element child = (Element) childNode;
-              //Now we're getting something more meaningful from each element!
-              System.out.println("Event Name:");
-              String eventName = child.getTextContent();
-              System.out.println(child.getTagName() + " : " + eventName);
-
-              for (int grandInd = 0; grandInd < elemChildren.getLength(); grandInd++) {
-                Node grandNode = elemChildren.item(grandInd);
-                if (grandNode.getNodeType() == Node.ELEMENT_NODE) {
-                  Element grand = (Element) grandNode;
-                  //Now we're getting something more meaningful from each element!
-                  System.out.println("Event Name:");
-                  String grandc = grand.getTextContent();
-                  System.out.println(grand.getTagName() + " : " + grandc);
-                }
-              }
-
-
-            }
-          }
+      if (tag.equals(Tag.users)) {
+        Node usersNode = xmlDoc.getElementsByTagName("users").item(0);
+        NodeList userList = usersNode.getChildNodes();
+        for (int item = 0; item < userList.getLength(); item++) {
+          Element user = (Element) userList.item(item);
+          listOfTagContents.add(user.getTextContent());
         }
+      }
+      else {
+        Node anyTagNode = xmlDoc.getElementsByTagName(tag.toString()).item(0);
+        Element tagElement = (Element) anyTagNode;
+        listOfTagContents.add(tagElement.getTextContent());
       }
     } catch (ParserConfigurationException ex) {
       throw new IllegalStateException("Error in creating the builder");
@@ -170,6 +147,6 @@ public class Utils {
       throw new IllegalStateException("Error in parsing the file");
     }
 
-    //return user;
+    return listOfTagContents;
   }
 }
