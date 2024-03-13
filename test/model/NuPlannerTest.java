@@ -116,7 +116,14 @@ public class NuPlannerTest {
 
   @Test
   public void testAddUserWithExistingUser(){
+    ExampleNuPlanner();
+    NuPlanner copyOfExample = example;
+    User conflictedBen = new User("Ben", List.of(new Event("Golf", "course", false,
+            Day.Monday, 2000, Day.Thursday, 2059, List.of())));
+
     // Tests if the given user contains a conflicting schedule with pre-existing user
+    example.addUser(conflictedBen);
+    assertEquals();
 
     // Tests if the given user does not contain a conflicting schedule
 

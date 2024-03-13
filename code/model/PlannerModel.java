@@ -69,6 +69,12 @@ public interface PlannerModel {
   public User addUser(String Name);
 
   /**
+   * Creates a user with no events.
+   * @param User a user
+   */
+  public void addUser(User user);
+
+  /**
    * Finds and returns a list of events for a specified user on a given day.
    * @param user the given user
    * @param day the specifc day being requested

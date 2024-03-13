@@ -9,7 +9,7 @@ public class NUPlannerTextView implements PlannerView {
   private PlannerModel model;
 
   @Override
-  public String toString(){
+  public String toString() {
 
   }
   @Override

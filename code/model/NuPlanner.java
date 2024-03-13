@@ -132,7 +132,7 @@ public class NuPlanner implements PlannerModel {
    * @param user a User
    * @return the newly created User or the modified pre-existing User
    */
-  public User addUser(User user) {
+  public void addUser(User user) {
     try{
       User userInDatabase = Utils.findUser(user.uid, this.database);
       List<Event> copyOfUserInDatabaseSchedule = userInDatabase.schedule;
@@ -150,11 +150,8 @@ public class NuPlanner implements PlannerModel {
                   "schedule.");
         }
       }
-
-      return userInDatabase;
     } catch (IllegalArgumentException e){
       this.database.add(user);
-      return user;
     }
   }
 
