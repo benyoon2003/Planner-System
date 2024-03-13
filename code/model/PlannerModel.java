@@ -31,11 +31,6 @@ public interface PlannerModel {
    */
   public void modifyEvent();
 
-  /**
-   * Have the program automatically schedule an event on some users’
-   * schedules at some time if possible.
-   */
-  public void automaticEventSchedule();
 
   /**
    * See events occurring at a given time for the given user.

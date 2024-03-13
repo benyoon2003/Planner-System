@@ -47,10 +47,6 @@ public class NuPlanner implements PlannerModel {
 
   }
 
-  @Override
-  private void automaticEventSchedule() {
-
-  }
 
   @Override
   public Event eventsAtThisTime(User selected, int time) {
@@ -69,12 +65,14 @@ public class NuPlanner implements PlannerModel {
 
   @Override
   public void makeUser(String Name) {
-    
+    User newUSer = new User(Name, List.of());
+    this.database.add(newUSer);
   }
 
   @Override
   public void makeEvent(String name, String location, boolean online, Day startDay, int startTime, Day endDay, int endTime, List<User> invitedUsers) {
-
+      Event newEvent = new Event(name, location, online, startDay, startTime, endDay,endTime
+      , invitedUsers);
   }
 
 
