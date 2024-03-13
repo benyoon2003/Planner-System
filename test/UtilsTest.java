@@ -6,6 +6,7 @@ import java.util.List;
 
 import model.Day;
 import model.Event;
+import model.Tag;
 import model.User;
 import model.Utils;
 
@@ -37,7 +38,7 @@ public class UtilsTest {
   @Test
   public void writeToFile() {
     Utils.writeToFile(user2);
-    Utils.readXML("Nico");
+    System.out.print(Utils.readXML("Nico", Tag.users).toString());
   }
 
 
