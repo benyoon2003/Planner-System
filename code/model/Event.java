@@ -31,7 +31,7 @@ import model.Day;
    * @param endTime of the event
    * @param invitedUsers are the users that are a part of the event
    */
-  public Event(String name, String location, boolean online,
+  Event(String name, String location, boolean online,
                Day startDay, int startTime, Day endDay,
                int endTime, List<User> invitedUsers) {
     if (startDay.equals(endDay) && startTime == endTime){
@@ -62,7 +62,7 @@ import model.Day;
    * Getter for the name.
    * @return the name of the event
    */
-  public String getName() {
+  String getName() {
     return this.name;
   }
 
@@ -70,7 +70,7 @@ import model.Day;
    * Getter for the location.
    * @return the location of the event.
    */
-  public String getLocation() {
+  String getLocation() {
     return this.location;
   }
 
@@ -78,7 +78,7 @@ import model.Day;
    * Getter for the feild online
    * @return whether the event is online
    */
-  public boolean getOnline() {
+  boolean getOnline() {
     return this.online;
   }
 
@@ -86,7 +86,7 @@ import model.Day;
    * Getter for the start day.
    * @return the starting day of the event
    */
-  public Day getStartDay() {
+  Day getStartDay() {
     return this.startDay;
   }
 
@@ -94,7 +94,7 @@ import model.Day;
    * Getter for the start time.
    * @return the start time of the event
    */
-  public int getStartTime() {
+  int getStartTime() {
     return this.startTime;
   }
 
@@ -102,7 +102,7 @@ import model.Day;
    * Getter for the end day.
    * @return the end day of the event.
    */
-  public Day getEndDay() {
+  Day getEndDay() {
     return this.endDay;
   }
 
@@ -110,7 +110,7 @@ import model.Day;
    * Getter for end time.
    * @return the end time of the event.
    */
-  public int getEndTime() {
+  int getEndTime() {
     return this.endTime;
   }
 
@@ -118,8 +118,12 @@ import model.Day;
    * Getter for the invited users.
    * @return the invited users of the event
    */
-  public List<User> getInvitedUsers() {
+  List<User> getInvitedUsers() {
     return this.invitedUsers;
+  }
+
+  void setInvitedUsers(List<User> attendees){
+    this.invitedUsers = attendees;
   }
 
   /**
@@ -131,11 +135,73 @@ import model.Day;
       }
   }
 
+  void removeAll(){
+    for (User attendee : this.invitedUsers){
+      attendee.schedule.remove(this);
+    }
+  }
+
   /**
    * Getter for host of the event.
    * @return the host of the event.
    */
-  public User getHost(){
+ User getHost(){
     return this.host;
+  }
+
+  /**
+   * Setter for the name of the event
+   */
+  void setName(String name){
+   this.name = name;
+  }
+
+  /**
+   * Setter for the location of the event
+   */
+  void setLocation(String location){
+    this.location = location;
+  }
+
+  /**
+   * Setter for online field
+   */
+  void setOnline(boolean online){
+    this.online = online;
+  }
+
+  /**
+   * Setter for the startDay of the event
+   */
+  void setStartDay(Day startDay){
+    this.startDay = startDay;
+  }
+
+  /**
+   * Setter for the start time of the event
+   */
+  void setStartTime(int time){
+    this.startTime = time;
+  }
+
+  /**
+   * Setter for the end day of the event
+   */
+  void setEndDay(Day endDay){
+    this.endDay = endDay;
+  }
+
+  /**
+   * Setter for the end time of the event
+   */
+  void setEndTime(int time){
+    this.endTime = time;
+  }
+
+  /**
+   * Setter for the host of the event
+   */
+  void setHost(User newHost){
+    this.host = newHost;
   }
 }

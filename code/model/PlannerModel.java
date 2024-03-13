@@ -52,7 +52,9 @@ public interface PlannerModel {
    * Create, modify, or remove an event on a user’s schedule,
    * which may affect other user’s schedule.
    */
-  public void modifyEvent();
+  public void modifyEvent(Event e, String name, String location, boolean online,
+                          Day startDay, int startTime, Day endDay,
+                          int endTime, List<User> invitedUsers, User host);
 
 
   /**
