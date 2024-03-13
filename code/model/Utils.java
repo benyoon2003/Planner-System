@@ -120,7 +120,7 @@ public class Utils {
    * and prints useful information from the file.
    * For IntelliJ, that is the project's folder.
    */
-  public static User readXML(String path, Tag tag, List<User> database) {
+  public static User readXML(String path, List<User> database) {
     try {
       DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
       Document xmlDoc = builder.parse(new File(path));
@@ -142,30 +142,11 @@ public class Utils {
       for (int index = 0; index < eventsNodeList.getLength(); index++) {
         event = eventsNodeList.item(index);
         if (event.getNodeType() == Node.ELEMENT_NODE) {
-          String eventName = getTagContents(Tag.name, xmlDoc).getFirst();
-          String startDay = getTagContents(Tag.startDay, xmlDoc).getFirst();
-          String start = getTagContents(Tag.start, xmlDoc).getFirst();
-          String endDay = getTagContents(Tag.endDay, xmlDoc).getFirst();
-          String end = getTagContents(Tag.end, xmlDoc).getFirst();
-          String online = getTagContents(Tag.online, xmlDoc).getFirst();
-          String place = getTagContents(Tag.place, xmlDoc).getFirst();
-          List<String> listOfUsers = getTagContents(Tag.users, xmlDoc);
-
-          List<User> listOfInvitees = new ArrayList<>();
-          for (String username : listOfUsers) {
-            for (User user : database) {
-              if (username.equals(user.uid)) {
-                listOfInvitees.add(user);
-              }
-            }
-          }
-
+          createSchedule(schedule, event, database);
         }
-        schedule.add()
       }
-
-
       User user = new User(userName, schedule);
+      return user;
 
     } catch (ParserConfigurationException ex) {
       throw new IllegalStateException("Error in creating the builder");
@@ -175,25 +156,55 @@ public class Utils {
       throw new IllegalStateException("Error in parsing the file");
     }
 
-    return user;
   }
 
-  //TODO: Doesn't retrieve list of strings correctly, must use current node
-  private static List<String> getTagContents(Tag tag, Document xmlDoc, Node current) {
-    List<String> listOfTagContents = new ArrayList<>();
-    if (tag.equals(Tag.users)) {
-      Node usersNode = xmlDoc.getElementsByTagName("users").item(0);
-      NodeList userList = usersNode.getChildNodes();
-      for (int item = 0; item < userList.getLength(); item++) {
-        Element user = (Element) userList.item(item);
-        listOfTagContents.add(user.getTextContent());
-      }
-    } else {
-      Node anyTagNode = xmlDoc.getElementsByTagName(tag.toString()).item(0);
-      Element tagElement = (Element) anyTagNode;
-      listOfTagContents.add(tagElement.getTextContent());
+  public static void createSchedule(List<Event> schedule, Node event, List<User> database) {
+    NodeList eventsChildrenNodeList = event.getChildNodes();
+
+    // Gets name of the event
+    //TODO: This is null for some reason
+    String eventName = eventsChildrenNodeList.item(0).getTextContent();
+    System.out.print(eventName);
+
+    // Gets event's time children
+    Node eventsTimeNode = eventsChildrenNodeList.item(2);
+    NodeList eventsTimeChildrenNodeList = eventsTimeNode.getChildNodes();
+    Day startDay = Day.valueOf(eventsTimeChildrenNodeList.item(0).getTextContent());
+    int startTime = Integer.parseInt(eventsTimeChildrenNodeList.item(1).getTextContent());
+    Day endDay = Day.valueOf(eventsTimeChildrenNodeList.item(2).getTextContent());
+    int endTime = Integer.parseInt(eventsTimeChildrenNodeList.item(3).getTextContent());
+
+    // Gets event's location children
+    Node eventsLocationNode = eventsChildrenNodeList.item(2);
+    NodeList eventsLocationChildrenNodeList = eventsLocationNode.getChildNodes();
+    boolean online = Boolean.parseBoolean(eventsLocationChildrenNodeList.item(0).getTextContent());
+    String location = eventsLocationChildrenNodeList.item(1).getTextContent();
+
+    // Gets event's users children
+    Node eventsUsersNode = eventsChildrenNodeList.item(3);
+    NodeList eventsUsersChildrenNodeList = eventsUsersNode.getChildNodes();
+    List<String> listOfUsernames = new ArrayList<>();
+    for (int users = 0; users < eventsUsersChildrenNodeList.getLength(); users++) {
+      listOfUsernames.add(eventsUsersChildrenNodeList.item(users).getTextContent());
     }
-    return listOfTagContents;
+
+    List<User> listOfInvitees = matchUsernameToUser(listOfUsernames, database);
+    Event e = new Event(eventName, location, online, startDay,
+            startTime, endDay, endTime, listOfInvitees);
+    schedule.add(e);
   }
+
+  public static List<User> matchUsernameToUser(List<String> listOfUsernames, List<User> database) {
+    List<User> listOfInvitees = new ArrayList<>();
+    for (String username : listOfUsernames) {
+      for (User user : database) {
+        if (username.equals(user.uid)) {
+          listOfInvitees.add(user);
+        }
+      }
+    }
+    return listOfInvitees;
+  }
+
 
 }

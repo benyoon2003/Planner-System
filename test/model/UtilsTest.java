@@ -23,6 +23,8 @@ public class UtilsTest {
   User user3;
   User user4;
 
+  List<User> database1;
+
   @Before
   public void setup() {
     event1 = new Event("event1","Snell", true,
@@ -31,16 +33,24 @@ public class UtilsTest {
     user1 = new User("Ben", List.of(event1));
 
     event2 = new Event("event2", "Churchill", false,
-            Day.Saturday, 300, Day.Monday, 400, new ArrayList<>(List.of(user1)));
+            Day.Saturday, 300, Day.Monday, 400, List.of(user1));
 
     user2 = new User("Nico", List.of(event2));
+    event3 = new Event("event3", "Matthews", true,
+            Day.Wednesday, 300, Day.Wednesday, 400, List.of(user1, user2));
+    user3 = new User("Lucia", List.of(event3));
+    database1 = List.of(user1);
   }
 
   // TODO: Test with bigger schedule
   @Test
-  public void writeToFile() {
+  public void testWriteToFile() {
     Utils.writeToFile(user2);
-    //System.out.print(Utils.readXML("Nico", Tag.users).toString());
+  }
+
+  @Test
+  public void testReadXML() {
+    Utils.readXML("Lucia", database1);
   }
 
 

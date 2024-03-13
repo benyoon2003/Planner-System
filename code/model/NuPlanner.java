@@ -46,7 +46,7 @@ public class NuPlanner implements PlannerModel {
   @Override
   public void createEvent(String user, String name, String location, boolean online,
                           Day startDay, int startTime, Day endDay,
-                          int endTime, List<String> invitedUsers) {
+                          int endTime, List<User> invitedUsers) {
     User u = findUser(user);
     if(this.database.contains(u)){
       Event newEvent = new Event(name, location, online, startDay, startTime, endDay
