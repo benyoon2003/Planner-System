@@ -55,7 +55,6 @@ public class Utils {
       Element scheduleID = schedule.createElement("schedule");
       scheduleID.setAttribute("id", user.uid);
       for (Event e : user.schedule) {
-        System.out.print("HERE FOR SOME REASON");
         Element event = schedule.createElement("event");
         Element name = schedule.createElement("name");
         name.appendChild(schedule.createTextNode(e.getName()));
@@ -118,33 +117,23 @@ public class Utils {
    * and prints useful information from the file.
    * For IntelliJ, that is the project's folder.
    */
-  public static void readXML(User user) {
+  public static void readXML(String path) {
+
     try {
       DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-      Document xmlDoc = builder.parse(new File(user.uid));
+      Document xmlDoc = builder.parse(new File(path));
       xmlDoc.getDocumentElement().normalize();
 
-      Node tutorialsNode = xmlDoc.getElementsByTagName("tutorials").item(0);
-      //This result isn't as nice...
-      System.out.println("Investigating the textContent straight from the outermost element:");
-      System.out.println(tutorialsNode.getTextContent());
+      Node tutorialsNode = xmlDoc.getElementsByTagName("schedule").item(0);
 
       //So let's dig deeper into the other elements!
       NodeList nodeList = tutorialsNode.getChildNodes();
       for (int item = 0; item < nodeList.getLength(); item++) {
-        Node current = nodeList.item(item);
+        Node event = nodeList.item(item);
         //We need to search for Elements (actual tags) and there
         //is only one: the tutorial tag
-        if (current.getNodeType() == Node.ELEMENT_NODE) {
-          Element elem = (Element) current;
-          //Print out the attributes of this element
-          System.out.println("Investigating the attributes:");
-          System.out.println(elem.getTagName() + " : " + elem.getAttribute("tutId") + " " + elem.getAttribute("type"));
-
-          //Print out the text that exists inside of this element: it doesn't look pretty...
-          //and it erases the other elements
-          System.out.println("Investigating the text content inside this element:");
-          System.out.println(elem.getTagName() + " : " + elem.getTextContent());
+        if (event.getNodeType() == Node.ELEMENT_NODE) {
+          Element elem = (Element) event;
 
           //... so let's dig even deeper!
           NodeList elemChildren = elem.getChildNodes();
@@ -153,8 +142,22 @@ public class Utils {
             if (childNode.getNodeType() == Node.ELEMENT_NODE) {
               Element child = (Element) childNode;
               //Now we're getting something more meaningful from each element!
-              System.out.println("Investigating the text content inside the innermost tags");
-              System.out.println(child.getTagName() + " : " + child.getTextContent());
+              System.out.println("Event Name:");
+              String eventName = child.getTextContent();
+              System.out.println(child.getTagName() + " : " + eventName);
+
+              for (int grandInd = 0; grandInd < elemChildren.getLength(); grandInd++) {
+                Node grandNode = elemChildren.item(grandInd);
+                if (grandNode.getNodeType() == Node.ELEMENT_NODE) {
+                  Element grand = (Element) grandNode;
+                  //Now we're getting something more meaningful from each element!
+                  System.out.println("Event Name:");
+                  String grandc = grand.getTextContent();
+                  System.out.println(grand.getTagName() + " : " + grandc);
+                }
+              }
+
+
             }
           }
         }
@@ -166,5 +169,7 @@ public class Utils {
     } catch (SAXException saxEx) {
       throw new IllegalStateException("Error in parsing the file");
     }
+
+    //return user;
   }
 }
