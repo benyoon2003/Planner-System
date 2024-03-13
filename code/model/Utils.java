@@ -114,31 +114,59 @@ public class Utils {
   }
 
   // TODO: Implement read from XML
+
   /**
    * Reads the specific tutorial.xml file, assuming it's right next to the program,
    * and prints useful information from the file.
    * For IntelliJ, that is the project's folder.
    */
-  public static List<String> readXML(String path, Tag tag) {
-    List<String> listOfTagContents = new ArrayList<>();
+  public static User readXML(String path, Tag tag, List<User> database) {
     try {
       DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
       Document xmlDoc = builder.parse(new File(path));
       xmlDoc.getDocumentElement().normalize();
 
-      if (tag.equals(Tag.users)) {
-        Node usersNode = xmlDoc.getElementsByTagName("users").item(0);
-        NodeList userList = usersNode.getChildNodes();
-        for (int item = 0; item < userList.getLength(); item++) {
-          Element user = (Element) userList.item(item);
-          listOfTagContents.add(user.getTextContent());
+      // Gets the username from XML
+      Node userNameNode = xmlDoc.getElementsByTagName("users").item(0);
+      String userName = userNameNode.getTextContent();
+
+      // Gets the schedule from XML
+      Node scheduleNode = xmlDoc.getElementsByTagName("schedule").item(0);
+
+      // User's schedule
+      List<Event> schedule = new ArrayList<>();
+
+      // Traverses events in the schedule
+      NodeList eventsNodeList = scheduleNode.getChildNodes();
+      Node event;
+      for (int index = 0; index < eventsNodeList.getLength(); index++) {
+        event = eventsNodeList.item(index);
+        if (event.getNodeType() == Node.ELEMENT_NODE) {
+          String eventName = getTagContents(Tag.name, xmlDoc).getFirst();
+          String startDay = getTagContents(Tag.startDay, xmlDoc).getFirst();
+          String start = getTagContents(Tag.start, xmlDoc).getFirst();
+          String endDay = getTagContents(Tag.endDay, xmlDoc).getFirst();
+          String end = getTagContents(Tag.end, xmlDoc).getFirst();
+          String online = getTagContents(Tag.online, xmlDoc).getFirst();
+          String place = getTagContents(Tag.place, xmlDoc).getFirst();
+          List<String> listOfUsers = getTagContents(Tag.users, xmlDoc);
+
+          List<User> listOfInvitees = new ArrayList<>();
+          for (String username : listOfUsers) {
+            for (User user : database) {
+              if (username.equals(user.uid)) {
+                listOfInvitees.add(user);
+              }
+            }
+          }
+
         }
+        schedule.add()
       }
-      else {
-        Node anyTagNode = xmlDoc.getElementsByTagName(tag.toString()).item(0);
-        Element tagElement = (Element) anyTagNode;
-        listOfTagContents.add(tagElement.getTextContent());
-      }
+
+
+      User user = new User(userName, schedule);
+
     } catch (ParserConfigurationException ex) {
       throw new IllegalStateException("Error in creating the builder");
     } catch (IOException ioEx) {
@@ -147,6 +175,25 @@ public class Utils {
       throw new IllegalStateException("Error in parsing the file");
     }
 
+    return user;
+  }
+
+  //TODO: Doesn't retrieve list of strings correctly, must use current node
+  private static List<String> getTagContents(Tag tag, Document xmlDoc, Node current) {
+    List<String> listOfTagContents = new ArrayList<>();
+    if (tag.equals(Tag.users)) {
+      Node usersNode = xmlDoc.getElementsByTagName("users").item(0);
+      NodeList userList = usersNode.getChildNodes();
+      for (int item = 0; item < userList.getLength(); item++) {
+        Element user = (Element) userList.item(item);
+        listOfTagContents.add(user.getTextContent());
+      }
+    } else {
+      Node anyTagNode = xmlDoc.getElementsByTagName(tag.toString()).item(0);
+      Element tagElement = (Element) anyTagNode;
+      listOfTagContents.add(tagElement.getTextContent());
+    }
     return listOfTagContents;
   }
+
 }

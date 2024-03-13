@@ -19,6 +19,7 @@ public class NuPlanner implements PlannerModel {
   @Override
   public void uploadSchedule() {
 
+
   }
 
   @Override
