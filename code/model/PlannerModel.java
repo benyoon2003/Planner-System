@@ -40,7 +40,7 @@ public interface PlannerModel {
    */
   public void createEvent(String user, String name, String location, boolean online,
                           Day startDay, int startTime, Day endDay,
-                          int endTime, List<User> invitedUsers);
+                          int endTime, List<String> invitedUsers);
 
   /**
    * Remove an event from a user's schedule.
@@ -54,7 +54,7 @@ public interface PlannerModel {
    */
   public void modifyEvent(Event e, String name, String location, boolean online,
                           Day startDay, int startTime, Day endDay,
-                          int endTime, List<User> invitedUsers, String user);
+                          int endTime, List<String> invitedUsers, String user);
 
 
   /**
