@@ -3,12 +3,21 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Event;
 
-public class User {
+/**
+ * This is the class for Users in the planner system.
+ */
+  class User {
   String uid;
   List<Event> schedule;
 
+  /**
+   * This is the constructor for a user which takes in a uid and a list of events
+   * schedule. If the schedule has conflicts then an exception is thrown.
+   * @param uid the unique identifier of the user
+   * @param schedule the list of events that the user participates in
+   * @throws IllegalArgumentException if the given schedule has conflicts
+   */
   public User(String uid, List<Event> schedule) {
     this.uid = uid;
     this.schedule = new ArrayList<>();
@@ -22,6 +31,12 @@ public class User {
     }
   }
 
+  /**
+   * This method determines whether the given schedule has a conflict of events in it.
+   * @param schedule the given schedule
+   * @return a boolean value to whether there is a conflict, true for conflict false for
+   * no conflict.
+   */
   private boolean conflict(List<Event> schedule){
     List<Event> copy = new ArrayList<Event>(schedule);
     for (Event event: schedule){
@@ -57,6 +72,21 @@ public class User {
       return true;
     }else{
       return false;
+    }
+  }
+
+
+  /**
+   * This is a method to add an event to a user while also ensureing the integrity of the
+   * schedule.
+   * The
+   * @param e the event wanting to be added
+   */
+  void addEvent(Event e){
+    List<Event> copy = this.schedule;
+    copy.add(e);
+    if (!conflict(copy)){
+      this.schedule.add(e);
     }
   }
 }

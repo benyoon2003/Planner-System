@@ -31,14 +31,15 @@ public interface PlannerModel {
    */
   public void modifyEvent();
 
-  /**
-   * Have the program automatically schedule an event on some users’
-   * schedules at some time if possible.
-   */
-  public void automaticEventSchedule();
 
   /**
    * See events occurring at a given time for the given user.
    */
-  public void eventsAtThisTime();
+  public Event eventsAtThisTime(User selected, int time);
+
+  public void makeUser(String Name);
+
+  public void makeEvent(String name, String location, boolean online,
+                        Day startDay, int startTime, Day endDay,
+                        int endTime, List<User> invitedUsers);
 }
