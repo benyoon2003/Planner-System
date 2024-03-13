@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import model.Day;
 /**
  * This is the event class which represents an event in the system.
  */
- class Event {
+ public class Event {
   private String name;
   private String location;
   private boolean online;
@@ -209,5 +210,28 @@ import model.Day;
    */
   void setHost(User newHost){
     this.host = newHost;
+  }
+
+  private String convertListOfInvitees(){
+    String invitees = "";
+    for (User u : this.invitedUsers){
+      invitees.concat(u.uid + "\n");
+    }
+    return invitees;
+  }
+
+  /**
+   * Creates a string representation of an Event
+   */
+  @Override
+  public String toString(){
+    String output = "";
+    output += "name: " + this.name + "\n";
+    output += "time: " + this.startDay.toString() + String.format(": %d -> ", this.startTime);
+    output += this.endDay.toString() + String.format(": %d\n", this.endTime);
+    output += this.location + "\n";
+    output += "online: " + this.online + "\n";
+    output += convertListOfInvitees();
+    return output;
   }
 }
