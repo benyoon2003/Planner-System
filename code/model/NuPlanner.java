@@ -19,7 +19,7 @@ public class NuPlanner implements PlannerModel {
   @Override
   public void uploadSchedule(String path) {
     User user = Utils.readXML(path, this.database);
-    this.database.add(user);
+    this.addUser(user);
   }
 
   @Override
@@ -106,6 +106,11 @@ public class NuPlanner implements PlannerModel {
     }
   }
 
+  /**
+   * Adds a default user to the database only if the given username does not exist.
+   * @param Name the uid of the user
+   * @return the created User
+   */
   @Override
   public User addUser(String Name) {
     try{
@@ -118,11 +123,48 @@ public class NuPlanner implements PlannerModel {
     }
   }
 
+  /**
+   * Adds a User to the database of users and checks if the user already exists in the database.
+   * If it does, the given user's schedule is compared to the existing user's schedule and
+   * the events of the schedule are only added if none of them conflict with the pre-existing
+   * schedule. If the user does not already exist in the database, it is simply added to
+   * the database.
+   * @param user a User
+   * @return the newly created User or the modified pre-existing User
+   */
+  public User addUser(User user) {
+    try{
+      User userInDatabase = Utils.findUser(user.uid, this.database);
+      List<Event> copyOfUserInDatabaseSchedule = userInDatabase.schedule;
+
+      // Add event from new schedule if it doesn't conflict with pre-existing user's schedule
+      for (Event e : user.schedule) {
+        try {
+          userInDatabase.addEvent(e);
+        }
+        catch (IllegalArgumentException ignored) {
+          // Reset schedule if any of the events from the given user
+          // conflict with the pre-existing user
+          userInDatabase.schedule = copyOfUserInDatabaseSchedule;
+          throw new IllegalArgumentException("The given user conflicts with the pre-existing user's" +
+                  "schedule.");
+        }
+      }
+
+      return userInDatabase;
+    } catch (IllegalArgumentException e){
+      this.database.add(user);
+      return user;
+    }
+  }
+
   @Override
   public List<Event> scheduleOnDay(String user, Day day) {
     User selected = Utils.findUser(user, this.database);
     return selected.eventsOnDay(day);
   }
 
-
+  public List<User> getListOfUser() {
+    return this.database;
+  }
 }

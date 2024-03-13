@@ -78,7 +78,7 @@ import java.util.List;
 
 
   /**
-   * This is a method to add an event to a user while also ensureing the integrity of the
+   * This is a method to add an event to a user while also ensuring the integrity of the
    * schedule.
    * The
    * @param e the event wanting to be added
