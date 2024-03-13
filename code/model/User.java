@@ -16,8 +16,10 @@ public class User {
       throw new IllegalArgumentException("Schedule has conflicts");
     }else {
       this.schedule = schedule;
+      for (Event e : this.schedule) {
+        e.getInvitedUsers().addFirst(this);
+      }
     }
-
   }
 
   private boolean conflict(List<Event> schedule){
@@ -57,6 +59,4 @@ public class User {
       return false;
     }
   }
-
-
 }
