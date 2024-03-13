@@ -113,5 +113,11 @@ public class NuPlanner implements PlannerModel {
     return newUser;
   }
 
+  @Override
+  public List<Event> scheduleOnDay(String user, Day day) {
+    User selected = Utils.findUser(user, this.database);
+    return selected.eventsOnDay(day);
+  }
+
 
 }

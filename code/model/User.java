@@ -88,4 +88,18 @@ import java.util.List;
       throw new IllegalArgumentException("Event conflicts with schedule");
     }
   }
+
+  /**
+   * This finds and returns a list of events on a given day.
+   * @param day the day given
+   * @return a list of events on that day.
+   */
+  List<Event> eventsOnDay(Day day){
+    List<Event> events = new ArrayList<>();
+    for (Event e : this.schedule){
+      if(e.getStartDay().equals(day)){
+        events.add(e);
+      }
+    }
+  }
 }

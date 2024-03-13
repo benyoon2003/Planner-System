@@ -68,4 +68,12 @@ public interface PlannerModel {
    */
   public User addUser(String Name);
 
+  /**
+   * Finds and returns a list of events for a specified user on a given day.
+   * @param user the given user
+   * @param day the specifc day being requested
+   * @return the list of events on that day.
+   */
+  public List<Event> scheduleOnDay(String user, Day day);
+
 }

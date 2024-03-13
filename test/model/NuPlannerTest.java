@@ -80,6 +80,6 @@ public class NuPlannerTest {
   public void testIllegalModifyEvent(){
 
   }
-   
+
 
 }
