@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * This is the class for Users in the planner system.
  */
-  class User {
+  public class User {
   String uid;
   List<Event> schedule;
 
@@ -106,5 +106,10 @@ import java.util.List;
       }
     }
     return events;
+  }
+
+  @Override
+  public String toString(){
+    return this.uid;
   }
 }
