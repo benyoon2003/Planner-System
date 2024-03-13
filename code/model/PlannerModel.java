@@ -27,7 +27,7 @@ public interface PlannerModel {
 
   /**
    * Create an event to which the given user is the host.
-   * @param u host of the event
+   * @param user host of the event
    * @param name of the event
    * @param location of the event
    * @param online whether the event is online or not
@@ -38,15 +38,15 @@ public interface PlannerModel {
    * @param invitedUsers of the event
    * @throws IllegalArgumentException if host is not at the start of invited list
    */
-  public void createEvent(User u, String name, String location, boolean online,
+  public void createEvent(String user, String name, String location, boolean online,
                           Day startDay, int startTime, Day endDay,
                           int endTime, List<User> invitedUsers);
 
   /**
    * Remove an event from a user's schedule.
-   * @param u the given user
+   * @param user the given user
    */
-  public void removeEvent(User u, Event e);
+  public void removeEvent(String user, Event e);
 
   /**
    * Create, modify, or remove an event on a user’s schedule,
@@ -54,18 +54,18 @@ public interface PlannerModel {
    */
   public void modifyEvent(Event e, String name, String location, boolean online,
                           Day startDay, int startTime, Day endDay,
-                          int endTime, List<User> invitedUsers, User host);
+                          int endTime, List<User> invitedUsers, String user);
 
 
   /**
    * See events occurring at a given time for the given user.
    */
-  public Event eventsAtThisTime(User selected, int time);
+  public Event eventsAtThisTime(String user, int time);
 
   /**
    * Creates a user with no events.
    * @param Name the uid of the user
    */
-  public void makeUser(String Name);
+  public void addUser(String Name);
 
 }

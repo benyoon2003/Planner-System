@@ -28,25 +28,25 @@ public class NuPlanner implements PlannerModel {
     }
   }
 
-  @Override
-  public List<Event> selectSchedule(String user) {
-    List<Event> selected = new ArrayList<>();
-    for (User u : this.database){
-      if (u.uid.equals(user)){
-        selected = u.schedule;
+  private User findUser(String uid) {
+    for (User u : this.database) {
+      if (u.uid.equals(uid)) {
+        return u;
       }
     }
-    if (selected.isEmpty()){
-      throw new IllegalArgumentException("Not a Valid User");
-    }else{
-      return selected;
-    }
+    throw new IllegalArgumentException("User not found");
   }
 
   @Override
-  public void createEvent(User u, String name, String location, boolean online,
+  public List<Event> selectSchedule(String user) {
+    return findUser(user).schedule;
+  }
+
+  @Override
+  public void createEvent(String user, String name, String location, boolean online,
                           Day startDay, int startTime, Day endDay,
-                          int endTime, List<User> invitedUsers) {
+                          int endTime, List<String> invitedUsers) {
+    User u = findUser(user);
     if(this.database.contains(u)){
       Event newEvent = new Event(name, location, online, startDay, startTime, endDay
       , endTime, invitedUsers);
@@ -59,8 +59,10 @@ public class NuPlanner implements PlannerModel {
     }
   }
 
+
   @Override
-  public void removeEvent(User u, Event e) {
+  public void removeEvent(String user, Event e) {
+    User u = findUser(user);
       if (this.database.contains(u)){
         if (e.getHost().equals(u)){
           e.removeAll();
@@ -74,7 +76,7 @@ public class NuPlanner implements PlannerModel {
   @Override
   public void modifyEvent(Event e, String name, String location, boolean online,
                           Day startDay, int startTime, Day endDay,
-                          int endTime, List<User> invitedUsers, User host) {
+                          int endTime, List<User> invitedUsers, String host) {
     e.setName(name);
     e.setLocation(location);
     e.setOnline(online);
@@ -83,12 +85,13 @@ public class NuPlanner implements PlannerModel {
     e.setEndDay(endDay);
     e.setEndTime(endTime);
     e.setInvitedUsers(invitedUsers);
-    e.setHost(host);
+    e.setHost(findUser(host));
   }
 
 
   @Override
-  public Event eventsAtThisTime(User selected, int time) {
+  public Event eventsAtThisTime(String user, int time) {
+    User selected = findUser(user);
     Event specifcEvent = null;
     for (Event e : selected.schedule){
       if (e.getStartTime() == time){
@@ -103,7 +106,7 @@ public class NuPlanner implements PlannerModel {
   }
 
   @Override
-  public void makeUser(String Name) {
+  public void addUser(String Name) {
     User newUser = new User(Name, List.of());
     this.database.add(newUser);
   }
