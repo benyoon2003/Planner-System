@@ -25,9 +25,6 @@ import java.util.List;
       throw new IllegalArgumentException("Schedule has conflicts");
     }else {
       this.schedule = schedule;
-      for (Event e : this.schedule) {
-        e.getInvitedUsers().addFirst(this);
-      }
     }
   }
 

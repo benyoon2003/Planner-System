@@ -56,9 +56,6 @@ import model.Day;
     if (!this.invitedUsers.isEmpty()){
       this.host = this.invitedUsers.get(0);
     }
-    for (User attendee : this.invitedUsers){
-      attendee.schedule.add(this);
-    }
   }
 
   /**
@@ -126,17 +123,12 @@ import model.Day;
   }
 
   /**
-   * Sets the invited users of the event.
-   * @param invited the list of inveted users.
+   * Sets this event in each user's schedule
    */
-  public void setInvitedUsers(List<User> invited){
-    if (this.invitedUsers.isEmpty()){
-      this.invitedUsers = invited;
-      this.host = this.invitedUsers.get(0);
+  void sendInvite(){
       for (User attendee : this.invitedUsers){
-        attendee.schedule.add(this);
+        attendee.addEvent(this);
       }
-    }
   }
 
   /**

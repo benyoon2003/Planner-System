@@ -43,6 +43,32 @@ public class NuPlanner implements PlannerModel {
   }
 
   @Override
+  public void createEvent(User u, String name, String location, boolean online,
+                          Day startDay, int startTime, Day endDay,
+                          int endTime, List<User> invitedUsers) {
+    if(this.database.contains(u)){
+      Event newEvent = new Event(name, location, online, startDay, startTime, endDay
+      , endTime, invitedUsers);
+      if (!newEvent.getHost().equals(u)){
+        throw new IllegalArgumentException("Host is not first on invited list");
+      }
+      newEvent.sendInvite();
+    } else {
+      throw new IllegalArgumentException("User is not in system");
+    }
+  }
+
+  @Override
+  public void removeEvent(User u, Event e) {
+      if (this.database.contains(u)){
+        if (e.getHost().equals(u)){
+          
+        }
+      }
+  }
+
+
+  @Override
   public void modifyEvent() {
 
   }
@@ -65,14 +91,8 @@ public class NuPlanner implements PlannerModel {
 
   @Override
   public void makeUser(String Name) {
-    User newUSer = new User(Name, List.of());
-    this.database.add(newUSer);
-  }
-
-  @Override
-  public void makeEvent(String name, String location, boolean online, Day startDay, int startTime, Day endDay, int endTime, List<User> invitedUsers) {
-      Event newEvent = new Event(name, location, online, startDay, startTime, endDay,endTime
-      , invitedUsers);
+    User newUser = new User(Name, List.of());
+    this.database.add(newUser);
   }
 
 
