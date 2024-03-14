@@ -12,6 +12,7 @@ public enum Tag {
 
   /**
    * Constructs a tag enum.
+   *
    * @param tag a String
    */
   Tag(String tag) {
@@ -19,7 +20,7 @@ public enum Tag {
   }
 
   @Override
-  public String toString(){
+  public String toString() {
     return tag;
   }
 }

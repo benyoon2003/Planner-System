@@ -21,11 +21,12 @@ public class NUPlannerTextView implements PlannerView {
 
   /**
    * This creates a string of the events on a given day
+   *
    * @param user with the events being displayed.
-   * @param day the day on which the event s are being pulled.
+   * @param day  the day on which the event s are being pulled.
    * @return the display of the events
    */
-  private String daySchedule(String user, Day day){
+  private String daySchedule(String user, Day day) {
     String output = "";
     for (Event e : this.model.scheduleOnDay(user, day)) {
       output += e.toString();

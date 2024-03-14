@@ -21,29 +21,32 @@ public interface PlannerModel {
 
   /**
    * Select one of the users to display their schedule.
+   *
    * @param user a String
    */
   public List<Event> selectSchedule(String user);
 
   /**
    * Create an event to which the given user is the host.
-   * @param user host of the event
-   * @param name of the event
-   * @param location of the event
-   * @param online whether the event is online or not
-   * @param startDay of the event
-   * @param startTime of the event
-   * @param endDay of the event
-   * @param endTime of the event
+   *
+   * @param user         host of the event
+   * @param name         of the event
+   * @param location     of the event
+   * @param online       whether the event is online or not
+   * @param startDay     of the event
+   * @param startTime    of the event
+   * @param endDay       of the event
+   * @param endTime      of the event
    * @param invitedUsers of the event
    * @throws IllegalArgumentException if the invited list of users are not in the system
    */
   public Event createEvent(String user, String name, String location, boolean online,
-                          Day startDay, int startTime, Day endDay,
-                          int endTime, List<String> invitedUsers);
+                           Day startDay, int startTime, Day endDay,
+                           int endTime, List<String> invitedUsers);
 
   /**
    * Remove an event from a user's schedule.
+   *
    * @param user the given user
    */
   public void removeEvent(String user, Event e);
@@ -64,6 +67,7 @@ public interface PlannerModel {
 
   /**
    * Adds a default user to the database only if the given username does not exist.
+   *
    * @param Name the uid of the user
    * @return the created User
    */
@@ -75,6 +79,7 @@ public interface PlannerModel {
    * the events of the schedule are only added if none of them conflict with the pre-existing
    * schedule. If the user does not already exist in the database, it is simply added to
    * the database.
+   *
    * @param user a User
    * @return the newly created User or the modified pre-existing User
    */
@@ -82,14 +87,16 @@ public interface PlannerModel {
 
   /**
    * Finds and returns a list of events for a specified user on a given day.
+   *
    * @param user the given user
-   * @param day the specifc day being requested
+   * @param day  the specifc day being requested
    * @return the list of events on that day.
    */
   public List<Event> scheduleOnDay(String user, Day day);
 
   /**
    * This method returns the list of Users in the database.
+   *
    * @return the list of users in the database.
    */
   public List<User> getListOfUser();

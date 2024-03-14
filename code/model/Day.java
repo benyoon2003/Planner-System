@@ -12,6 +12,7 @@ public enum Day {
 
   /**
    * Constructs a Day enum.
+   *
    * @param day a String
    */
   Day(String day) {
@@ -19,7 +20,7 @@ public enum Day {
   }
 
   @Override
-  public String toString(){
+  public String toString() {
     return day;
   }
 }

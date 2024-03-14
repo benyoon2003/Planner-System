@@ -30,6 +30,7 @@ public final class Utils {
 
   /**
    * Writes the schedule of the given user to an XML file and saves it within the project folder.
+   *
    * @param user a User
    */
   public static void writeToFile(User user) {
@@ -52,9 +53,10 @@ public final class Utils {
 
   /**
    * Structures the events of the XML file.
-   * @param schedule a Document
+   *
+   * @param schedule   a Document
    * @param scheduleID an Element
-   * @param e an Event
+   * @param e          an Event
    */
   private static void writeEvent(Document schedule, Element scheduleID, Event e) {
     Element event = schedule.createElement("event");
@@ -101,6 +103,7 @@ public final class Utils {
 
   /**
    * Saves the given document to a file with the given file name.
+   *
    * @param document a Document
    * @param fileName a String
    * @throws Exception a TransformerConfiguration Exception or TransformerException
@@ -117,7 +120,8 @@ public final class Utils {
   /**
    * Reads a XML file from the project folder with the given path and uses the given
    * database to retrieve the list of invitees.
-   * @param path a String
+   *
+   * @param path     a String
    * @param database a List of User
    * @return a User
    */
@@ -132,7 +136,7 @@ public final class Utils {
 
       // Traverses events in the XML file and adds each event to the schedule
       List<Event> schedule = new ArrayList<>();
-      if(scheduleNode.getNodeType() == Node.ELEMENT_NODE) {
+      if (scheduleNode.getNodeType() == Node.ELEMENT_NODE) {
         NodeList eventNodeList = scheduleNode.getChildNodes();
         for (int i = 0; i < eventNodeList.getLength(); i++) {
           Node eventNode = eventNodeList.item(i);
@@ -151,8 +155,9 @@ public final class Utils {
 
   /**
    * Extracts fields of an Event from the given event Element and returns an Event.
+   *
    * @param eventElement an Element
-   * @param database a List of User
+   * @param database     a List of User
    * @return an Event
    */
   private static Event createEvent(Element eventElement, List<User> database) {
@@ -179,8 +184,7 @@ public final class Utils {
       try {
         User user = findUser(userName, database);
         invitees.add(user);
-      }
-      catch (IllegalArgumentException ignored) {
+      } catch (IllegalArgumentException ignored) {
         // The uploaded XML file belongs to a user that does not yet exist in the database
         if (i > 0) {
           throw new IllegalArgumentException("A user in the list of invitees that is not the host" +
@@ -194,8 +198,9 @@ public final class Utils {
 
   /**
    * Gets the text content of the element of the XML file with the given tag.
+   *
    * @param element an Element
-   * @param tag a Tag
+   * @param tag     a Tag
    * @return a String
    */
   private static String getTextContent(Element element, Tag tag) {
@@ -204,6 +209,7 @@ public final class Utils {
 
   /**
    * Gets the User with the given usernamen in the given database.
+   *
    * @param userName a String
    * @param database a List of User
    * @return a User

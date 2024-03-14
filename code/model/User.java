@@ -11,23 +11,24 @@ import java.util.Objects;
 /**
  * This is the class for Users in the planner system.
  */
-  public class User {
+public class User {
   String uid;
   List<Event> schedule;
 
   /**
    * This is the constructor for a user which takes in a uid and a list of events
    * schedule. If the schedule has conflicts then an exception is thrown.
-   * @param uid the unique identifier of the user
+   *
+   * @param uid      the unique identifier of the user
    * @param schedule the list of events that the user participates in
    * @throws IllegalArgumentException if the given schedule has conflicts
    */
   public User(String uid, List<Event> schedule) {
     this.uid = uid;
     this.schedule = new ArrayList<>();
-    if (conflict(schedule)){
+    if (conflict(schedule)) {
       throw new IllegalArgumentException("Schedule has conflicts");
-    }else {
+    } else {
       this.schedule = new ArrayList<>(schedule);
       this.sortEvents();
     }
@@ -35,47 +36,49 @@ import java.util.Objects;
 
   /**
    * This method determines whether the given schedule has a conflict of events in it.
+   *
    * @param schedule the given schedule
    * @return a boolean value to whether there is a conflict, true for conflict false for
    * no conflict.
    */
-  private boolean conflict(List<Event> schedule){
+  private boolean conflict(List<Event> schedule) {
     List<Event> copy = new ArrayList<Event>(schedule);
-    for (Event event : schedule){
+    for (Event event : schedule) {
       copy.remove(event);
-      if (copy.isEmpty()){
+      if (copy.isEmpty()) {
         return false;
       }
-      for (int remainingEvents = 0; remainingEvents < copy.size(); remainingEvents++){
-        if (conflictHelper(event, copy.get(remainingEvents))){
+      for (int remainingEvents = 0; remainingEvents < copy.size(); remainingEvents++) {
+        if (conflictHelper(event, copy.get(remainingEvents))) {
           return true;
         }
       }
     }
     return false;
   }
-  private boolean conflictHelper(Event one, Event two){
-    if (one.equals(two)){
+
+  private boolean conflictHelper(Event one, Event two) {
+    if (one.equals(two)) {
       return false;
     }
     List DaysOrder = List.of(Day.Sunday, Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday
-    , Day.Friday, Day.Saturday);
+            , Day.Friday, Day.Saturday);
     int startTimeOfOne = DaysOrder.indexOf(one.getStartDay()) * 2400 + one.getStartTime();
     int startTimeOfTwo = DaysOrder.indexOf(two.getStartDay()) * 2400 + two.getStartTime();
     int endTimeOfOne = DaysOrder.indexOf(one.getEndDay()) * 2400 + one.getEndTime();
     int endTimeOfTwo = DaysOrder.indexOf(two.getEndDay()) * 2400 + two.getEndTime();
-    if (startTimeOfOne > endTimeOfOne){
+    if (startTimeOfOne > endTimeOfOne) {
       endTimeOfOne = endTimeOfOne + 10080;
     }
-    if (startTimeOfTwo > endTimeOfTwo){
+    if (startTimeOfTwo > endTimeOfTwo) {
       endTimeOfTwo = endTimeOfTwo + 10080;
     }
-    if(startTimeOfOne <= startTimeOfTwo && endTimeOfOne > startTimeOfTwo){
+    if (startTimeOfOne <= startTimeOfTwo && endTimeOfOne > startTimeOfTwo) {
       return true;
     }
-    if(startTimeOfTwo <= startTimeOfOne && endTimeOfTwo > startTimeOfOne){
+    if (startTimeOfTwo <= startTimeOfOne && endTimeOfTwo > startTimeOfOne) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
@@ -84,17 +87,18 @@ import java.util.Objects;
    * This method sorts the users schedule into chronological order.
    * This is done using the sort method in the list class.
    */
-  private void sortEvents(){
+  private void sortEvents() {
     this.schedule.sort(new EventComparator());
   }
 
   /**
    * This method converts the day and time of the event into a time from Sunday at 0000.
    * This allows the comparator to compare event using one value.
+   *
    * @param e the given event
    * @return the time of the event in extended dateTime
    */
-  private int convertEventToStartTime(Event e){
+  private int convertEventToStartTime(Event e) {
     List DaysOrder = List.of(Day.Sunday, Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday
             , Day.Friday, Day.Saturday);
     return DaysOrder.indexOf(e.getStartDay()) * 2400 + e.getStartTime();
@@ -104,7 +108,7 @@ import java.util.Objects;
    * This class is a small implementation of the comparator interface to be
    * used to sort the schedule.
    */
-  private class EventComparator implements Comparator<Event>{
+  private class EventComparator implements Comparator<Event> {
     @Override
     public int compare(Event e1, Event e2) {
       return convertEventToStartTime(e1) - convertEventToStartTime(e2);
@@ -117,28 +121,30 @@ import java.util.Objects;
    * This is a method to add an event to a user while also ensuring the integrity of the
    * schedule.
    * The
+   *
    * @param e the event wanting to be added
    */
-  void addEvent(Event e){
+  void addEvent(Event e) {
     List<Event> copy = new ArrayList<>(this.schedule);
     copy.add(e);
-    if (!conflict(copy)){
+    if (!conflict(copy)) {
       this.schedule.add(e);
       this.sortEvents();
-    }else {
+    } else {
       throw new IllegalArgumentException("Event conflicts with schedule");
     }
   }
 
   /**
    * This finds and returns a list of events on a given day.
+   *
    * @param day the day given
    * @return a list of events on that day.
    */
-  List<Event> eventsOnDay(Day day){
+  List<Event> eventsOnDay(Day day) {
     List<Event> events = new ArrayList<>();
-    for (Event e : this.schedule){
-      if(e.getStartDay().equals(day) || e.getEndDay().equals(day)){
+    for (Event e : this.schedule) {
+      if (e.getStartDay().equals(day) || e.getEndDay().equals(day)) {
         events.add(e);
       }
     }
@@ -146,7 +152,7 @@ import java.util.Objects;
   }
 
   @Override
-  public String toString(){
+  public String toString() {
     return this.uid;
   }
 
