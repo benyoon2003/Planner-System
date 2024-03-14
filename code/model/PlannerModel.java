@@ -111,7 +111,7 @@ public interface PlannerModel {
   public List<Event> scheduleOnDay(String user, Day day);
 
   /**
-   * This method returns the list of User in the database.
+   * Returns the list of User in the database.
    *
    * @return a list of User
    */

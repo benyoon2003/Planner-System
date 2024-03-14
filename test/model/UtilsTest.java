@@ -35,7 +35,7 @@ public class UtilsTest {
   Event e3;
   Event e4;
 
-  private void ExampleNuPlanner() {
+  private void exampleNuPlanner() {
     this.example = new NuPlanner(new ArrayList<User>());
     ben = this.example.addUser("Ben");
     nico = this.example.addUser("Nico");
@@ -44,7 +44,7 @@ public class UtilsTest {
 
   }
 
-  private void ExampleNuPlanner2() {
+  private void exampleNuPlanner2() {
     this.example2 = new NuPlanner(new ArrayList<>());
     lucia = this.example2.addUser("Lucia");
     patrick = this.example2.addUser("Patrick");
@@ -61,11 +61,11 @@ public class UtilsTest {
 
   @Test
   public void testWriteAndReadingXMLFile() {
-    ExampleNuPlanner();
+    exampleNuPlanner();
     Utils.writeToFile(ben);
     assertEquals(Utils.readXML("Ben", example.getListOfUser()), ben);
 
-    ExampleNuPlanner2();
+    exampleNuPlanner2();
     Utils.writeToFile(spongebob);
     assertEquals(Utils.readXML("Spongebob", example2.getListOfUser()), spongebob);
   }

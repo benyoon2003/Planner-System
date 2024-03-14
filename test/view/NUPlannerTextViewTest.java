@@ -12,7 +12,7 @@ import model.PlannerModel;
 import static org.junit.Assert.assertEquals;
 
 /**
- * This is the testing class for the TextView
+ * This is the testing class for the TextView.
  */
 public class NUPlannerTextViewTest {
 
