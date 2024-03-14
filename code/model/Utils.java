@@ -125,16 +125,16 @@ public class Utils {
       String userName = scheduleNode.getAttributes().getNamedItem("id").getNodeValue();
 
       List<Event> schedule = new ArrayList<>();
-
-      NodeList eventNodeList = scheduleNode.getChildNodes();
-      for (int i = 0; i < eventNodeList.getLength(); i++) {
-        Node eventNode = eventNodeList.item(i);
-        if (eventNode.getNodeType() == Node.ELEMENT_NODE) {
-          Event event = createEvent((Element) eventNode, database);
-          schedule.add(event);
+      if(scheduleNode.getNodeType() == Node.ELEMENT_NODE) {
+        NodeList eventNodeList = scheduleNode.getChildNodes();
+        for (int i = 0; i < eventNodeList.getLength(); i++) {
+          Node eventNode = eventNodeList.item(i);
+          if (eventNode.getNodeType() == Node.ELEMENT_NODE) {
+            Event event = createEvent((Element) eventNode, database);
+            schedule.add(event);
+          }
         }
       }
-
       return new User(userName, schedule);
     } catch (ParserConfigurationException | SAXException | IOException e) {
       e.printStackTrace();

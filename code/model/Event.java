@@ -234,4 +234,23 @@ import model.Day;
     output += "       " + convertListOfInvitees();
     return output;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    Event e = (Event) o;
+    return this.name.equals(e.name)
+            && this.online == e.online
+            && this.invitedUsers.equals(e.invitedUsers)
+            && this.startDay.equals(e.startDay)
+            && this.startTime == e.startTime
+            && this.endDay.equals(e.endDay)
+            && this.endTime == e.endTime
+            && this.location.equals(e.location);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.name, this.online, this.invitedUsers, this.startDay,
+            this.startTime, this.endDay, this.endTime, this.location);
+  }
 }
