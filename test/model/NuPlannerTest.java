@@ -9,6 +9,8 @@ import java.util.List;
 import view.PlannerView;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * This is the testing suite for our NUPlanner model. This tests all public functions and
@@ -104,22 +106,31 @@ public class NuPlannerTest {
 
   @Test
   public void testCreateEvent(){
-
+    ExampleNuPlanner();
+    Event e2 = this.example.createEvent("Ben", "OOD", "Snell", true
+            , Day.Friday, 1800, Day.Saturday, 1800, List.of("Nico"));
+    assertTrue(ben.schedule.contains(e2));
   }
 
-  @Test
+  @Test(expected = IllegalArgumentException.class)
   public void testCreateEventButEventConflictsWithHost(){
-
+    ExampleNuPlanner();
+    Event e2 = this.example.createEvent("Ben", "OOD", "Snell", true
+            , Day.Wednesday, 1800, Day.Saturday, 1800, List.of("Nico"));
   }
 
   @Test
   public void testEventCreatedButConflictsWithOtherUser(){
-
+    ExampleNuPlanner2();
+    Event e5 = this.example2.createEvent("Lucia", "OOD", "Snell", true
+            , Day.Wednesday, 1800, Day.Wednesday, 2000, List.of("Patrick"));
+    assertFalse(this.patrick.schedule.contains(e5));
+    assertTrue(this.lucia.schedule.contains(e5));
   }
 
   @Test
   public void testRemoveEventAsHost(){
-
+    
   }
 
   @Test

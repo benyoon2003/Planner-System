@@ -27,16 +27,16 @@ import model.Day;
    * @param location of the event and cannot be null
    * @param online boolean for whether the event is online or not
    * @param startDay day of the week of the event
-   * @param startTime of the event
+   * @param startTime of the event THIS IS OUR INVARIANT-- Startimes cannot be negative
    * @param endDay of the event
-   * @param endTime of the event
+   * @param endTime of the event THIS IS OUR INVARIANT-- endtimes cannot be negative
    * @param invitedUsers are the users that are a part of the event
    */
   Event(String name, String location, boolean online,
                Day startDay, int startTime, Day endDay,
                int endTime, List<User> invitedUsers) {
     if (startDay.equals(endDay) && startTime == endTime){
-      throw new IllegalArgumentException("Invalid Times for an model.Event");
+      throw new IllegalArgumentException("Invalid Times for an Event");
     }
     this.name = Objects.requireNonNull(name);
     this.location = Objects.requireNonNull(location);
@@ -124,7 +124,7 @@ import model.Day;
   }
 
   void setInvitedUsers(List<User> attendees){
-    this.invitedUsers = attendees;
+    this.invitedUsers = Objects.requireNonNull(attendees);
   }
 
   /**
@@ -160,14 +160,14 @@ import model.Day;
    * Setter for the name of the event
    */
   void setName(String name){
-   this.name = name;
+   this.name = Objects.requireNonNull(name);
   }
 
   /**
    * Setter for the location of the event
    */
   void setLocation(String location){
-    this.location = location;
+    this.location = Objects.requireNonNull(location);
   }
 
   /**
@@ -181,28 +181,36 @@ import model.Day;
    * Setter for the startDay of the event
    */
   void setStartDay(Day startDay){
-    this.startDay = startDay;
+    this.startDay = Objects.requireNonNull(startDay);
   }
 
   /**
    * Setter for the start time of the event
    */
   void setStartTime(int time){
-    this.startTime = time;
+    if (startTime >= 0 && startTime < 2400){
+      this.startTime = time;
+    } else {
+      throw new IllegalArgumentException("Invalid Start Time");
+    }
   }
 
   /**
    * Setter for the end day of the event
    */
   void setEndDay(Day endDay){
-    this.endDay = endDay;
+    this.endDay = Objects.requireNonNull(endDay);
   }
 
   /**
    * Setter for the end time of the event
    */
   void setEndTime(int time){
-    this.endTime = time;
+    if (endTime >= 0 && endTime < 2400){
+      this.endTime = time;
+    } else {
+      throw new IllegalArgumentException("Invalid End Time");
+    }
   }
 
   /**

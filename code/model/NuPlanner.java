@@ -77,6 +77,9 @@ public class NuPlanner implements PlannerModel {
   public void modifyEvent(Event e, String name, String location, boolean online,
                           Day startDay, int startTime, Day endDay,
                           int endTime, List<String> invitedUsers, String host) {
+    if (startDay.equals(endDay) && startTime == endTime){
+      throw new IllegalArgumentException("Invalid Times for an Event");
+    }
     e.setName(name);
     e.setLocation(location);
     e.setOnline(online);
@@ -86,6 +89,7 @@ public class NuPlanner implements PlannerModel {
     e.setEndTime(endTime);
     e.setInvitedUsers(mapUserList(invitedUsers));
     e.setHost(Utils.findUser(host, this.database));
+
   }
 
 
