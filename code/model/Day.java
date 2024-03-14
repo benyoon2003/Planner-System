@@ -1,6 +1,8 @@
 package model;
 
-
+/**
+ * An enum to represent days of the week.
+ */
 public enum Day {
 
   Sunday("Sunday"), Monday("Monday"), Tuesday("Tuesday"), Wednesday("Wednesday"),
