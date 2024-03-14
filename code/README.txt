@@ -9,7 +9,7 @@ in a user's schedule and that only valid events are added. We assumed that this
 version of the model would not need any security measures so there are none but
 this is not to say that there is no thought into information hiding. We designed
 this model so that interacting with the model requires little understanding in how
-the model works. All that is necessary is that only the model's public method's be used.
+the model works. All that is necessary is only the model's public method's to be used.
 There are package protected methods that can be called when inside the package that can
 alter the model. These methods had to package protected and not private for implementation.
 
@@ -38,7 +38,7 @@ Quick Start:
  the model and has no control over the system.
 
  Key Subcomponents:
-    Key subcompnents would be Users and Events, both of theses objects work in tandem to
+    Key subcompnents would be Users and Events, both of these objects work in tandem to
  create the system. This is why the User has ties to its events and Events have ties to
  their users/attendees.
 
