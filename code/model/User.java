@@ -37,7 +37,7 @@ import java.util.Objects;
    */
   private boolean conflict(List<Event> schedule){
     List<Event> copy = new ArrayList<Event>(schedule);
-    for (Event event: schedule){
+    for (Event event : schedule){
       copy.remove(event);
       if (copy.isEmpty()){
         return false;
@@ -51,6 +51,9 @@ import java.util.Objects;
     return false;
   }
   private boolean conflictHelper(Event one, Event two){
+    if (one.equals(two)){
+      return false;
+    }
     List DaysOrder = List.of(Day.Sunday, Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday
     , Day.Friday, Day.Saturday);
     int startTimeOfOne = DaysOrder.indexOf(one.getStartDay()) * 2400 + one.getStartTime();
@@ -63,10 +66,10 @@ import java.util.Objects;
     if (startTimeOfTwo > endTimeOfTwo){
       endTimeOfTwo = endTimeOfTwo + 10080;
     }
-    if(startTimeOfOne < startTimeOfTwo && endTimeOfOne > startTimeOfTwo){
+    if(startTimeOfOne <= startTimeOfTwo && endTimeOfOne > startTimeOfTwo){
       return true;
     }
-    if(startTimeOfTwo < startTimeOfOne && endTimeOfTwo > startTimeOfOne){
+    if(startTimeOfTwo <= startTimeOfOne && endTimeOfTwo > startTimeOfOne){
       return true;
     }else{
       return false;
