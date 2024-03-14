@@ -32,16 +32,25 @@ public class NuPlannerTest {
     ben = this.example.addUser("Ben");
     nico = this.example.addUser("Nico");
     e1 = this.example.createEvent("Ben", "Working on OOD", "Snell",false,
-            Day.Monday, 2000, Day.Thursday, 2059, List.of("Ben", "Nico"));
+            Day.Monday, 2000, Day.Thursday, 2059, List.of("Nico"));
   }
   private void ExampleNuPlannerException(){
     this.example = new NuPlanner(new ArrayList<User>());
     ben = this.example.addUser("Ben");
     nico = this.example.addUser("Nico");
     e1 = this.example.createEvent("Ben", "Working on OOD", "Snell",false,
-            Day.Monday, 2000, Day.Thursday, 2059, List.of("Ben", "Nico"));
+            Day.Monday, 2000, Day.Thursday, 2059, List.of("Nico"));
   }
 
+  @Test
+  public void testUploadSchedule() {
+
+  }
+  
+  @Test
+  public void testSaveSchedule() {
+
+  }
 
   @Test
   public void testSelectSchedule(){

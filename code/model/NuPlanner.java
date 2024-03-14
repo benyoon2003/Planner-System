@@ -48,11 +48,10 @@ public class NuPlanner implements PlannerModel {
                           int endTime, List<String> invitedUsers) {
     User u = Utils.findUser(user, this.database);
     if(this.database.contains(u)){
+      List<String> invitedUserCopy = new ArrayList<>(invitedUsers);
+      invitedUserCopy.addFirst(user);
       Event newEvent = new Event(name, location, online, startDay, startTime, endDay
-      , endTime, mapUserList(invitedUsers));
-      if (!newEvent.getHost().equals(u)){
-        throw new IllegalArgumentException("Host is not first on invited list");
-      }
+      , endTime, mapUserList(invitedUserCopy));
       newEvent.sendInvite();
       return newEvent;
     } else {

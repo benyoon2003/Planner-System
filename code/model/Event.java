@@ -42,13 +42,13 @@ import model.Day;
     this.location = Objects.requireNonNull(location);
     this.online = online;
     this.startDay = Objects.requireNonNull(startDay);
-    if (startTime > 0 && startTime < 2400){
+    if (startTime >= 0 && startTime < 2400){
       this.startTime = startTime;
     } else {
       throw new IllegalArgumentException("Invalid Start Time");
     }
     this.endDay = Objects.requireNonNull(endDay);
-    if (endTime > 0 && endTime < 2400){
+    if (endTime >= 0 && endTime < 2400){
       this.endTime = endTime;
     } else {
       throw new IllegalArgumentException("Invalid End Time");
