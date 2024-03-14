@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -111,5 +112,22 @@ import java.util.List;
   @Override
   public String toString(){
     return this.uid;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    User u = (User) o;
+    boolean sameSchedule = true;
+    for (int index = 0; index < this.schedule.size(); index++) {
+      if (!this.schedule.get(index).equals(u.schedule.get(index))) {
+        sameSchedule = false;
+      }
+    }
+    return this.uid.equals(u.uid) && sameSchedule;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.uid, this.schedule);
   }
 }
