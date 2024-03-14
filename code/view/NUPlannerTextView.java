@@ -11,22 +11,22 @@ public class NUPlannerTextView implements PlannerView {
 
   private PlannerModel model;
 
-  public NUPlannerTextView(PlannerModel model){
+  public NUPlannerTextView(PlannerModel model) {
     this.model = model;
   }
 
-  private String daySchedule(String user, Day day){
+  private String daySchedule(String user, Day day) {
     String output = "";
-    for (Event e : this.model.scheduleOnDay(user, day)){
+    for (Event e : this.model.scheduleOnDay(user, day)) {
       output += e.toString();
     }
     return output;
   }
 
   @Override
-  public String toString(){
+  public String toString() {
     String output = "";
-    for(User user : model.getListOfUser()){
+    for (User user : model.getListOfUser()) {
       output += "User: " + user.toString() + "\n";
       output += "Sunday: \n" + daySchedule(user.toString(), Day.Sunday);
       output += "Monday: \n" + daySchedule(user.toString(), Day.Monday);
@@ -38,6 +38,7 @@ public class NUPlannerTextView implements PlannerView {
     }
     return output;
   }
+
   @Override
   public void render() throws IOException {
     System.out.println(this.toString());

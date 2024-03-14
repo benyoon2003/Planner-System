@@ -23,31 +23,31 @@ public class EventTest {
 
   User user2;
 
-  private void ExampleInvalidTimes(){
+  private void ExampleInvalidTimes() {
     this.user1 = new User("User1", new ArrayList<>());
     this.example = new Event("Invalid Event", "Snell", false,
             Day.Monday, 1800, Day.Monday, 1800, List.of(user1));
   }
 
-  private void ExampleInvalidStartTimes(){
+  private void ExampleInvalidStartTimes() {
     this.user1 = new User("User1", new ArrayList<>());
     this.example = new Event("Invalid Event", "Snell", false,
             Day.Monday, -1800, Day.Tuesday, 1800, List.of(user1));
   }
 
-  private void ExampleInvalidEndTimes(){
+  private void ExampleInvalidEndTimes() {
     this.user1 = new User("User1", new ArrayList<>());
     this.example = new Event("Invalid Event", "Snell", false,
             Day.Monday, 1800, Day.Tuesday, 3600, List.of(user1));
   }
 
-  private void ExampleHostUser(){
+  private void ExampleHostUser() {
     this.user1 = new User("User1", new ArrayList<>());
     this.example = new Event("Host Event", "Snell", false,
             Day.Monday, 1000, Day.Tuesday, 1800, List.of(user1));
   }
 
-  private void ExampleHostUserEvent(){
+  private void ExampleHostUserEvent() {
     this.user1 = new User("User1", new ArrayList<>());
     this.user2 = new User("User 2", new ArrayList<>());
     this.example = new Event("Host Event", "Snell", false,
@@ -55,7 +55,7 @@ public class EventTest {
     this.example.sendInvite();
   }
 
-  private void ExampleHostUserEventConflict(){
+  private void ExampleHostUserEventConflict() {
     this.user1 = new User("User1", new ArrayList<>());
     this.user2 = new User("User 2", new ArrayList<>());
     this.example = new Event("Host Event", "Snell", false,
@@ -67,34 +67,35 @@ public class EventTest {
   }
 
 
-  @Test (expected = IllegalArgumentException.class)
-  public void testInvalidTimes(){
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidTimes() {
     ExampleInvalidTimes();
   }
 
-  @Test (expected = IllegalArgumentException.class)
-  public void testInvalidStartTimes(){
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidStartTimes() {
     ExampleInvalidStartTimes();
   }
-  @Test (expected = IllegalArgumentException.class)
-  public void testInvalidEndTimes(){
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidEndTimes() {
     ExampleInvalidEndTimes();
   }
 
   @Test
-  public void testHostUser(){
+  public void testHostUser() {
     ExampleHostUser();
     assertEquals(example.getHost(), user1);
   }
 
   @Test
-  public void testSendInvite(){
+  public void testSendInvite() {
     ExampleHostUserEvent();
     assertTrue(user2.schedule.contains(this.example));
   }
 
   @Test
-  public void testSendInviteWithConflict(){
+  public void testSendInviteWithConflict() {
     ExampleHostUserEventConflict();
     assertFalse(user2.schedule.contains(this.example));
   }

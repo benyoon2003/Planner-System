@@ -17,17 +17,17 @@ public class NUPlannerTextViewTest {
 
   NUPlannerTextView view;
 
-  private void ExampleView(){
+  private void ExampleView() {
     model = new NuPlanner(new ArrayList<>());
     this.model.addUser("Ben");
     this.model.addUser("Nico");
     this.model.createEvent("Ben", "OOD", "Snell", true
-    , Day.Monday, 1800, Day.Wednesday, 1800, List.of("Nico"));
+            , Day.Monday, 1800, Day.Wednesday, 1800, List.of("Nico"));
     view = new NUPlannerTextView(model);
   }
 
   @Test
-  public void testView(){
+  public void testView() {
     ExampleView();
     System.out.println(view.toString());
     String[] test = view.toString().split("\n");

@@ -37,7 +37,7 @@ public class UtilsTest {
     this.example = new NuPlanner(new ArrayList<User>());
     ben = this.example.addUser("Ben");
     nico = this.example.addUser("Nico");
-    e1 = this.example.createEvent("Ben", "Working on OOD", "Snell",false,
+    e1 = this.example.createEvent("Ben", "Working on OOD", "Snell", false,
             Day.Monday, 2000, Day.Thursday, 2059, List.of("Nico"));
 
   }
