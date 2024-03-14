@@ -9,7 +9,7 @@ import model.Day;
 /**
  * This is the event class which represents an event in the system.
  */
- public class Event {
+ public final class Event {
   private String name;
   private String location;
   private boolean online;
@@ -22,15 +22,15 @@ import model.Day;
   private User host;
 
   /**
-   * Constructor for an event
+   * Constructor for an event.
    * @param name of the event and cannot be null
    * @param location of the event and cannot be null
    * @param online boolean for whether the event is online or not
-   * @param startDay day of the week of the event
-   * @param startTime of the event THIS IS OUR INVARIANT-- Startimes cannot be negative
-   * @param endDay of the event
-   * @param endTime of the event THIS IS OUR INVARIANT-- endtimes cannot be negative
-   * @param invitedUsers are the users that are a part of the event
+   * @param startDay start day event
+   * @param startTime start time of the event THIS IS OUR INVARIANT-- start times cannot be negative
+   * @param endDay end day of the event
+   * @param endTime end time of the event THIS IS OUR INVARIANT-- end times cannot be negative
+   * @param invitedUsers users that are a part of the event
    */
   Event(String name, String location, boolean online,
                Day startDay, int startTime, Day endDay,
@@ -123,6 +123,10 @@ import model.Day;
     return this.invitedUsers;
   }
 
+  /**
+   * Sets the invited users of this event to the given list of User
+   * @param attendees a list of User
+   */
   void setInvitedUsers(List<User> attendees){
     if (attendees == null){
       throw new IllegalArgumentException("Given List cannot be null");
@@ -131,6 +135,14 @@ import model.Day;
     this.invitedUsers = attendees;
   }
 
+  /**
+   * Compares the old list of invitees with the updated list of invitees and
+   * removes this event from the schedule of every user that is no longer
+   * in the updated list of invitees as well as adds this event to every user in the
+   * updated list of invitees.
+   * @param old list of User
+   * @param update list of User
+   */
   private void updateUsers(List<User> old, List<User> update){
     for (User u : old){
       if (!update.contains(u)){
@@ -143,7 +155,7 @@ import model.Day;
   }
 
   /**
-   * Sets this event in each user's schedule
+   * Adds this event to the schedule of every user in the list of invitees.
    */
   void sendInvite(){
       for (User attendee : this.invitedUsers){
@@ -157,6 +169,9 @@ import model.Day;
       }
   }
 
+  /**
+   * Removes this event from the schedule of all users in the list of invitees.
+   */
   void removeAll(){
     for (User attendee : this.invitedUsers){
       attendee.schedule.remove(this);
@@ -172,35 +187,40 @@ import model.Day;
   }
 
   /**
-   * Setter for the name of the event
+   * Sets the name of the event.
+   * @param name a String
    */
   void setName(String name){
    this.name = Objects.requireNonNull(name);
   }
 
   /**
-   * Setter for the location of the event
+   * Sets the location of the event.
+   * @param location a String
    */
   void setLocation(String location){
     this.location = Objects.requireNonNull(location);
   }
 
   /**
-   * Setter for online field
+   * Sets whether or not this event is available online.
+   * @param online a boolean
    */
   void setOnline(boolean online){
     this.online = online;
   }
 
   /**
-   * Setter for the startDay of the event
+   * Sets the start day of this event.
+   * @param startDay a Day
    */
   void setStartDay(Day startDay){
     this.startDay = Objects.requireNonNull(startDay);
   }
 
   /**
-   * Setter for the start time of the event
+   * Sets the start time of this event.
+   * @param time an int
    */
   void setStartTime(int time){
     if (time >= 0 && time < 2400){
@@ -211,14 +231,16 @@ import model.Day;
   }
 
   /**
-   * Setter for the end day of the event
+   * Sets the end day of this event.
+   * @param endDay a Day
    */
   void setEndDay(Day endDay){
     this.endDay = Objects.requireNonNull(endDay);
   }
 
   /**
-   * Setter for the end time of the event
+   * Sets the end time of this event.
+   * @param time an int
    */
   void setEndTime(int time){
     if (time >= 0 && time < 2400){
@@ -229,12 +251,17 @@ import model.Day;
   }
 
   /**
-   * Setter for the host of the event
+   * Sets the host of this event.
+   * @param newHost a User
    */
   void setHost(User newHost){
     this.host = newHost;
   }
 
+  /**
+   * Converts the list of invitees to a string.
+   * @return a String
+   */
   private String convertListOfInvitees(){
     String invitees = "";
     for (User u : this.invitedUsers){

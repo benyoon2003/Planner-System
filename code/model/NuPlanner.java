@@ -5,9 +5,16 @@ import java.util.List;
 
 import model.PlannerModel;
 
+/**
+ * Implements the planner model. The NUPlanner is a system where someone
+ * can visualize multiple users’ schedules and manipulate events on them.
+ */
 public class NuPlanner implements PlannerModel {
   private List<User> database;
 
+  /**
+   * 
+   */
   public NuPlanner() {
     this.database = new ArrayList<>();
   }
