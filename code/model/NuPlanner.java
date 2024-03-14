@@ -13,12 +13,16 @@ public class NuPlanner implements PlannerModel {
   private List<User> database;
 
   /**
-   * 
+   * Constructs an NuPlanner with an empty database.
    */
   public NuPlanner() {
     this.database = new ArrayList<>();
   }
 
+  /**
+   * Constructs an NuPlanner with the given database.
+   * @param database a list of User
+   */
   public NuPlanner(List<User> database) {
     this.database = database;
   }
@@ -122,11 +126,6 @@ public class NuPlanner implements PlannerModel {
     }
   }
 
-  /**
-   * Adds a default user to the database only if the given username does not exist.
-   * @param Name the uid of the user
-   * @return the created User
-   */
   @Override
   public User addUser(String Name) {
     try{
@@ -139,15 +138,7 @@ public class NuPlanner implements PlannerModel {
     }
   }
 
-  /**
-   * Adds a User to the database of users and checks if the user already exists in the database.
-   * If it does, the given user's schedule is compared to the existing user's schedule and
-   * the events of the schedule are only added if none of them conflict with the pre-existing
-   * schedule. If the user does not already exist in the database, it is simply added to
-   * the database.
-   * @param user a User
-   * @return the newly created User or the modified pre-existing User
-   */
+  @Override
   public void addUser(User user) {
     try{
       User userInDatabase = Utils.findUser(user.uid, this.database);
@@ -177,6 +168,7 @@ public class NuPlanner implements PlannerModel {
     return selected.eventsOnDay(day);
   }
 
+  @Override
   public List<User> getListOfUser() {
     return this.database;
   }
