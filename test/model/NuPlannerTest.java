@@ -1,12 +1,10 @@
 package model;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import view.PlannerView;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -36,7 +34,7 @@ public class NuPlannerTest {
   Event e3;
   Event e4;
 
-  private void ExampleNuPlanner() {
+  private void exampleNuPlanner() {
     this.example = new NuPlanner(new ArrayList<User>());
     ben = this.example.addUser("Ben");
     nico = this.example.addUser("Nico");
@@ -44,7 +42,7 @@ public class NuPlannerTest {
             Day.Monday, 2000, Day.Thursday, 2059, List.of("Nico"));
   }
 
-  private void ExampleNuPlanner2() {
+  private void exampleNuPlanner2() {
     this.example2 = new NuPlanner(new ArrayList<>());
     lucia = this.example2.addUser("Lucia");
     patrick = this.example2.addUser("Patrick");
@@ -60,7 +58,7 @@ public class NuPlannerTest {
 
   @Test
   public void testUploadSchedule() {
-    ExampleNuPlanner();
+    exampleNuPlanner();
     // Tests uploading an XML file into the database
     User jon = new User("Jon", List.of());
     Utils.writeToFile(jon);
@@ -77,13 +75,13 @@ public class NuPlannerTest {
 
   @Test
   public void testSaveSchedule() {
-    ExampleNuPlanner();
+    exampleNuPlanner();
     example.saveSchedule();
 
     assertEquals(Utils.readXML("Ben", example.getListOfUser()), ben);
     assertEquals(Utils.readXML("Nico", example.getListOfUser()), nico);
 
-    ExampleNuPlanner2();
+    exampleNuPlanner2();
     example2.saveSchedule();
 
     assertEquals(Utils.readXML("Lucia", example2.getListOfUser()), lucia);
@@ -94,19 +92,19 @@ public class NuPlannerTest {
 
   @Test
   public void testSelectSchedule() {
-    ExampleNuPlanner();
+    exampleNuPlanner();
     assertEquals(example.selectSchedule("Ben"), List.of(e1));
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testSelectScheduleException() {
-    ExampleNuPlanner();
+    exampleNuPlanner();
     assertEquals(example.selectSchedule("Lucia"), List.of(e1));
   }
 
   @Test
   public void testCreateEvent() {
-    ExampleNuPlanner();
+    exampleNuPlanner();
     Event e2 = this.example.createEvent("Ben", "OOD", "Snell", true
             , Day.Friday, 1800, Day.Saturday, 1800, List.of("Nico"));
     assertTrue(ben.schedule.contains(e2));
@@ -114,14 +112,14 @@ public class NuPlannerTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testCreateEventButEventConflictsWithHost() {
-    ExampleNuPlanner();
+    exampleNuPlanner();
     this.example.createEvent("Ben", "OOD", "Snell", true
             , Day.Wednesday, 1800, Day.Saturday, 1800, List.of("Nico"));
   }
 
   @Test
   public void testEventCreatedButConflictsWithOtherUser() {
-    ExampleNuPlanner2();
+    exampleNuPlanner2();
     Event e5 = this.example2.createEvent("Lucia", "OOD", "Snell", true
             , Day.Wednesday, 1800, Day.Wednesday, 2000, List.of("Patrick"));
     assertFalse(this.patrick.schedule.contains(e5));
@@ -131,21 +129,21 @@ public class NuPlannerTest {
 
   @Test
   public void testRemoveEventAsHost() {
-    ExampleNuPlanner();
+    exampleNuPlanner();
     this.example.removeEvent("Ben", e1);
     assertFalse(this.nico.schedule.contains(e1));
   }
 
   @Test
   public void testRemoveEventAsAttendee() {
-    ExampleNuPlanner();
+    exampleNuPlanner();
     this.example.removeEvent("Nico", e1);
     assertTrue(this.ben.schedule.contains(e1));
   }
 
   @Test
   public void testModifyEvent() {
-    ExampleNuPlanner();
+    exampleNuPlanner();
     this.example.modifyEvent(e1, "OOD", "Snell", false
             , Day.Wednesday, 1000, Day.Wednesday, 1200, List.of(), "Ben");
     assertFalse(this.nico.schedule.contains(e1));
@@ -153,26 +151,26 @@ public class NuPlannerTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testIllegalModifyEvent() {
-    ExampleNuPlanner();
+    exampleNuPlanner();
     this.example.modifyEvent(e1, "OOD", "Snell", false
             , Day.Wednesday, -1000, Day.Wednesday, 1200, List.of(), "Ben");
   }
 
   @Test
   public void testEventAtThisTime() {
-    ExampleNuPlanner();
+    exampleNuPlanner();
     assertEquals(this.example.eventsAtThisTime("Ben", 2000), List.of(e1));
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testEventAtThisTimeWithInvalidTime() {
-    ExampleNuPlanner();
+    exampleNuPlanner();
     this.example.eventsAtThisTime("Ben", 1000);
   }
 
   @Test
   public void testAddUser() {
-    ExampleNuPlanner();
+    exampleNuPlanner();
     // Tests if given uid is already in system
     try {
       example.addUser("Ben");
@@ -187,7 +185,7 @@ public class NuPlannerTest {
 
   @Test
   public void testAddUserWithExistingUser() {
-    ExampleNuPlanner();
+    exampleNuPlanner();
     PlannerModel copyOfExample = example;
     Event conflictedGolf = new Event("Golf", "course", false,
             Day.Monday, 2000, Day.Thursday, 2059, List.of());
@@ -213,13 +211,13 @@ public class NuPlannerTest {
 
   @Test
   public void testScheduleOnDay() {
-    ExampleNuPlanner();
+    exampleNuPlanner();
     assertEquals(this.example.scheduleOnDay("Ben", Day.Monday), List.of(e1));
   }
 
   @Test
   public void testScheduleOnDayWithNoEvents() {
-    ExampleNuPlanner();
+    exampleNuPlanner();
     assertEquals(this.example.scheduleOnDay("Ben", Day.Friday), List.of());
   }
 

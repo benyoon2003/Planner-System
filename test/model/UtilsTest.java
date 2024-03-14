@@ -1,6 +1,6 @@
 package model;
 
-import org.junit.Before;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -8,12 +8,14 @@ import java.util.List;
 
 import model.Day;
 import model.Event;
-import model.Tag;
 import model.User;
 import model.Utils;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * This is the testing suite for the utils class.
+ */
 public class UtilsTest {
   PlannerModel example;
 
