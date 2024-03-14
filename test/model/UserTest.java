@@ -4,8 +4,11 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+/**
+ * This is the testing suite for the User class.
+ */
 public class UserTest {
 
   User example;
@@ -14,7 +17,7 @@ public class UserTest {
 
   Event two;
 
-  private void ExampleSchedule() {
+  private void exampleSchedule() {
     one = new Event("Host Event", "Snell", false,
             Day.Monday, 1000, Day.Tuesday, 1800, List.of());
     two = new Event("Host Event", "Snell", false,
@@ -22,7 +25,7 @@ public class UserTest {
     example = new User("Example", List.of(one, two));
   }
 
-  private void ExampleConflictSchedule() {
+  private void exampleConflictSchedule() {
     one = new Event("Host Event", "Snell", false,
             Day.Monday, 1000, Day.Thursday, 1800, List.of());
     two = new Event("Host Event", "Snell", false,
@@ -32,7 +35,7 @@ public class UserTest {
     two.setInvitedUsers(List.of(example));
   }
 
-  private void Example2ConflictSchedule() {
+  private void example2ConflictSchedule() {
     one = new Event("Host Event", "Snell", false,
             Day.Friday, 1000, Day.Thursday, 1800, List.of());
     two = new Event("Host Event", "Snell", false,
@@ -42,7 +45,7 @@ public class UserTest {
     two.setInvitedUsers(List.of(example));
   }
 
-  private void ExampleAddEvent() {
+  private void exampleAddEvent() {
     one = new Event("Host Event", "Snell", false,
             Day.Monday, 1000, Day.Tuesday, 1800, List.of());
     two = new Event("Host Event", "Snell", false,
@@ -52,7 +55,7 @@ public class UserTest {
     two.setInvitedUsers(List.of(example));
   }
 
-  private void ExampleAddEventInvalid() {
+  private void exampleAddEventInvalid() {
     one = new Event("Host Event", "Snell", false,
             Day.Monday, 1000, Day.Thursday, 1800, List.of());
     two = new Event("Host Event", "Snell", false,
@@ -64,36 +67,36 @@ public class UserTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testConflict() {
-    ExampleConflictSchedule();
+    exampleConflictSchedule();
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void test2Conflict() {
-    Example2ConflictSchedule();
+    example2ConflictSchedule();
   }
 
   @Test
   public void testSortEvents() {
-    ExampleSchedule();
+    exampleSchedule();
     assertEquals(this.example.schedule.get(0), two);
   }
 
   @Test
   public void testAddEvent() {
-    ExampleAddEvent();
+    exampleAddEvent();
     this.example.addEvent(two);
     assertEquals(this.example.schedule.get(0), two);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidAddEvent() {
-    ExampleAddEventInvalid();
+    exampleAddEventInvalid();
     this.example.addEvent(two);
   }
 
   @Test
   public void testEventOnDay() {
-    ExampleSchedule();
+    exampleSchedule();
     assertEquals(this.example.eventsOnDay(Day.Monday), List.of(two, one));
   }
 }
