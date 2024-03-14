@@ -1,6 +1,9 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,6 +29,7 @@ import java.util.Objects;
       throw new IllegalArgumentException("Schedule has conflicts");
     }else {
       this.schedule = new ArrayList<>(schedule);
+      this.sortEvents();
     }
   }
 
@@ -77,6 +81,20 @@ import java.util.Objects;
   }
 
   private void sortEvents(){
+    this.schedule.sort(new EventComparator());
+  }
+
+  private int convertEventToStartTime(Event e){
+    List DaysOrder = List.of(Day.Sunday, Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday
+            , Day.Friday, Day.Saturday);
+    return DaysOrder.indexOf(e.getStartDay()) * 2400 + e.getStartTime();
+  }
+
+  private class EventComparator implements Comparator<Event>{
+    @Override
+    public int compare(Event e1, Event e2) {
+      return convertEventToStartTime(e1) - convertEventToStartTime(e2);
+    }
 
   }
 
@@ -92,6 +110,7 @@ import java.util.Objects;
     copy.add(e);
     if (!conflict(copy)){
       this.schedule.add(e);
+      this.sortEvents();
     }else {
       throw new IllegalArgumentException("Event conflicts with schedule");
     }
@@ -105,7 +124,7 @@ import java.util.Objects;
   List<Event> eventsOnDay(Day day){
     List<Event> events = new ArrayList<>();
     for (Event e : this.schedule){
-      if(e.getStartDay().equals(day)){
+      if(e.getStartDay().equals(day) || e.getEndDay().equals(day)){
         events.add(e);
       }
     }
