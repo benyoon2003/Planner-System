@@ -115,7 +115,7 @@ public class NuPlannerTest {
   @Test(expected = IllegalArgumentException.class)
   public void testCreateEventButEventConflictsWithHost() {
     ExampleNuPlanner();
-    Event e2 = this.example.createEvent("Ben", "OOD", "Snell", true
+    this.example.createEvent("Ben", "OOD", "Snell", true
             , Day.Wednesday, 1800, Day.Saturday, 1800, List.of("Nico"));
   }
 
@@ -125,6 +125,7 @@ public class NuPlannerTest {
     Event e5 = this.example2.createEvent("Lucia", "OOD", "Snell", true
             , Day.Wednesday, 1800, Day.Wednesday, 2000, List.of("Patrick"));
     assertFalse(this.patrick.schedule.contains(e5));
+    //makes sure that the event is not removed from the host's schedule.
     assertTrue(this.lucia.schedule.contains(e5));
   }
 
