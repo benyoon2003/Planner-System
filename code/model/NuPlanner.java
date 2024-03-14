@@ -90,18 +90,18 @@ public class NuPlanner implements PlannerModel {
 
 
   @Override
-  public Event eventsAtThisTime(String user, int time) {
+  public List<Event> eventsAtThisTime(String user, int time) {
     User selected = Utils.findUser(user, this.database);
-    Event specifcEvent = null;
+    List<Event> list = new ArrayList<>();
     for (Event e : selected.schedule){
       if (e.getStartTime() == time){
-        e = specifcEvent;
+        list.add(e);
       }
     }
-    if (specifcEvent == null){
+    if (list.isEmpty()){
       throw new IllegalArgumentException("No event at this time");
-    }else {
-      return specifcEvent;
+    }else{
+      return list;
     }
   }
 

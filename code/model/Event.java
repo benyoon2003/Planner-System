@@ -215,7 +215,7 @@ import model.Day;
   private String convertListOfInvitees(){
     String invitees = "";
     for (User u : this.invitedUsers){
-      invitees.concat(u.uid + "\n");
+      invitees += u.uid + "\n       ";
     }
     return invitees;
   }
@@ -229,7 +229,7 @@ import model.Day;
     output += "       name: " + this.name + "\n";
     output += "       time: " + this.startDay.toString() + String.format(": %d -> ", this.startTime);
     output += this.endDay.toString() + String.format(": %d\n", this.endTime);
-    output += "       location:" + this.location + "\n";
+    output += "       location: " + this.location + "\n";
     output += "       online: " + this.online + "\n";
     output += "       invitees: " + convertListOfInvitees() + "\n";
     return output;

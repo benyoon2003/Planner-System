@@ -100,13 +100,15 @@ public class NuPlannerTest {
   }
 
   @Test
-  public void testeventAtThisTime(){
-
+  public void testEventAtThisTime(){
+    ExampleNuPlanner();
+    assertEquals(this.example.eventsAtThisTime("Ben", 2000), List.of(e1));
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testEventAtThisTimeWithInvalidTime(){
-
+    ExampleNuPlanner();
+    this.example.eventsAtThisTime("Ben", 1000);
   }
 
   @Test
@@ -153,12 +155,14 @@ public class NuPlannerTest {
 
   @Test
   public void testScheduleOnDay(){
-
+    ExampleNuPlanner();
+    assertEquals(this.example.scheduleOnDay("Ben", Day.Monday), List.of(e1));
   }
 
   @Test
   public void testScheduleOnDayWithNoEvents(){
-    
+    ExampleNuPlanner();
+    assertEquals(this.example.scheduleOnDay("Ben", Day.Friday), List.of());
   }
 
 

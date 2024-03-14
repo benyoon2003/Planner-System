@@ -60,7 +60,7 @@ public interface PlannerModel {
   /**
    * See events occurring at a given time for the given user.
    */
-  public Event eventsAtThisTime(String user, int time);
+  public List<Event> eventsAtThisTime(String user, int time);
 
   /**
    * Creates a user with no events.
@@ -70,7 +70,7 @@ public interface PlannerModel {
 
   /**
    * Creates a user with no events.
-   * @param User a user
+   * @param user a user
    */
   public void addUser(User user);
 
