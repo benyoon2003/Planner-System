@@ -36,7 +36,7 @@ public interface PlannerModel {
    * @param endDay of the event
    * @param endTime of the event
    * @param invitedUsers of the event
-   * @throws IllegalArgumentException if host is not at the start of invited list
+   * @throws IllegalArgumentException if the invited list of users are not in the system
    */
   public Event createEvent(String user, String name, String location, boolean online,
                           Day startDay, int startTime, Day endDay,
@@ -88,6 +88,9 @@ public interface PlannerModel {
    */
   public List<Event> scheduleOnDay(String user, Day day);
 
-
+  /**
+   * This method returns the list of Users in the database.
+   * @return the list of users in the database.
+   */
   public List<User> getListOfUser();
 }
