@@ -80,16 +80,30 @@ import java.util.Objects;
     }
   }
 
+  /**
+   * This method sorts the users schedule into chronological order.
+   * This is done using the sort method in the list class.
+   */
   private void sortEvents(){
     this.schedule.sort(new EventComparator());
   }
 
+  /**
+   * This method converts the day and time of the event into a time from Sunday at 0000.
+   * This allows the comparator to compare event using one value.
+   * @param e the given event
+   * @return the time of the event in extended dateTime
+   */
   private int convertEventToStartTime(Event e){
     List DaysOrder = List.of(Day.Sunday, Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday
             , Day.Friday, Day.Saturday);
     return DaysOrder.indexOf(e.getStartDay()) * 2400 + e.getStartTime();
   }
 
+  /**
+   * This class is a small implementation of the comparator interface to be
+   * used to sort the schedule.
+   */
   private class EventComparator implements Comparator<Event>{
     @Override
     public int compare(Event e1, Event e2) {

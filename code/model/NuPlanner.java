@@ -29,7 +29,13 @@ public class NuPlanner implements PlannerModel {
     }
   }
 
-  List<User> mapUserList(List<String> users){
+  /**
+   * This function takes in a given list of strings with the name of users to convert
+   * to a list of users which makes for creating events with strings easier.
+   * @param users the list of string of usernames
+   * @return the list of users in the same order.
+   */
+  private List<User> mapUserList(List<String> users){
     List<User> userList = new ArrayList<>();
     for (String user : users){
       userList.add(Utils.findUser(user, this.database));
