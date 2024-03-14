@@ -20,8 +20,6 @@ public class UserTest {
     two = new Event("Host Event", "Snell", false,
             Day.Sunday, 1200, Day.Monday, 800, List.of());
     example = new User("Example", List.of(one, two));
-    one.setInvitedUsers(List.of(example));
-    two.setInvitedUsers(List.of(example));
   }
 
   private void ExampleConflictSchedule(){
