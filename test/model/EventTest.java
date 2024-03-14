@@ -10,11 +10,14 @@ import model.Event;
 import model.User;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class EventTest {
 
   Event example;
+
+  Event event2;
 
   User user1;
 
@@ -52,6 +55,17 @@ public class EventTest {
     this.example.sendInvite();
   }
 
+  private void ExampleHostUserEventConflict(){
+    this.user1 = new User("User1", new ArrayList<>());
+    this.user2 = new User("User 2", new ArrayList<>());
+    this.example = new Event("Host Event", "Snell", false,
+            Day.Monday, 1000, Day.Tuesday, 1800, List.of(user1, user2));
+    this.event2 = new Event("Host Event", "Snell", false,
+            Day.Monday, 1000, Day.Tuesday, 1800, List.of(user2));
+    this.event2.sendInvite();
+    this.example.sendInvite();
+  }
+
 
   @Test (expected = IllegalArgumentException.class)
   public void testInvalidTimes(){
@@ -77,6 +91,12 @@ public class EventTest {
   public void testSendInvite(){
     ExampleHostUserEvent();
     assertTrue(user2.schedule.contains(this.example));
+  }
+
+  @Test
+  public void testSendInviteWithConflict(){
+    ExampleHostUserEventConflict();
+    assertFalse(user2.schedule.contains(this.example));
   }
 
 
