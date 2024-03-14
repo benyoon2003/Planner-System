@@ -49,7 +49,7 @@ public class NuPlanner implements PlannerModel {
     User u = Utils.findUser(user, this.database);
     if(this.database.contains(u)){
       List<String> invitedUserCopy = new ArrayList<>(invitedUsers);
-      invitedUserCopy.addFirst(user);
+      invitedUserCopy.add(0, user);
       Event newEvent = new Event(name, location, online, startDay, startTime, endDay
       , endTime, mapUserList(invitedUserCopy));
       newEvent.sendInvite();
