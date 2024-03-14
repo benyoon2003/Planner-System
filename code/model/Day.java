@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Represents a day of the week.
+ */
 public enum Day {
 
   Sunday("Sunday"), Monday("Monday"), Tuesday("Tuesday"), Wednesday("Wednesday"),
@@ -7,9 +10,15 @@ public enum Day {
 
   protected final String day;
 
+  /**
+   * Constructs a Day enum.
+   * @param day a String
+   */
   Day(String day) {
     this.day = day;
   }
+
+  @Override
   public String toString(){
     return day;
   }
