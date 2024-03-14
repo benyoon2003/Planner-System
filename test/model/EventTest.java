@@ -60,7 +60,7 @@ public class EventTest {
     this.user2 = new User("User 2", new ArrayList<>());
     this.example = new Event("Host Event", "Snell", false,
             Day.Monday, 1000, Day.Tuesday, 1800, List.of(user1, user2));
-    this.event2 = new Event("Host Event", "Snell", false,
+    this.event2 = new Event("Event 2", "Snell", false,
             Day.Monday, 1000, Day.Tuesday, 1800, List.of(user2));
     this.event2.sendInvite();
     this.example.sendInvite();
@@ -98,7 +98,5 @@ public class EventTest {
     ExampleHostUserEventConflict();
     assertFalse(user2.schedule.contains(this.example));
   }
-
-
 
 }
