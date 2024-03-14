@@ -57,13 +57,6 @@ public class NuPlannerTest {
     e4 = this.example2.createEvent("Spongebob", "flipping patties", "Krusty Krab",
             false, Day.Friday, 600, Day.Saturday, 700, List.of("Patrick"));
   }
-  private void ExampleNuPlannerException(){
-    this.example = new NuPlanner(new ArrayList<User>());
-    ben = this.example.addUser("Ben");
-    nico = this.example.addUser("Nico");
-    e1 = this.example.createEvent("Ben", "Working on OOD", "Snell",false,
-            Day.Monday, 2000, Day.Thursday, 2059, List.of("Nico"));
-  }
 
   @Test
   public void testUploadSchedule() {
@@ -130,22 +123,31 @@ public class NuPlannerTest {
 
   @Test
   public void testRemoveEventAsHost(){
-    
+    ExampleNuPlanner();
+    this.example.removeEvent("Ben", e1);
+    assertFalse(this.nico.schedule.contains(e1));
   }
 
   @Test
   public void testRemoveEventAsAttendee(){
-
+    ExampleNuPlanner();
+    this.example.removeEvent("Nico", e1);
+    assertTrue(this.ben.schedule.contains(e1));
   }
 
   @Test
   public void testModifyEvent(){
-
+    ExampleNuPlanner();
+    this.example.modifyEvent(e1, "OOD", "Snell", false
+    , Day.Wednesday, 1000, Day.Wednesday, 1200, List.of(), "Ben");
+    assertFalse(this.nico.schedule.contains(e1));
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testIllegalModifyEvent(){
-
+    ExampleNuPlanner();
+    this.example.modifyEvent(e1, "OOD", "Snell", false
+            , Day.Wednesday, -1000, Day.Wednesday, 1200, List.of(), "Ben");
   }
 
   @Test

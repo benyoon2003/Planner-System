@@ -124,7 +124,22 @@ import model.Day;
   }
 
   void setInvitedUsers(List<User> attendees){
-    this.invitedUsers = Objects.requireNonNull(attendees);
+    if (attendees == null){
+      throw new IllegalArgumentException("Given List cannot be null");
+    }
+    this.updateUsers(this.invitedUsers, attendees);
+    this.invitedUsers = attendees;
+  }
+
+  private void updateUsers(List<User> old, List<User> update){
+    for (User u : old){
+      if (!update.contains(u)){
+        u.schedule.remove(this);
+      }
+    }
+    for(User u : update){
+      u.addEvent(this);
+    }
   }
 
   /**
@@ -188,7 +203,7 @@ import model.Day;
    * Setter for the start time of the event
    */
   void setStartTime(int time){
-    if (startTime >= 0 && startTime < 2400){
+    if (time >= 0 && time < 2400){
       this.startTime = time;
     } else {
       throw new IllegalArgumentException("Invalid Start Time");
@@ -206,7 +221,7 @@ import model.Day;
    * Setter for the end time of the event
    */
   void setEndTime(int time){
-    if (endTime >= 0 && endTime < 2400){
+    if (time >= 0 && time < 2400){
       this.endTime = time;
     } else {
       throw new IllegalArgumentException("Invalid End Time");
