@@ -50,12 +50,23 @@ public interface PlannerModel {
    * Remove an event from a user's schedule.
    *
    * @param user the given user
+   * @param e the given even
    */
   public void removeEvent(String user, Event e);
 
   /**
    * Create, modify, or remove an event on a user’s schedule,
    * which may affect other user’s schedule.
+   * @param e the event wanting to be modified
+   * @param name the new name of the event
+   * @param location the new location
+   * @param online still online?
+   * @param startDay the new startDay
+   * @param startTime the new startTime
+   * @param endDay the new endDay
+   * @param endTime the new endTime
+   * @param invitedUsers the new list of invited users
+   * @param user the new host
    */
   public void modifyEvent(Event e, String name, String location, boolean online,
                           Day startDay, int startTime, Day endDay,
