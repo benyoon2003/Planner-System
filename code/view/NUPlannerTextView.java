@@ -27,14 +27,14 @@ public class NUPlannerTextView implements PlannerView {
   public String toString(){
     String output = "";
     for(User user : model.getListOfUser()){
-      output += "name: " + user.toString() + "\n";
-      output += "Sunday: " + daySchedule(user.toString(), Day.Sunday);
-      output += "Monday: " + daySchedule(user.toString(), Day.Monday);
-      output += "Tuesday: " + daySchedule(user.toString(), Day.Tuesday);
-      output += "Wednesday: " + daySchedule(user.toString(), Day.Wednesday);
-      output += "Thursday: " + daySchedule(user.toString(), Day.Thursday);
-      output += "Friday: " + daySchedule(user.toString(), Day.Friday);
-      output += "Saturday: " + daySchedule(user.toString(), Day.Saturday);
+      output += "User: " + user.toString() + "\n";
+      output += "Sunday: \n" + daySchedule(user.toString(), Day.Sunday);
+      output += "Monday: \n" + daySchedule(user.toString(), Day.Monday);
+      output += "Tuesday: \n" + daySchedule(user.toString(), Day.Tuesday);
+      output += "Wednesday: \n" + daySchedule(user.toString(), Day.Wednesday);
+      output += "Thursday: \n" + daySchedule(user.toString(), Day.Thursday);
+      output += "Friday: \n" + daySchedule(user.toString(), Day.Friday);
+      output += "Saturday: \n" + daySchedule(user.toString(), Day.Saturday);
     }
     return output;
   }

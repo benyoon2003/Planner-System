@@ -229,9 +229,9 @@ import model.Day;
     output += "       name: " + this.name + "\n";
     output += "       time: " + this.startDay.toString() + String.format(": %d -> ", this.startTime);
     output += this.endDay.toString() + String.format(": %d\n", this.endTime);
-    output += "       " + this.location + "\n";
+    output += "       location:" + this.location + "\n";
     output += "       online: " + this.online + "\n";
-    output += "       " + convertListOfInvitees();
+    output += "       invitees: " + convertListOfInvitees() + "\n";
     return output;
   }
 
