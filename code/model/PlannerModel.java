@@ -11,6 +11,8 @@ public interface PlannerModel {
 
   /**
    * Upload an XML file representing a single user's schedule.
+   *
+   * @param path a String
    */
   public void uploadSchedule(String path);
 
