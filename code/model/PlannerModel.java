@@ -23,8 +23,8 @@ public interface PlannerModel {
 
   /**
    * Select one of the users to display their schedule.
-   *
    * @param user a String
+   * @return List of Event
    */
   public List<Event> selectSchedule(String user);
 
@@ -40,6 +40,7 @@ public interface PlannerModel {
    * @param endDay       of the event
    * @param endTime      of the event
    * @param invitedUsers of the event
+   * @return an Event
    * @throws IllegalArgumentException if the invited list of users are not in the system
    */
   public Event createEvent(String user, String name, String location, boolean online,
@@ -49,8 +50,8 @@ public interface PlannerModel {
   /**
    * Remove an event from a user's schedule.
    *
-   * @param user the given user
-   * @param e the given even
+   * @param user the given User
+   * @param e the given Event
    */
   public void removeEvent(String user, Event e);
 
@@ -75,16 +76,19 @@ public interface PlannerModel {
 
   /**
    * See events occurring at a given time for the given user.
+   * @param user a String
+   * @param time an int
+   * @return a List of Event
    */
   public List<Event> eventsAtThisTime(String user, int time);
 
   /**
    * Adds a default user to the database only if the given username does not exist.
    *
-   * @param Name the uid of the user
-   * @return the created User
+   * @param name a String
+   * @return a User
    */
-  public User addUser(String Name);
+  public User addUser(String name);
 
   /**
    * Adds a User to the database of users and checks if the user already exists in the database.
@@ -94,7 +98,6 @@ public interface PlannerModel {
    * the database.
    *
    * @param user a User
-   * @return the newly created User or the modified pre-existing User
    */
   public void addUser(User user);
 
@@ -108,9 +111,9 @@ public interface PlannerModel {
   public List<Event> scheduleOnDay(String user, Day day);
 
   /**
-   * This method returns the list of Users in the database.
+   * This method returns the list of User in the database.
    *
-   * @return the list of users in the database.
+   * @return a list of User
    */
   public List<User> getListOfUser();
 }

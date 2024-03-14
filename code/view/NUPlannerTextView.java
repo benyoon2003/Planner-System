@@ -8,7 +8,7 @@ import model.PlannerModel;
 import model.User;
 
 /**
- * This is the text version of the view of a planner model
+ * This is the text version of the view of a planner model.
  */
 public class NUPlannerTextView implements PlannerView {
 
