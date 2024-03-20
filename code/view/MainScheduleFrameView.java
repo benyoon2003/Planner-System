@@ -2,6 +2,7 @@ package view;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import javax.swing.*;
 
@@ -9,8 +10,6 @@ import model.NuPlanner;
 import model.ReadOnlyPlannerModel;
 public class MainScheduleFrameView extends JFrame implements PlannerView {
   private final ReadOnlyPlannerModel model;
-
-
 
   private final JPanel mainPanel;
   private final PlannerPanel planner;
@@ -20,7 +19,7 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     super();
     setTitle("Main System View");
     setSize(800, 800);
-
+    this.model = Objects.requireNonNull(model);
     this.mainPanel = new JPanel();
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
     this.planner = new WeekViewPanel(model);
