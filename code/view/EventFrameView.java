@@ -49,13 +49,20 @@ public class EventFrameView extends JFrame implements EventView {
     JPanel startingTimePanel = new JPanel(new FlowLayout());
     JLabel startingTimeLabel = new JLabel("Starting time:");
     this.startingTime = new JTextArea();
-    //startingTimePanel.add
+    startingTimePanel.add(startingTimeLabel);
+    startingTimePanel.add(this.startingTime);
 
-    JLabel endingDayLabel = new JLabel("Ending Day:");
+    JPanel endingDayPanel = new JPanel(new FlowLayout());
+    JLabel endingDayLabel = new JLabel("Starting Day:");
     this.endingDay = new JComboBox<>(days);
+    endingDayPanel.add(startingDayLabel);
+    endingDayPanel.add(this.endingDay);
 
-    JLabel endingTimeLabel = new JLabel("Ending time:");
+    JPanel endingTimePanel = new JPanel(new FlowLayout());
+    JLabel endingTimeLabel = new JLabel("Starting time:");
     this.endingTime = new JTextArea();
+    startingTimePanel.add(startingTimeLabel);
+    startingTimePanel.add(this.startingTime);
 
     this.modifyButton = new JButton("Modify event");
     this.removeButton = new JButton("Remove event");
@@ -70,7 +77,7 @@ public class EventFrameView extends JFrame implements EventView {
     this.eventPanel.add(locationPanel);
     this.eventPanel.add(startingDayPanel);
 
-
+    this.eventPanel.add(startingTimePanel);
 
     this.eventPanel.add(this.availUser);
     this.eventPanel.add(this.modifyButton);
