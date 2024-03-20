@@ -15,7 +15,7 @@ public class EventFrameView extends JFrame implements EventView{
   private final EventPanel startingTime;
   private final EventPanel endingDay;
   private final EventPanel endingTime;
-  
+
   public EventFrameView(ReadOnlyPlannerModel model) {
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.panel = new JPlannerPanel(model);
