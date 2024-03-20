@@ -4,12 +4,14 @@ import java.io.IOException;
 
 import javax.swing.*;
 
-public class NUPlannerFrameView  extends JFrame implements PlannerView {
+import model.ReadOnlyPlannerModel;
 
-  private final JSimonPanel panel;
-  public SimpleSimonView(ReadOnlySimon model) {
+public class MainScheduleFrameView extends JFrame implements PlannerView {
+
+  private final JPlannerPanel panel;
+  public MainScheduleFrameView(ReadOnlyPlannerModel model) {
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.panel = new JSimonPanel(model);
+    this.panel = new JPlannerPanel(model);
     this.add(panel);
     this.pack();
   }
