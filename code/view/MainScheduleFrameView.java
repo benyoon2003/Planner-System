@@ -7,8 +7,9 @@ import javax.swing.*;
 
 import model.NuPlanner;
 import model.ReadOnlyPlannerModel;
-
 public class MainScheduleFrameView extends JFrame implements PlannerView {
+  private final ReadOnlyPlannerModel model;
+
 
 
   private final JPanel mainPanel;
@@ -25,6 +26,7 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     this.planner = new WeekViewPanel(model);
 
   }
+
 
 
 
