@@ -159,7 +159,7 @@ public class NuPlanner implements PlannerModel {
         }
       }
     } catch (IllegalArgumentException e) {
-      this.database.add(user);
+      this.database.add(new User(user.uid, user.schedule));
     }
   }
 

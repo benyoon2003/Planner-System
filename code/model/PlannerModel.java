@@ -7,7 +7,7 @@ import java.util.List;
  * called PlannerModel where someone can manipulate events on multiple users'
  * schedules.
  */
-public interface PlannerModel {
+public interface PlannerModel extends ReadOnlyPlannerModel{
 
   /**
    * Upload an XML file representing a single user's schedule.

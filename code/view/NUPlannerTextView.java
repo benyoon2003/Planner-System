@@ -5,6 +5,7 @@ import java.io.IOException;
 import model.Day;
 import model.Event;
 import model.PlannerModel;
+import model.ReadOnlyPlannerModel;
 import model.User;
 
 /**
@@ -12,9 +13,9 @@ import model.User;
  */
 public class NUPlannerTextView implements PlannerView {
 
-  private PlannerModel model;
+  private ReadOnlyPlannerModel model;
 
-  public NUPlannerTextView(PlannerModel model) {
+  public NUPlannerTextView(ReadOnlyPlannerModel model) {
     this.model = model;
   }
 
