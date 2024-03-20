@@ -1,6 +1,5 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,7 +27,8 @@ public final class Event {
    * @param location     of the event and cannot be null
    * @param online       boolean for whether the event is online or not
    * @param startDay     start day event
-   * @param startTime    start time of the event THIS IS OUR INVARIANT-- start times cannot be negative
+   * @param startTime    start time of the event THIS IS OUR INVARIANT-- start times cannot be
+   *                     negative
    * @param endDay       end day of the event
    * @param endTime      end time of the event THIS IS OUR INVARIANT-- end times cannot be negative
    * @param invitedUsers users that are a part of the event
@@ -79,7 +79,7 @@ public final class Event {
   }
 
   /**
-   * Getter for the feild online
+   * Getter for the field online.
    *
    * @return whether the event is online
    */
@@ -133,7 +133,7 @@ public final class Event {
   }
 
   /**
-   * Sets the invited users of this event to the given list of User
+   * Sets the invited users of this event to the given list of User.
    *
    * @param attendees a list of User
    */
@@ -177,7 +177,6 @@ public final class Event {
           attendee.addEvent(this);
         } catch (IllegalArgumentException ignored) {
         }
-        ;
       }
     }
   }
@@ -294,13 +293,14 @@ public final class Event {
   }
 
   /**
-   * Creates a string representation of an Event
+   * Creates a string representation of an Event.
    */
   @Override
   public String toString() {
     String output = "";
     output += "       name: " + this.name + "\n";
-    output += "       time: " + this.startDay.toString() + String.format(": %d -> ", this.startTime);
+    output += "       time: " + this.startDay.toString() + String.format(": %d -> ",
+            this.startTime);
     output += this.endDay.toString() + String.format(": %d\n", this.endTime);
     output += "       location: " + this.location + "\n";
     output += "       online: " + this.online + "\n";

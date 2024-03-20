@@ -1,8 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -39,7 +37,7 @@ public class User {
    *
    * @param schedule the given schedule
    * @return a boolean value to whether there is a conflict, true for conflict false for
-   * no conflict.
+   *         no conflict.
    */
   private boolean conflict(List<Event> schedule) {
     List<Event> copy = new ArrayList<Event>(schedule);
@@ -61,26 +59,20 @@ public class User {
     if (one.equals(two)) {
       return false;
     }
-    List DaysOrder = List.of(Day.Sunday, Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday
+    List daysOrder = List.of(Day.Sunday, Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday
             , Day.Friday, Day.Saturday);
-    int startTimeOfOne = DaysOrder.indexOf(one.getStartDay()) * 2400 + one.getStartTime();
-    int startTimeOfTwo = DaysOrder.indexOf(two.getStartDay()) * 2400 + two.getStartTime();
-    int endTimeOfOne = DaysOrder.indexOf(one.getEndDay()) * 2400 + one.getEndTime();
-    int endTimeOfTwo = DaysOrder.indexOf(two.getEndDay()) * 2400 + two.getEndTime();
+    int startTimeOfOne = daysOrder.indexOf(one.getStartDay()) * 2400 + one.getStartTime();
+    int startTimeOfTwo = daysOrder.indexOf(two.getStartDay()) * 2400 + two.getStartTime();
+    int endTimeOfOne = daysOrder.indexOf(one.getEndDay()) * 2400 + one.getEndTime();
+    int endTimeOfTwo = daysOrder.indexOf(two.getEndDay()) * 2400 + two.getEndTime();
     if (startTimeOfOne > endTimeOfOne) {
       endTimeOfOne = endTimeOfOne + 10080;
     }
     if (startTimeOfTwo > endTimeOfTwo) {
       endTimeOfTwo = endTimeOfTwo + 10080;
     }
-    if (startTimeOfOne <= startTimeOfTwo && endTimeOfOne > startTimeOfTwo) {
-      return true;
-    }
-    if (startTimeOfTwo <= startTimeOfOne && endTimeOfTwo > startTimeOfOne) {
-      return true;
-    } else {
-      return false;
-    }
+    return (startTimeOfOne <= startTimeOfTwo && endTimeOfOne > startTimeOfTwo) ||
+            (startTimeOfTwo <= startTimeOfOne && endTimeOfTwo > startTimeOfOne);
   }
 
   /**
@@ -99,9 +91,9 @@ public class User {
    * @return the time of the event in extended dateTime
    */
   private int convertEventToStartTime(Event e) {
-    List DaysOrder = List.of(Day.Sunday, Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday
+    List daysOrder = List.of(Day.Sunday, Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday
             , Day.Friday, Day.Saturday);
-    return DaysOrder.indexOf(e.getStartDay()) * 2400 + e.getStartTime();
+    return daysOrder.indexOf(e.getStartDay()) * 2400 + e.getStartTime();
   }
 
   /**

@@ -9,7 +9,7 @@ import model.PlannerModel;
  * Implements the planner model. The NUPlanner is a system where someone
  * can visualize multiple users’ schedules and manipulate events on them.
  */
-public class NuPlanner implements PlannerModel {
+public final class NuPlanner implements PlannerModel {
   private List<User> database;
 
   /**
@@ -23,6 +23,8 @@ public class NuPlanner implements PlannerModel {
    * Constructs an NuPlanner with the given database.
    *
    * @param database a list of User
+   * @implNote The passed in list of User will always be valid if the planner
+   *           is instantiated following the steps described in the README
    */
   public NuPlanner(List<User> database) {
     this.database = database;
@@ -129,12 +131,12 @@ public class NuPlanner implements PlannerModel {
   }
 
   @Override
-  public User addUser(String Name) {
+  public User addUser(String name) {
     try {
-      Utils.findUser(Name, this.database);
+      Utils.findUser(name, this.database);
       throw new IllegalArgumentException("Given Name already exists");
     } catch (IllegalArgumentException e) {
-      User newUser = new User(Name, List.of());
+      User newUser = new User(name, List.of());
       this.database.add(newUser);
       return newUser;
     }
@@ -151,11 +153,12 @@ public class NuPlanner implements PlannerModel {
         try {
           userInDatabase.addEvent(e);
         } catch (IllegalArgumentException ignored) {
+
           // Reset schedule if any of the events from the given user
           // conflict with the pre-existing user
           userInDatabase.schedule = copyOfUserInDatabaseSchedule;
-          throw new IllegalArgumentException("The given user conflicts with the pre-existing user's" +
-                  "schedule.");
+          throw new IllegalArgumentException("The given user conflicts with " +
+                  "the pre-existing user's schedule.");
         }
       }
     } catch (IllegalArgumentException e) {

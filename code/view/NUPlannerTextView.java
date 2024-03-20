@@ -9,7 +9,7 @@ import model.ReadOnlyPlannerModel;
 import model.User;
 
 /**
- * This is the text version of the view of a planner model
+ * This is the text version of the view of a planner model.
  */
 public class NUPlannerTextView implements PlannerView {
 
@@ -21,7 +21,7 @@ public class NUPlannerTextView implements PlannerView {
 
 
   /**
-   * This creates a string of the events on a given day
+   * This creates a string of the events on a given day.
    *
    * @param user with the events being displayed.
    * @param day  the day on which the event s are being pulled.

@@ -10,7 +10,7 @@ public interface PlannerView {
   /**
    * Renders the given model.
    *
-   * @throws IOException
+   * @throws IOException if render fails for some reason
    */
   void render() throws IOException;
 

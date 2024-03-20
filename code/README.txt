@@ -38,7 +38,7 @@ Quick Start:
  the model and has no control over the system.
 
  Key Subcomponents:
-    Key subcompnents would be Users and Events, both of these objects work in tandem to
+    Key subcomponents would be Users and Events, both of these objects work in tandem to
  create the system. This is why the User has ties to its events and Events have ties to
  their users/attendees.
 
