@@ -23,6 +23,8 @@ public final class NuPlanner implements PlannerModel {
    * Constructs an NuPlanner with the given database.
    *
    * @param database a list of User
+   * @implNote The passed in list of User will always be valid if the planner
+   *           is instantiated following the steps described in the README
    */
   public NuPlanner(List<User> database) {
     this.database = database;
