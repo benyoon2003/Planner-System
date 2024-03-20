@@ -38,13 +38,18 @@ public class EventFrameView extends JFrame implements EventView {
     locationPanel.add(this.isOnline);
     locationPanel.add(this.location);
 
+    JPanel startingDayPanel = new JPanel(new FlowLayout());
     JLabel startingDayLabel = new JLabel("Starting Day:");
     Day[] days = {Day.Monday, Day.Tuesday, Day.Wednesday,
             Day.Thursday, Day.Friday, Day.Saturday, Day.Sunday};
     this.startingDay = new JComboBox<>(days);
+    startingDayPanel.add(startingDayLabel);
+    startingDayPanel.add(this.startingDay);
 
+    JPanel startingTimePanel = new JPanel(new FlowLayout());
     JLabel startingTimeLabel = new JLabel("Starting time:");
     this.startingTime = new JTextArea();
+    //startingTimePanel.add
 
     JLabel endingDayLabel = new JLabel("Ending Day:");
     this.endingDay = new JComboBox<>(days);
@@ -63,15 +68,10 @@ public class EventFrameView extends JFrame implements EventView {
     this.eventPanel.add(this.name);
     this.eventPanel.add(locationLabel);
     this.eventPanel.add(locationPanel);
-    this.eventPanel.add(startingDayLabel);
-    this.eventPanel.add(this.startingDay);
-    this.eventPanel.add(startingTimeLabel);
-    this.eventPanel.add(this.startingTime);
-    this.eventPanel.add(endingDayLabel);
-    this.eventPanel.add(this.endingDay);
-    this.eventPanel.add(endingTimeLabel);
-    this.eventPanel.add(this.endingTime);
-    this.eventPanel.add(availUserLabel);
+    this.eventPanel.add(startingDayPanel);
+
+
+
     this.eventPanel.add(this.availUser);
     this.eventPanel.add(this.modifyButton);
     this.eventPanel.add(this.removeButton);
