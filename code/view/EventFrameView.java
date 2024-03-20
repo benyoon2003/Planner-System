@@ -22,6 +22,7 @@ public class EventFrameView extends JFrame implements EventView {
   private final JList<User> availUser;
 
 
+
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
@@ -29,15 +30,10 @@ public class EventFrameView extends JFrame implements EventView {
     this.eventPanel.add(this.name);
     this.eventPanel.add(locationLabel);
     this.eventPanel.add(locationPanel);
-    this.eventPanel.add(startingDayLabel);
-    this.eventPanel.add(this.startingDay);
-    this.eventPanel.add(startingTimeLabel);
-    this.eventPanel.add(this.startingTime);
-    this.eventPanel.add(endingDayLabel);
-    this.eventPanel.add(this.endingDay);
-    this.eventPanel.add(endingTimeLabel);
-    this.eventPanel.add(this.endingTime);
-    this.eventPanel.add(availUserLabel);
+    this.eventPanel.add(startingDayPanel);
+
+
+
     this.eventPanel.add(this.availUser);
     this.eventPanel.add(this.modifyButton);
     this.eventPanel.add(this.removeButton);
