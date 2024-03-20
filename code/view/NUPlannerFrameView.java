@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import javax.swing.*;
 
-public class NUPlannerFrameView  extends JFrame implements PlannerView {
+public class NUPlannerFrameView extends JFrame implements PlannerView {
 
   private final JSimonPanel panel;
   public SimpleSimonView(ReadOnlySimon model) {
