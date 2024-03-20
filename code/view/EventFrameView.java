@@ -23,7 +23,7 @@ public class EventFrameView extends JFrame implements EventView {
 
 
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    
+
 
     this.eventPanel.add(nameLabel);
     this.eventPanel.add(this.name);
