@@ -19,7 +19,7 @@ public class EventFrameView extends JFrame implements EventView {
   private final JTextArea endingTime;
   private final JButton modifyButton;
   private final JButton removeButton;
-  private final JList<User> availUser;
+  private final JList<String> availUser;
 
   public EventFrameView() {
     this.setSize(500, 800);
@@ -53,21 +53,24 @@ public class EventFrameView extends JFrame implements EventView {
     startingTimePanel.add(this.startingTime);
 
     JPanel endingDayPanel = new JPanel(new FlowLayout());
-    JLabel endingDayLabel = new JLabel("Starting Day:");
+    JLabel endingDayLabel = new JLabel("Ending Day:");
     this.endingDay = new JComboBox<>(days);
-    endingDayPanel.add(startingDayLabel);
+    endingDayPanel.add(endingDayLabel);
     endingDayPanel.add(this.endingDay);
 
     JPanel endingTimePanel = new JPanel(new FlowLayout());
-    JLabel endingTimeLabel = new JLabel("Starting time:");
+    JLabel endingTimeLabel = new JLabel("Ending time:");
     this.endingTime = new JTextArea();
-    startingTimePanel.add(startingTimeLabel);
-    startingTimePanel.add(this.startingTime);
+    endingTimePanel.add(endingTimeLabel);
+    endingTimePanel.add(this.endingTime);
 
+    JPanel buttonPanel = new JPanel(new FlowLayout());
     this.modifyButton = new JButton("Modify event");
     this.removeButton = new JButton("Remove event");
-
+    buttonPanel.add(this.modifyButton);
+    buttonPanel.add(this.removeButton);
     JLabel availUserLabel = new JLabel("Available users");
+
     this.availUser = new JList<>();
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -75,13 +78,16 @@ public class EventFrameView extends JFrame implements EventView {
     this.eventPanel.add(this.name);
     this.eventPanel.add(locationLabel);
     this.eventPanel.add(locationPanel);
-    this.eventPanel.add(startingDayPanel);
 
+    this.eventPanel.add(startingDayPanel);
     this.eventPanel.add(startingTimePanel);
 
+    this.eventPanel.add(endingDayPanel);
+    this.eventPanel.add(endingTimePanel);
+
+    this.eventPanel.add(availUserLabel);
     this.eventPanel.add(this.availUser);
-    this.eventPanel.add(this.modifyButton);
-    this.eventPanel.add(this.removeButton);
+    this.eventPanel.add(buttonPanel);
     this.eventPanel.setLayout(new BoxLayout(this.eventPanel, BoxLayout.PAGE_AXIS));
     this.add(this.eventPanel);
     this.pack();
