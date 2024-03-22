@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.function.BooleanSupplier;
 
 import javax.swing.*;
@@ -23,14 +25,14 @@ public class EventFrameView extends JFrame implements EventView {
   private JButton removeButton;
   private JList<String> availUser;
 
-  public EventFrameView() {
-    this("", true, "", Day.Monday, "", Day.Monday, "", new String[]{" "});
+  public EventFrameView(String host) {
+    this("", true, "", Day.Monday, "", Day.Monday, "", new String[]{host});
   }
 
   public EventFrameView(String eventName, boolean isOnline, String location,
                         Day startDay, String startTime, Day endDay, String endTime,
                         String[] availUsers) {
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     this.eventPanel = new JPanel();
     this.eventPanel.setLayout(new BoxLayout(this.eventPanel, BoxLayout.Y_AXIS));
 
@@ -163,12 +165,43 @@ public class EventFrameView extends JFrame implements EventView {
   private void makeButtonPanel() {
     JPanel buttonPanel = new JPanel();
     this.createButton = new JButton("Create event");
+    this.createButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        if (validInput()) {
+          outputEventDetails();
+        }
+        else {
+          System.out.print("Enter all of the information first.\n");
+        }
+      }
+    });
     this.modifyButton = new JButton("Modify event");
     this.removeButton = new JButton("Remove event");
+    this.removeButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        if (validInput()) {
+          System.out.print("Remove event from " + availUser.getModel().getElementAt(0)
+                  + "'s schedule.\n");
+          outputEventDetails();
+        }
+        else {
+          System.out.print("Enter all of the information first.\n");
+        }
+      }
+    });
     buttonPanel.add(this.createButton);
     buttonPanel.add(this.modifyButton);
     buttonPanel.add(this.removeButton);
     this.eventPanel.add(buttonPanel);
+  }
+
+  public boolean validInput() {
+    return !name.getText().isEmpty() &&
+            !location.getText().isEmpty() &&
+            !startingTime.getText().isEmpty() &&
+            !endingTime.getText().isEmpty();
   }
 
   @Override
@@ -176,8 +209,32 @@ public class EventFrameView extends JFrame implements EventView {
     this.setVisible(true);
   }
 
+  @Override
+  public void outputEventDetails() {
+    System.out.print("Create event: \n");
+    System.out.print("Event name: ");
+    System.out.print(this.name.getText() + "\n");
+    System.out.print("Location:\n");
+    System.out.print(this.isOnline.getSelectedItem() + " ");
+    System.out.print(this.location.getText());
+    System.out.print("\nStarting day: ");
+    System.out.print(this.startingDay.getSelectedItem());
+    System.out.print("\nStarting time: ");
+    System.out.print(this.startingTime.getText());
+    System.out.print("\nEnding day: ");
+    System.out.print(this.endingDay.getSelectedItem());
+    System.out.print("\nEnding time: ");
+    System.out.print(this.endingTime.getText());
+    System.out.print("\nAvailable users: ");
+    for (int item = 0; item < this.availUser.getModel().getSize(); item++) {
+      System.out.print("\n" + this.availUser.getModel().getElementAt(item));
+    }
+    System.out.print("\n");
+
+  }
+
   public static void main(String[] args) {
-    EventView view = new EventFrameView();
+    EventView view = new EventFrameView("Ben");
     view.display();
   }
 }
