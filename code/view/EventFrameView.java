@@ -18,6 +18,7 @@ public class EventFrameView extends JFrame implements EventView {
   private JTextArea startingTime;
   private JComboBox<Day> endingDay;
   private JTextArea endingTime;
+  private JButton createButton;
   private JButton modifyButton;
   private JButton removeButton;
   private JList<String> availUser;
@@ -161,8 +162,10 @@ public class EventFrameView extends JFrame implements EventView {
 
   private void makeButtonPanel() {
     JPanel buttonPanel = new JPanel();
+    this.createButton = new JButton("Create event");
     this.modifyButton = new JButton("Modify event");
     this.removeButton = new JButton("Remove event");
+    buttonPanel.add(this.createButton);
     buttonPanel.add(this.modifyButton);
     buttonPanel.add(this.removeButton);
     this.eventPanel.add(buttonPanel);
