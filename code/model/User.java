@@ -61,10 +61,10 @@ public class User {
     }
     List daysOrder = List.of(Day.Sunday, Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday
             , Day.Friday, Day.Saturday);
-    int startTimeOfOne = daysOrder.indexOf(one.getStartDay()) * 2400 + one.getStartTime();
-    int startTimeOfTwo = daysOrder.indexOf(two.getStartDay()) * 2400 + two.getStartTime();
-    int endTimeOfOne = daysOrder.indexOf(one.getEndDay()) * 2400 + one.getEndTime();
-    int endTimeOfTwo = daysOrder.indexOf(two.getEndDay()) * 2400 + two.getEndTime();
+    int startTimeOfOne = daysOrder.indexOf(one.startDayOfEvent()) * 2400 + one.startTimeOfEvent();
+    int startTimeOfTwo = daysOrder.indexOf(two.startDayOfEvent()) * 2400 + two.startTimeOfEvent();
+    int endTimeOfOne = daysOrder.indexOf(one.endDayOfEvent()) * 2400 + one.endTimeOfEvent();
+    int endTimeOfTwo = daysOrder.indexOf(two.endDayOfEvent()) * 2400 + two.endTimeOfEvent();
     if (startTimeOfOne > endTimeOfOne) {
       endTimeOfOne = endTimeOfOne + 10080;
     }
@@ -93,7 +93,7 @@ public class User {
   private int convertEventToStartTime(Event e) {
     List daysOrder = List.of(Day.Sunday, Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday
             , Day.Friday, Day.Saturday);
-    return daysOrder.indexOf(e.getStartDay()) * 2400 + e.getStartTime();
+    return daysOrder.indexOf(e.startDayOfEvent()) * 2400 + e.startTimeOfEvent();
   }
 
   /**
@@ -136,12 +136,13 @@ public class User {
   List<Event> eventsOnDay(Day day) {
     List<Event> events = new ArrayList<>();
     for (Event e : this.schedule) {
-      if (e.getStartDay().equals(day) || e.getEndDay().equals(day)) {
+      if (e.startDayOfEvent().equals(day) || e.endDayOfEvent().equals(day)) {
         events.add(e);
       }
     }
     return events;
   }
+
 
   @Override
   public String toString() {
@@ -164,4 +165,5 @@ public class User {
   public int hashCode() {
     return Objects.hash(this.uid, this.schedule);
   }
+
 }

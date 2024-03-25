@@ -19,8 +19,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import model.Event;
-
 /**
  * A utilities class that allows writing to a XML file and reading from an XML file.
  */
@@ -65,13 +63,13 @@ public final class Utils {
     // Structures time section of event
     Element time = schedule.createElement("time");
     Element startDay = schedule.createElement("start-day");
-    startDay.appendChild(schedule.createTextNode(e.getStartDay().toString()));
+    startDay.appendChild(schedule.createTextNode(e.startDayOfEvent().toString()));
     Element start = schedule.createElement("start");
-    start.appendChild(schedule.createTextNode(String.format("%d", e.getStartTime())));
+    start.appendChild(schedule.createTextNode(String.format("%d", e.startTimeOfEvent())));
     Element endDay = schedule.createElement("end-day");
-    endDay.appendChild(schedule.createTextNode(e.getEndDay().toString()));
+    endDay.appendChild(schedule.createTextNode(e.endDayOfEvent().toString()));
     Element end = schedule.createElement("end");
-    end.appendChild(schedule.createTextNode(String.format("%d", e.getEndTime())));
+    end.appendChild(schedule.createTextNode(String.format("%d", e.endTimeOfEvent())));
     time.appendChild(startDay);
     time.appendChild(start);
     time.appendChild(endDay);

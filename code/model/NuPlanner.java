@@ -119,7 +119,7 @@ public final class NuPlanner implements PlannerModel {
     User selected = Utils.findUser(user, this.database);
     List<Event> list = new ArrayList<>();
     for (Event e : selected.schedule) {
-      if (e.getStartTime() == time) {
+      if (e.startTimeOfEvent() == time) {
         list.add(e);
       }
     }
@@ -175,5 +175,15 @@ public final class NuPlanner implements PlannerModel {
   @Override
   public List<User> getListOfUser() {
     return this.database;
+  }
+
+
+  @Override
+  public List<Event> mainSchedule(){
+    List<Event> events = new ArrayList<>();
+    for (User u : this.database){
+      events.addAll(u.schedule);
+    }
+    return events;
   }
 }

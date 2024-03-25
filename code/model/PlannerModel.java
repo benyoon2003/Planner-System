@@ -116,4 +116,10 @@ public interface PlannerModel extends ReadOnlyPlannerModel{
    * @return a list of User
    */
   public List<User> getListOfUser();
+
+  /**
+   * Allows for the client to query the main event schedule.
+   * @return the main schedule
+   */
+  public List<Event> mainSchedule();
 }

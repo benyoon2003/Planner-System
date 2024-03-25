@@ -3,8 +3,6 @@ package model;
 import java.util.List;
 import java.util.Objects;
 
-import model.Day;
-
 /**
  * This is the event class which represents an event in the system.
  */
@@ -88,29 +86,29 @@ public final class Event {
   }
 
   /**
-   * Getter for the start day.
+   * Observation for the start day of the event.
    *
    * @return the starting day of the event
    */
-  Day getStartDay() {
+  public Day startDayOfEvent() {
     return this.startDay;
   }
 
   /**
-   * Getter for the start time.
+   * Observation for the start time of the event.
    *
    * @return the start time of the event
    */
-  int getStartTime() {
+  public int startTimeOfEvent() {
     return this.startTime;
   }
 
   /**
-   * Getter for the end day.
+   * Observation for the end day of the event.
    *
    * @return the end day of the event.
    */
-  Day getEndDay() {
+  public Day endDayOfEvent() {
     return this.endDay;
   }
 
@@ -119,7 +117,7 @@ public final class Event {
    *
    * @return the end time of the event.
    */
-  int getEndTime() {
+  public int endTimeOfEvent() {
     return this.endTime;
   }
 

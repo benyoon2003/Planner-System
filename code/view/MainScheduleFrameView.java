@@ -1,18 +1,21 @@
 package view;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.swing.*;
 
+import model.Day;
 import model.NuPlanner;
 import model.ReadOnlyPlannerModel;
 public class MainScheduleFrameView extends JFrame implements PlannerView {
   private final ReadOnlyPlannerModel model;
 
   private final JPanel mainPanel;
-  private final PlannerPanel planner;
+  private final WeekViewPanel planner;
 
   //private final PlannerPanel bottom;
   public MainScheduleFrameView(ReadOnlyPlannerModel model) {
@@ -23,7 +26,7 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     this.mainPanel = new JPanel();
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
     this.planner = new WeekViewPanel(model);
-
+    this.add(this.planner);
   }
 
 
@@ -35,7 +38,11 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
   }
 
   public static void main(String[] args) {
-    ReadOnlyPlannerModel testModel = new NuPlanner(new ArrayList<>());
+    NuPlanner testModel = new NuPlanner(new ArrayList<>());
+    testModel.addUser("Ben");
+    testModel.addUser("Nico");
+    testModel.createEvent("Ben", "Working on OOD", "Snell", false,
+            Day.Monday, 1000, Day.Monday, 2059, List.of("Nico"));
     MainScheduleFrameView frame = new MainScheduleFrameView(testModel);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setVisible(true);

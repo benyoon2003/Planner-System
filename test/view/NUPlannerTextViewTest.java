@@ -25,7 +25,7 @@ public class NUPlannerTextViewTest {
     this.model.addUser("Ben");
     this.model.addUser("Nico");
     this.model.createEvent("Ben", "OOD", "Snell", true,
-            Day.Monday, 1800, Day.Wednesday, 1800, List.of("Nico"));
+            Day.Monday, 1000, Day.Monday, 1800, List.of("Nico"));
     view = new NUPlannerTextView(model);
   }
 

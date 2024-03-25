@@ -30,4 +30,10 @@ public interface ReadOnlyPlannerModel {
    * @return the list of users in the database.
    */
   public List<User> getListOfUser();
+
+  /**
+   * Allows for the client to query the main event schedule.
+   * @return the main schedule
+   */
+  public List<Event> mainSchedule();
 }

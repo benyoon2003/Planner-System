@@ -1,19 +1,25 @@
 package view;
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Stack;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 
-import model.NuPlanner;
+import model.Day;
+import model.Event;
 import model.ReadOnlyPlannerModel;
+import model.User;
 
-public class WeekViewPanel extends JPanel implements PlannerPanel {
+public class WeekViewPanel extends JPanel {
 
 
   private final ReadOnlyPlannerModel model;
@@ -31,10 +37,17 @@ public class WeekViewPanel extends JPanel implements PlannerPanel {
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g.create();
+    for (Event e : model.mainSchedule()) {
+      drawEvent(e, g2d);
+    }
+    drawlines(g2d);
+  }
+
+  private void drawlines(Graphics2D g2d) {
     Rectangle bounds = getBounds();
     int horizontalLineOffset = bounds.height / 23;
     for (int line = horizontalLineOffset; line < bounds.height; line += horizontalLineOffset) {
-      if ((line % (horizontalLineOffset * 4)) == 0){
+      if ((line % (horizontalLineOffset * 4)) == 0) {
         g2d.setStroke(new BasicStroke(4));
       } else {
         g2d.setStroke(new BasicStroke(2));
@@ -49,14 +62,33 @@ public class WeekViewPanel extends JPanel implements PlannerPanel {
     }
   }
 
-
-  private class MouseEventsListener extends MouseInputAdapter {
-    @Override
-    public void mouseClicked(MouseEvent e) {
-      WeekViewPanel.this.mouseIsDown = true;
-      Point clicked = e.getPoint();
+  private void drawEvent(Event e, Graphics g) {
+    Rectangle bounds = getBounds();
+    List<Day> daysOrder = List.of(Day.Sunday,
+            Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday,
+            Day.Friday, Day.Saturday);
+    int verticalLineOffset = bounds.width / 7;
+    int start = 0;
+    int end = bounds.height;
+    if (e.startDayOfEvent().equals(e.endDayOfEvent())){
+      start = e.startTimeOfEvent() / 2400;
+      start = start * bounds.height;
+      end = e.endTimeOfEvent() / 2400;
+      end = end * bounds.height;
     }
+    g.setColor(Color.RED);
+    g.fillRect(daysOrder.indexOf(e.startDayOfEvent()) * verticalLineOffset, start,
+            verticalLineOffset, end - start);
+}
 
+
+private class MouseEventsListener extends MouseInputAdapter {
+  @Override
+  public void mouseClicked(MouseEvent e) {
+    WeekViewPanel.this.mouseIsDown = true;
+    Point clicked = e.getPoint();
   }
+
+}
 
 }
