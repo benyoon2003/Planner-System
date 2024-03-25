@@ -93,14 +93,28 @@ public class EventFrameView extends JFrame implements EventView {
     Day[] days = {Day.Sunday, Day.Monday, Day.Tuesday, Day.Wednesday,
             Day.Thursday, Day.Friday, Day.Saturday};
     this.startingDay = new JComboBox<>(days);
-    switch (day) {
-      case Day.Sunday -> this.startingDay.setSelectedIndex(0);
-      case Day.Monday -> this.startingDay.setSelectedIndex(1);
-      case Day.Tuesday -> this.startingDay.setSelectedIndex(2);
-      case Day.Wednesday -> this.startingDay.setSelectedIndex(3);
-      case Day.Thursday -> this.startingDay.setSelectedIndex(4);
-      case Day.Friday -> this.startingDay.setSelectedIndex(5);
-      case Day.Saturday -> this.startingDay.setSelectedIndex(6);
+    switch (day.toString()) {
+      case "Sunday":
+        this.startingDay.setSelectedIndex(0);
+        break;
+      case "Monday":
+        this.startingDay.setSelectedIndex(1);
+        break;
+      case "Tuesday":
+        this.startingDay.setSelectedIndex(2);
+        break;
+      case "Wednesday":
+        this.startingDay.setSelectedIndex(3);
+        break;
+      case "Thursday":
+        this.startingDay.setSelectedIndex(4);
+        break;
+      case "Friday":
+        this.startingDay.setSelectedIndex(5);
+        break;
+      case "Saturday":
+        this.startingDay.setSelectedIndex(6);
+        break;
     }
     startingDayPanel.add(startingDayLabel);
     startingDayPanel.add(this.startingDay);
@@ -124,14 +138,28 @@ public class EventFrameView extends JFrame implements EventView {
     Day[] days = {Day.Sunday, Day.Monday, Day.Tuesday, Day.Wednesday,
             Day.Thursday, Day.Friday, Day.Saturday};
     this.endingDay = new JComboBox<>(days);
-    switch (day) {
-      case Day.Sunday -> this.endingDay.setSelectedIndex(0);
-      case Day.Monday -> this.endingDay.setSelectedIndex(1);
-      case Day.Tuesday -> this.endingDay.setSelectedIndex(2);
-      case Day.Wednesday -> this.endingDay.setSelectedIndex(3);
-      case Day.Thursday -> this.endingDay.setSelectedIndex(4);
-      case Day.Friday -> this.endingDay.setSelectedIndex(5);
-      case Day.Saturday -> this.endingDay.setSelectedIndex(6);
+    switch (day.toString()) {
+      case "Sunday":
+        this.startingDay.setSelectedIndex(0);
+        break;
+      case "Monday":
+        this.startingDay.setSelectedIndex(1);
+        break;
+      case "Tuesday":
+        this.startingDay.setSelectedIndex(2);
+        break;
+      case "Wednesday":
+        this.startingDay.setSelectedIndex(3);
+        break;
+      case "Thursday":
+        this.startingDay.setSelectedIndex(4);
+        break;
+      case "Friday":
+        this.startingDay.setSelectedIndex(5);
+        break;
+      case "Saturday":
+        this.startingDay.setSelectedIndex(6);
+        break;
     }
     endingDayPanel.add(endingDayLabel);
     endingDayPanel.add(this.endingDay);
