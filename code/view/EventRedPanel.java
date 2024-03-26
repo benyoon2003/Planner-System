@@ -72,6 +72,8 @@ public class EventRedPanel extends JPanel implements MouseListener {
 
   @Override
   protected void paintComponent(Graphics g) {
+    Rectangle bounds = getBounds();
+    setSize(bounds.width, bounds.height);
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g.create();
     drawEvent(this.event, g2d);
