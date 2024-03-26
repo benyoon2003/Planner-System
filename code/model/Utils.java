@@ -57,19 +57,19 @@ public final class Utils {
   private static void writeEvent(Document schedule, Element scheduleID, Event e) {
     Element event = schedule.createElement("event");
     Element name = schedule.createElement("name");
-    name.appendChild(schedule.createTextNode(e.getName()));
+    name.appendChild(schedule.createTextNode(e.observeName()));
     event.appendChild(name);
 
     // Structures time section of event
     Element time = schedule.createElement("time");
     Element startDay = schedule.createElement("start-day");
-    startDay.appendChild(schedule.createTextNode(e.startDayOfEvent().toString()));
+    startDay.appendChild(schedule.createTextNode(e.observeStartDayOfEvent().toString()));
     Element start = schedule.createElement("start");
-    start.appendChild(schedule.createTextNode(String.format("%d", e.startTimeOfEvent())));
+    start.appendChild(schedule.createTextNode(String.format("%d", e.observeStartTimeOfEvent())));
     Element endDay = schedule.createElement("end-day");
-    endDay.appendChild(schedule.createTextNode(e.endDayOfEvent().toString()));
+    endDay.appendChild(schedule.createTextNode(e.observeEndDayOfEvent().toString()));
     Element end = schedule.createElement("end");
-    end.appendChild(schedule.createTextNode(String.format("%d", e.endTimeOfEvent())));
+    end.appendChild(schedule.createTextNode(String.format("%d", e.observeEndTimeOfEvent())));
     time.appendChild(startDay);
     time.appendChild(start);
     time.appendChild(endDay);
@@ -79,16 +79,16 @@ public final class Utils {
     // Structures location section of event
     Element location = schedule.createElement("location");
     Element online = schedule.createElement("online");
-    online.appendChild(schedule.createTextNode(String.format("%b", e.getOnline())));
+    online.appendChild(schedule.createTextNode(String.format("%b", e.observeOnline())));
     Element place = schedule.createElement("place");
-    place.appendChild(schedule.createTextNode(e.getLocation()));
+    place.appendChild(schedule.createTextNode(e.observeLocation()));
     location.appendChild(online);
     location.appendChild(place);
     event.appendChild(location);
 
     // Structures users section of event
     Element users = schedule.createElement("users");
-    for (User u : e.getInvitedUsers()) {
+    for (User u : e.observeInvitedUsers()) {
       Element uid = schedule.createElement("uid");
       uid.appendChild(schedule.createTextNode(u.uid));
       users.appendChild(uid);
