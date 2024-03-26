@@ -74,11 +74,15 @@ public class WeekViewPanel extends JPanel {
     if (e.startDayOfEvent().equals(e.endDayOfEvent())){
       end = (e.endTimeOfEvent() / 100) * horizontalLineOffset;
     }else{
-      
+      drawEndOfEvent(e, g, e.startDayOfEvent());
     }
     g.setColor(Color.RED);
     g.fillRect(daysOrder.indexOf(e.startDayOfEvent()) * verticalLineOffset, start,
             verticalLineOffset, end - start);
+}
+
+private void drawEndOfEvent(Event e, Graphics g, Day lastDayDrawn){
+    
 }
 
 
