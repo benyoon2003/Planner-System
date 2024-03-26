@@ -61,10 +61,10 @@ public class User {
     }
     List daysOrder = List.of(Day.Sunday, Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday
             , Day.Friday, Day.Saturday);
-    int startTimeOfOne = daysOrder.indexOf(one.startDayOfEvent()) * 2400 + one.startTimeOfEvent();
-    int startTimeOfTwo = daysOrder.indexOf(two.startDayOfEvent()) * 2400 + two.startTimeOfEvent();
-    int endTimeOfOne = daysOrder.indexOf(one.endDayOfEvent()) * 2400 + one.endTimeOfEvent();
-    int endTimeOfTwo = daysOrder.indexOf(two.endDayOfEvent()) * 2400 + two.endTimeOfEvent();
+    int startTimeOfOne = daysOrder.indexOf(one.observeStartDayOfEvent()) * 2400 + one.observeStartTimeOfEvent();
+    int startTimeOfTwo = daysOrder.indexOf(two.observeStartDayOfEvent()) * 2400 + two.observeStartTimeOfEvent();
+    int endTimeOfOne = daysOrder.indexOf(one.observeEndDayOfEvent()) * 2400 + one.observeEndTimeOfEvent();
+    int endTimeOfTwo = daysOrder.indexOf(two.observeEndDayOfEvent()) * 2400 + two.observeEndTimeOfEvent();
     if (startTimeOfOne > endTimeOfOne) {
       endTimeOfOne = endTimeOfOne + 10080;
     }
@@ -93,7 +93,7 @@ public class User {
   private int convertEventToStartTime(Event e) {
     List daysOrder = List.of(Day.Sunday, Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday
             , Day.Friday, Day.Saturday);
-    return daysOrder.indexOf(e.startDayOfEvent()) * 2400 + e.startTimeOfEvent();
+    return daysOrder.indexOf(e.observeStartDayOfEvent()) * 2400 + e.observeStartTimeOfEvent();
   }
 
   /**
@@ -136,7 +136,7 @@ public class User {
   List<Event> eventsOnDay(Day day) {
     List<Event> events = new ArrayList<>();
     for (Event e : this.schedule) {
-      if (e.startDayOfEvent().equals(day) || e.endDayOfEvent().equals(day)) {
+      if (e.observeStartDayOfEvent().equals(day) || e.observeEndDayOfEvent().equals(day)) {
         events.add(e);
       }
     }

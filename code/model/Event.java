@@ -4,7 +4,12 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * This is the event class which represents an event in the system.
+ * This is the event class which represents an event in the system. An event consists of
+ * the name of the event, the location, whether or not it is available online, the
+ * start day, start time, end day, end time, a list of invited users (including the host).
+ *
+ * @implNote The event class's methods arte package protected meaning only other classes within the
+ *           model are able to access them.
  */
 public final class Event {
   private String name;
@@ -63,7 +68,7 @@ public final class Event {
    *
    * @return the name of the event
    */
-  String getName() {
+  String observeName() {
     return this.name;
   }
 
@@ -72,7 +77,7 @@ public final class Event {
    *
    * @return the location of the event.
    */
-  String getLocation() {
+  String observeLocation() {
     return this.location;
   }
 
@@ -81,7 +86,7 @@ public final class Event {
    *
    * @return whether the event is online
    */
-  boolean getOnline() {
+  boolean observeOnline() {
     return this.online;
   }
 
@@ -90,7 +95,7 @@ public final class Event {
    *
    * @return the starting day of the event
    */
-  public Day startDayOfEvent() {
+  public Day observeStartDayOfEvent() {
     return this.startDay;
   }
 
@@ -99,7 +104,7 @@ public final class Event {
    *
    * @return the start time of the event
    */
-  public int startTimeOfEvent() {
+  public int observeStartTimeOfEvent() {
     return this.startTime;
   }
 
@@ -108,7 +113,7 @@ public final class Event {
    *
    * @return the end day of the event.
    */
-  public Day endDayOfEvent() {
+  public Day observeEndDayOfEvent() {
     return this.endDay;
   }
 
@@ -117,7 +122,7 @@ public final class Event {
    *
    * @return the end time of the event.
    */
-  public int endTimeOfEvent() {
+  public int observeEndTimeOfEvent() {
     return this.endTime;
   }
 
@@ -126,7 +131,7 @@ public final class Event {
    *
    * @return the invited users of the event
    */
-  List<User> getInvitedUsers() {
+  List<User> observeInvitedUsers() {
     return this.invitedUsers;
   }
 
@@ -193,7 +198,7 @@ public final class Event {
    *
    * @return the host of the event.
    */
-  User getHost() {
+  User observeHost() {
     return this.host;
   }
 

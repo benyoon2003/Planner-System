@@ -85,7 +85,7 @@ public final class NuPlanner implements PlannerModel {
   public void removeEvent(String user, Event e) {
     User u = Utils.findUser(user, this.database);
     if (this.database.contains(u)) {
-      if (e.getHost().equals(u)) {
+      if (e.observeHost().equals(u)) {
         e.removeAll();
       } else {
         u.schedule.remove(e);
@@ -119,7 +119,7 @@ public final class NuPlanner implements PlannerModel {
     User selected = Utils.findUser(user, this.database);
     List<Event> list = new ArrayList<>();
     for (Event e : selected.schedule) {
-      if (e.startTimeOfEvent() == time) {
+      if (e.observeStartTimeOfEvent() == time) {
         list.add(e);
       }
     }

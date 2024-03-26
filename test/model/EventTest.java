@@ -89,7 +89,7 @@ public class EventTest {
   @Test
   public void testHostUser() {
     exampleHostUser();
-    assertEquals(example.getHost(), user1);
+    assertEquals(example.observeHost(), user1);
   }
 
   @Test
