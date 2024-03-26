@@ -11,13 +11,16 @@ import javax.swing.*;
 import model.Day;
 import model.NuPlanner;
 import model.ReadOnlyPlannerModel;
+import model.User;
+
 public class MainScheduleFrameView extends JFrame implements PlannerView {
   private final ReadOnlyPlannerModel model;
-
   private final JPanel mainPanel;
   private final WeekViewPanel planner;
 
   private final MainBottomPanel bottom;
+
+  private User selected;
 
   //private final PlannerPanel bottom;
   public MainScheduleFrameView(ReadOnlyPlannerModel model) {
@@ -28,10 +31,12 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     this.mainPanel = new JPanel();
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
     this.bottom = new MainBottomPanel(model);
+    this.selected = this.bottom.getSelected();
     this.add(this.bottom);
-    this.planner = new WeekViewPanel(model);
+    this.planner = new WeekViewPanel(this.selected);
     this.add(this.planner);
     this.pack();
+    this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
   }
 
 

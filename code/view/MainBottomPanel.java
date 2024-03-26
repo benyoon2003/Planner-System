@@ -17,6 +17,8 @@ public class MainBottomPanel extends JPanel {
 
   private JButton scheduleEvent;
 
+  User selected;
+
   /**
    * This should be package protected
    * because this panel should not leak information outside of the view package.
@@ -24,13 +26,22 @@ public class MainBottomPanel extends JPanel {
    */
   MainBottomPanel(ReadOnlyPlannerModel model){
     this.model = Objects.requireNonNull(model);
+
     makeSelectUserBox();
-    makeCreateEventButton();
-    makeScheduleEventbutton();
+    makeEventButtons();
   }
 
   private void makeSelectUserBox(){
     this.selectedUser = new JComboBox<User>(model.getListOfUser().toArray(new User[0]));
+    this.selected = model.getListOfUser().get(this.selectedUser.getSelectedIndex());
+  }
+
+  User getSelected(){
+    return this.selected;
+  }
+
+  private void makeEventButtons(){
+    this.createEvent = new JButton("Create Event");
 
   }
 
