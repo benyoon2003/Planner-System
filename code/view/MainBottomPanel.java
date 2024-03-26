@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Objects;
 
 import javax.swing.*;
@@ -26,7 +28,6 @@ public class MainBottomPanel extends JPanel {
    */
   MainBottomPanel(ReadOnlyPlannerModel model){
     this.model = Objects.requireNonNull(model);
-
     makeSelectUserBox();
     makeEventButtons();
   }
@@ -42,7 +43,22 @@ public class MainBottomPanel extends JPanel {
 
   private void makeEventButtons(){
     this.createEvent = new JButton("Create Event");
+    this.createEvent.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        EventView newEvent = new EventFrameView(selected.toString());
+        newEvent.display();
+      }
+    });
 
+    this.scheduleEvent = new JButton("Schedule Event");
+    this.scheduleEvent.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        EventView newEvent = new EventFrameView(selected.toString());
+        newEvent.display();
+      }
+    });
   }
 
 }
