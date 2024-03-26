@@ -9,6 +9,7 @@ import java.util.Objects;
 import javax.swing.*;
 
 import model.Day;
+import model.Event;
 import model.NuPlanner;
 import model.ReadOnlyPlannerModel;
 import model.User;
@@ -31,8 +32,8 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     this.mainPanel = new JPanel();
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
     this.bottom = new MainBottomPanel(model);
-    //this.selected = this.bottom.getSelected();
     this.planner = new WeekViewPanel(this.model);
+
     this.mainPanel.add(this.planner);
     this.mainPanel.add(this.bottom);
     this.add(mainPanel);

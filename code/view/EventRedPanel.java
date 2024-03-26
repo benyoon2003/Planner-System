@@ -18,6 +18,9 @@ public class EventRedPanel extends JPanel implements MouseListener {
 
   private Event event;
 
+  private Graphics g;
+  private Rectangle bounds;
+
   private boolean mouseIsDown;
 
   /**
@@ -25,13 +28,23 @@ public class EventRedPanel extends JPanel implements MouseListener {
    * information and this should be contained in the view.
    * @param e the given event being drawn
    */
+<<<<<<< HEAD
   EventRedPanel(Event e, int x, int y, int width, int height) {
     this.event = Objects.requireNonNull(e);
     super.addMouseListener(this);
     this.setBounds(x, y, width, height);
     this.setVisible(true);
+=======
+  EventRedPanel(Event e, Graphics g, Rectangle bounds) {
+    this.event = Objects.requireNonNull(e);
+    this.g = g;
+    this.bounds = bounds;
+    this.paintComponent(g);
+    this.addMouseListener(this);
+>>>>>>> 4fede1b72e3e5d4b51caa099c6b22a43cf950ee7
   }
 
+  @Override
   public void mouseClicked(MouseEvent e) {
     EventView event = new EventFrameView(this.event.observeName(), this.event.observeOnline(),
             this.event.observeLocation(), this.event.observeStartDayOfEvent(),
@@ -69,15 +82,7 @@ public class EventRedPanel extends JPanel implements MouseListener {
     }
     return usernames;
   }
-
-  @Override
-  protected void paintComponent(Graphics g) {
-    super.paintComponent(g);
-    Graphics2D g2d = (Graphics2D) g.create();
-    setBackground(new Color(255,0,0,50));
-  }
-
-
+  
 
 
 
