@@ -22,18 +22,18 @@ import model.User;
 public class WeekViewPanel extends JPanel {
 
 
-  private final ReadOnlyPlannerModel model;
+  private User user;
 
-  public WeekViewPanel(ReadOnlyPlannerModel model) {
-    this.model = Objects.requireNonNull(model);
+  public WeekViewPanel(User u) {
+    this.user = Objects.requireNonNull(u);
   }
 
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g.create();
-    for (Event e : model.mainSchedule()) {
-      drawEvent(e, g2d);
+    for (Event e : user.userEvents()) {
+      this.add(new EventRedPanel(e));
     }
     drawlines(g2d);
   }

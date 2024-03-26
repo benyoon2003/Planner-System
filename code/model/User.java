@@ -143,6 +143,10 @@ public class User {
     return events;
   }
 
+  public List<Event> userEvents(){
+    return this.schedule;
+  }
+
 
   @Override
   public String toString() {

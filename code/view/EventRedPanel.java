@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,7 +12,7 @@ import model.Day;
 import model.Event;
 import model.ReadOnlyPlannerModel;
 
-public class EventRedPanel extends JPanel {
+public class EventRedPanel extends JPanel implements MouseListener {
 
 
   private Event e;
@@ -20,14 +22,19 @@ public class EventRedPanel extends JPanel {
   /**
    * This is package protected because there should not be any leakage of the Event panel
    * information and this should be contained in the view.
-   * @param the given event being drawn
+   * @param e the given event being drawn
    */
   EventRedPanel(Event e) {
     this.e = Objects.requireNonNull(e);
-    WeekViewPanel.MouseEventsListener listener = new WeekViewPanel.MouseEventsListener();
-    this.addMouseListener(listener);
-    this.addMouseMotionListener(listener);
+    super.addMouseListener(this);
+
   }
+
+  public void mouseClicked(MouseEvent e) {
+    EventView event = new EventFrameView();
+    event.display();
+  }
+
 
   @Override
   protected void paintComponent(Graphics g) {
