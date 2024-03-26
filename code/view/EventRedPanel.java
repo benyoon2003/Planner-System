@@ -11,11 +11,12 @@ import javax.swing.*;
 import model.Day;
 import model.Event;
 import model.ReadOnlyPlannerModel;
+import model.User;
 
 public class EventRedPanel extends JPanel implements MouseListener {
 
 
-  private Event e;
+  private Event event;
 
   private boolean mouseIsDown;
 
@@ -25,22 +26,54 @@ public class EventRedPanel extends JPanel implements MouseListener {
    * @param e the given event being drawn
    */
   EventRedPanel(Event e) {
-    this.e = Objects.requireNonNull(e);
+    this.event = Objects.requireNonNull(e);
     super.addMouseListener(this);
 
   }
 
   public void mouseClicked(MouseEvent e) {
-    EventView event = new EventFrameView();
+    EventView event = new EventFrameView(this.event.observeName(), this.event.observeOnline(),
+            this.event.observeLocation(), this.event.observeStartDayOfEvent(),
+            Integer.toString(this.event.observeStartTimeOfEvent()),
+            this.event.observeEndDayOfEvent(),
+            Integer.toString(this.event.observeEndTimeOfEvent()),
+            convertToStringArray(this.event.observeInvitedUsers()));
     event.display();
   }
 
+  @Override
+  public void mousePressed(MouseEvent e) {
+
+  }
+
+  @Override
+  public void mouseReleased(MouseEvent e) {
+
+  }
+
+  @Override
+  public void mouseEntered(MouseEvent e) {
+
+  }
+
+  @Override
+  public void mouseExited(MouseEvent e) {
+
+  }
+
+  private String[] convertToStringArray(List<User> users) {
+    String[] usernames = new String[users.size()];
+    for (int index = 0; index < users.size(); index++) {
+      usernames[index] = users.get(index).toString();
+    }
+    return usernames;
+  }
 
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g.create();
-    drawEvent(e, g2d);
+    drawEvent(this.event, g2d);
   }
 
   private void drawEvent(Event e, Graphics g) {

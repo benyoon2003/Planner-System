@@ -35,8 +35,6 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
   }
 
 
-
-
   @Override
   public void render() throws IOException {
 
