@@ -24,13 +24,8 @@ public class WeekViewPanel extends JPanel {
 
   private final ReadOnlyPlannerModel model;
 
-  private boolean mouseIsDown;
-
   public WeekViewPanel(ReadOnlyPlannerModel model) {
     this.model = Objects.requireNonNull(model);
-    MouseEventsListener listener = new MouseEventsListener();
-    this.addMouseListener(listener);
-    this.addMouseMotionListener(listener);
   }
 
   @Override
@@ -64,14 +59,5 @@ public class WeekViewPanel extends JPanel {
 
 
 
-
-private class MouseEventsListener extends MouseInputAdapter {
-  @Override
-  public void mouseClicked(MouseEvent e) {
-    WeekViewPanel.this.mouseIsDown = true;
-    Point clicked = e.getPoint();
-  }
-
-}
 
 }
