@@ -62,28 +62,7 @@ public class WeekViewPanel extends JPanel {
     }
   }
 
-  private void drawEvent(Event e, Graphics g) {
-    Rectangle bounds = getBounds();
-    List<Day> daysOrder = List.of(Day.Sunday,
-            Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday,
-            Day.Friday, Day.Saturday);
-    int verticalLineOffset = bounds.width / 7;
-    int horizontalLineOffset = bounds.height / 23;
-    int start = (e.observeStartTimeOfEvent() / 100) * horizontalLineOffset;
-    int end = bounds.height;
-    if (e.observeStartDayOfEvent().equals(e.observeEndDayOfEvent())){
-       end = (e.observeEndTimeOfEvent() / 100) * horizontalLineOffset;
-     }else {
-      drawEndOfEvent(e, g, e.observeStartDayOfEvent());
-    }
-    g.setColor(Color.RED);
-    g.fillRect(daysOrder.indexOf(e.observeStartDayOfEvent()) * verticalLineOffset, start,
-            verticalLineOffset, end - start);
-}
 
-private void drawEndOfEvent(Event e, Graphics g, Day lastDayDrawn){
-
-}
 
 
 private class MouseEventsListener extends MouseInputAdapter {

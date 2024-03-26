@@ -42,7 +42,7 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     testModel.addUser("Ben");
     testModel.addUser("Nico");
     testModel.createEvent("Ben", "Working on OOD", "Snell", false,
-            Day.Monday, 1000, Day.Monday, 2055, List.of("Nico"));
+            Day.Monday, 1000, Day.Wednesday, 2055, List.of("Nico"));
     MainScheduleFrameView frame = new MainScheduleFrameView(testModel);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setVisible(true);
