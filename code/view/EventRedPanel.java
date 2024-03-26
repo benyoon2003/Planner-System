@@ -18,6 +18,9 @@ public class EventRedPanel extends JPanel implements MouseListener {
 
   private Event event;
 
+  private Graphics g;
+  private Rectangle bounds;
+
   private boolean mouseIsDown;
 
   /**
@@ -25,10 +28,12 @@ public class EventRedPanel extends JPanel implements MouseListener {
    * information and this should be contained in the view.
    * @param e the given event being drawn
    */
-  EventRedPanel(Event e) {
+  EventRedPanel(Event e, Graphics g, Rectangle bounds) {
     this.event = Objects.requireNonNull(e);
-    super.addMouseListener(this);
-
+    this.g = g;
+    this.bounds = bounds;
+    this.paintComponent(g);
+    this.addMouseListener(this);
   }
 
   @Override
@@ -71,16 +76,13 @@ public class EventRedPanel extends JPanel implements MouseListener {
   }
 
   @Override
-  protected void paintComponent(Graphics g) {
-    Rectangle bounds = getBounds();
-    setSize(bounds.width, bounds.height);
+  public void paintComponent(Graphics g) {
     super.paintComponent(g);
-    Graphics2D g2d = (Graphics2D) g.create();
-    drawEvent(this.event, g2d);
+    drawEvent(this.event, this.g);
   }
 
   private void drawEvent(Event e, Graphics g) {
-    Rectangle bounds = getBounds();
+    Rectangle bounds = this.bounds;
     java.util.List<Day> daysOrder = java.util.List.of(Day.Sunday,
             Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday,
             Day.Friday, Day.Saturday);
@@ -100,13 +102,18 @@ public class EventRedPanel extends JPanel implements MouseListener {
       drawEndOfEvent(e, g, e.observeStartDayOfEvent());
     }
 
+    System.out.println(verticalLineOffset);
+    System.out.println(horizontalLineOffset);
+    System.out.println(start);
+    System.out.println(end);
+
   }
 
   private void drawEndOfEvent(Event e, Graphics g, Day lastDayDrawn){
     java.util.List<Day> daysOrder = List.of(Day.Sunday,
             Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday,
             Day.Friday, Day.Saturday);
-    Rectangle bounds = getBounds();
+    Rectangle bounds = this.bounds;
     int verticalLineOffset = bounds.width / 7;
     int horizontalLineOffset = bounds.height / 23;
     if (daysOrder.get(daysOrder.indexOf(lastDayDrawn) + 1).equals(e.observeEndDayOfEvent())){

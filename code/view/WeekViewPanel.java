@@ -33,14 +33,15 @@ public class WeekViewPanel extends JPanel {
     super.paintComponent(g);
     setSize(800,800);
     Graphics2D g2d = (Graphics2D) g.create();
+    Rectangle bounds = getBounds();
     for (Event e : model.mainSchedule()) {
-      this.add(new EventRedPanel(e));
+      EventRedPanel erp = new EventRedPanel(e, g, bounds);
+      this.add(erp);
     }
-    drawlines(g2d);
+    drawlines(g2d, bounds);
   }
 
-  private void drawlines(Graphics2D g2d) {
-    Rectangle bounds = getBounds();
+  private void drawlines(Graphics2D g2d, Rectangle bounds) {
     int horizontalLineOffset = bounds.height / 23;
     for (int line = horizontalLineOffset; line < bounds.height; line += horizontalLineOffset) {
       if ((line % (horizontalLineOffset * 4)) == 0) {
