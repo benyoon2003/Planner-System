@@ -68,13 +68,13 @@ public class WeekViewPanel extends JPanel {
             Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday,
             Day.Friday, Day.Saturday);
     int verticalLineOffset = bounds.width / 7;
-    int start = 0;
+    int horizontalLineOffset = bounds.height / 23;
+    int start = (e.startTimeOfEvent() / 100) * horizontalLineOffset;
     int end = bounds.height;
     if (e.startDayOfEvent().equals(e.endDayOfEvent())){
-      start = e.startTimeOfEvent() / 2400;
-      start = start * bounds.height;
-      end = e.endTimeOfEvent() / 2400;
-      end = end * bounds.height;
+      end = (e.endTimeOfEvent() / 100) * horizontalLineOffset;
+    }else{
+      
     }
     g.setColor(Color.RED);
     g.fillRect(daysOrder.indexOf(e.startDayOfEvent()) * verticalLineOffset, start,
