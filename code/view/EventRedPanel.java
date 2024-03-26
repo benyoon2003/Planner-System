@@ -31,6 +31,7 @@ public class EventRedPanel extends JPanel implements MouseListener {
 
   }
 
+  @Override
   public void mouseClicked(MouseEvent e) {
     EventView event = new EventFrameView(this.event.observeName(), this.event.observeOnline(),
             this.event.observeLocation(), this.event.observeStartDayOfEvent(),
