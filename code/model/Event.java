@@ -68,7 +68,7 @@ public final class Event {
    *
    * @return the name of the event
    */
-  String observeName() {
+  public String observeName() {
     return this.name;
   }
 
@@ -77,7 +77,7 @@ public final class Event {
    *
    * @return the location of the event.
    */
-  String observeLocation() {
+  public String observeLocation() {
     return this.location;
   }
 
@@ -86,7 +86,7 @@ public final class Event {
    *
    * @return whether the event is online
    */
-  boolean observeOnline() {
+  public boolean observeOnline() {
     return this.online;
   }
 
@@ -131,7 +131,7 @@ public final class Event {
    *
    * @return the invited users of the event
    */
-  List<User> observeInvitedUsers() {
+  public List<User> observeInvitedUsers() {
     return this.invitedUsers;
   }
 
@@ -198,7 +198,7 @@ public final class Event {
    *
    * @return the host of the event.
    */
-  User observeHost() {
+  public User observeHost() {
     return this.host;
   }
 
