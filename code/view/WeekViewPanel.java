@@ -31,6 +31,7 @@ public class WeekViewPanel extends JPanel {
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
+    setSize(800,800);
     Graphics2D g2d = (Graphics2D) g.create();
     for (Event e : model.mainSchedule()) {
       this.add(new EventRedPanel(e));
