@@ -18,7 +18,7 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
   private final JPanel mainPanel;
   private final WeekViewPanel planner;
 
-  //private final MainBottomPanel bottom;
+  private final MainBottomPanel bottom;
 
   private User selected;
 
@@ -30,13 +30,12 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     this.model = Objects.requireNonNull(model);
     this.mainPanel = new JPanel();
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
-    //this.bottom = new MainBottomPanel(model);
+    this.bottom = new MainBottomPanel(model);
     //this.selected = this.bottom.getSelected();
     this.planner = new WeekViewPanel(this.model);
     this.mainPanel.add(this.planner);
-    //this.mainPanel.add(this.bottom);
+    this.mainPanel.add(this.bottom);
     this.add(mainPanel);
-    this.pack();
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
   }
 

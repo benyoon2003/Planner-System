@@ -25,10 +25,11 @@ public class EventRedPanel extends JPanel implements MouseListener {
    * information and this should be contained in the view.
    * @param e the given event being drawn
    */
-  EventRedPanel(Event e) {
+  EventRedPanel(Event e, int x, int y, int width, int height) {
     this.event = Objects.requireNonNull(e);
     super.addMouseListener(this);
-
+    this.setBounds(x, y, width, height);
+    this.setVisible(true);
   }
 
   public void mouseClicked(MouseEvent e) {
@@ -71,56 +72,12 @@ public class EventRedPanel extends JPanel implements MouseListener {
 
   @Override
   protected void paintComponent(Graphics g) {
-    Rectangle bounds = getBounds();
-    setSize(bounds.width, bounds.height);
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g.create();
-    drawEvent(this.event, g2d);
+    setBackground(new Color(255,0,0,50));
   }
 
-  private void drawEvent(Event e, Graphics g) {
-    Rectangle bounds = getBounds();
-    java.util.List<Day> daysOrder = java.util.List.of(Day.Sunday,
-            Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday,
-            Day.Friday, Day.Saturday);
-    int verticalLineOffset = bounds.width / 7;
-    int horizontalLineOffset = bounds.height / 23;
-    int start = (e.observeStartTimeOfEvent() / 100) * horizontalLineOffset;
-    int end = bounds.height;
-    if (e.observeStartDayOfEvent().equals(e.observeEndDayOfEvent())){
-      end = (e.observeEndTimeOfEvent() / 100) * horizontalLineOffset;
-      g.setColor(Color.RED);
-      g.fillRect(daysOrder.indexOf(e.observeStartDayOfEvent()) * verticalLineOffset, start,
-              verticalLineOffset, end - start);
-    }else {
-      g.setColor(Color.RED);
-      g.fillRect(daysOrder.indexOf(e.observeStartDayOfEvent()) * verticalLineOffset, start,
-              verticalLineOffset, end - start);
-      drawEndOfEvent(e, g, e.observeStartDayOfEvent());
-    }
 
-  }
-
-  private void drawEndOfEvent(Event e, Graphics g, Day lastDayDrawn){
-    java.util.List<Day> daysOrder = List.of(Day.Sunday,
-            Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday,
-            Day.Friday, Day.Saturday);
-    Rectangle bounds = getBounds();
-    int verticalLineOffset = bounds.width / 7;
-    int horizontalLineOffset = bounds.height / 23;
-    if (daysOrder.get(daysOrder.indexOf(lastDayDrawn) + 1).equals(e.observeEndDayOfEvent())){
-      int end = (e.observeEndTimeOfEvent() / 100) * horizontalLineOffset;
-      g.setColor(Color.RED);
-      g.fillRect(daysOrder.indexOf(e.observeEndDayOfEvent()) * verticalLineOffset, 0,
-              verticalLineOffset, end);
-    }else{
-      g.setColor(Color.RED);
-      g.fillRect((daysOrder.indexOf(lastDayDrawn) + 1) * verticalLineOffset, 0,
-              verticalLineOffset, bounds.height);
-      drawEndOfEvent(e, g, daysOrder.get(daysOrder.indexOf(lastDayDrawn) + 1));
-    }
-
-  }
 
 
 
