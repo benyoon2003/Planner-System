@@ -34,14 +34,14 @@ public final class Utils {
       DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
       Document schedule = builder.newDocument();
       Element scheduleID = schedule.createElement("schedule");
-      scheduleID.setAttribute("id", user.uid);
+      scheduleID.setAttribute("id", user.toString());
 
       // Traverses events in the user's schedule.
-      for (Event e : user.schedule) {
+      for (Event e : user.observeSchedule()) {
         writeEvent(schedule, scheduleID, e);
       }
       schedule.appendChild(scheduleID);
-      saveDomToFile(schedule, user.uid);
+      saveDomToFile(schedule, user.toString());
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -90,7 +90,7 @@ public final class Utils {
     Element users = schedule.createElement("users");
     for (User u : e.observeInvitedUsers()) {
       Element uid = schedule.createElement("uid");
-      uid.appendChild(schedule.createTextNode(u.uid));
+      uid.appendChild(schedule.createTextNode(u.toString()));
       users.appendChild(uid);
     }
     event.appendChild(users);
@@ -212,7 +212,7 @@ public final class Utils {
    */
   public static User findUser(String userName, List<User> database) {
     for (User user : database) {
-      if (user.uid.equals(userName)) {
+      if (user.toString().equals(userName)) {
         return user;
       }
     }

@@ -7,11 +7,12 @@ import java.util.Objects;
 
 
 /**
- * This is the class for Users in the planner system.
+ * This is the class for Users in the planner system. A User is a person in the planner system
+ * with a username and a schedule.
  */
 public class User {
-  String uid;
-  List<Event> schedule;
+  private String uid;
+  private List<Event> schedule;
 
   /**
    * This is the constructor for a user which takes in a uid and a list of events
@@ -151,6 +152,14 @@ public class User {
   @Override
   public String toString() {
     return this.uid;
+  }
+
+  public List<Event> observeSchedule() {
+    return this.schedule;
+  }
+
+  public void setSchedule(List<Event> schedule) {
+    this.schedule = schedule;
   }
 
   @Override
