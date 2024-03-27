@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -9,15 +8,19 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.swing.*;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
+
 
 import model.Day;
-import model.Event;
 import model.NuPlanner;
 import model.ReadOnlyPlannerModel;
 import model.User;
 
+/**
+ * This is the main GUI view of the planner system in which a user can view any users
+ * schedule and add or modify events in the system. This code cannot modify the model
+ * and does not have an attached controller. Actions made in the view now will not
+ * affect users at all.
+ */
 public class MainScheduleFrameView extends JFrame implements PlannerView {
   private final ReadOnlyPlannerModel model;
   private JPanel mainPanel;
@@ -27,12 +30,11 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
 
   private User selected;
 
-  //private final PlannerPanel bottom;
 
   /**
    * Creates a default main frame view that displays the schedule of the first
    * User in the database.
-   * @param model
+   * @param model the given model of the planner system to be viewed.
    */
   public MainScheduleFrameView(ReadOnlyPlannerModel model) {
     super();
@@ -52,6 +54,11 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     this.setVisible(true);
   }
 
+  /**
+   * This method creates the Jmenu in the top left corner which leads to menu items
+   * which would allow a user to add a calander or save a calendar. At this point
+   * these menu items
+   */
   private void makeFileChooser(){
     JMenuBar mb = new JMenuBar();
     JMenu menu = new JMenu("File");
