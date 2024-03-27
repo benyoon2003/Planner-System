@@ -17,22 +17,22 @@ import static org.junit.Assert.assertTrue;
 //TODO: Test all public methods
 public class NuPlannerTest {
 
-  PlannerModel example;
-  PlannerModel example2;
+  private PlannerModel example;
+  private PlannerModel example2;
 
-  User ben;
+  private User ben;
 
-  User nico;
+  private User nico;
 
-  User lucia;
-  User patrick;
-  User spongebob;
-  User squidward;
+  private User lucia;
+  private User patrick;
+  private User spongebob;
+  private User squidward;
 
-  Event e1;
-  Event e2;
-  Event e3;
-  Event e4;
+  private Event e1;
+  private Event e2;
+  private Event e3;
+  private Event e4;
 
   private void exampleNuPlanner() {
     this.example = new NuPlanner(new ArrayList<User>());
