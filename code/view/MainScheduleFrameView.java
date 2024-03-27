@@ -97,9 +97,14 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
    * This is a method that updates the view after a new user has been selected
    * from the JComboBox in the mainBottomPanel and displays the new users
    * schedule.
+   *
+   * This is package protected as the MainBottomPanel uses this method to
+   * update the entire frame but a client shouldn't be able to remake the
+   * view outside the view.
+   *
    * @param selected is the user that is currently selected for the view.
    */
-  public void reMakeView(User selected) {
+  void reMakeView(User selected) {
     this.getContentPane().removeAll();
     this.mainPanel = new JPanel();
     this.mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
