@@ -25,6 +25,8 @@ public class WeekViewPanel extends JPanel {
   private ReadOnlyPlannerModel model;
   private User selected;
 
+  private Rectangle bounds;
+
   public WeekViewPanel(ReadOnlyPlannerModel model, User selected) {
     this.model = Objects.requireNonNull(model);
     this.selected = selected;
@@ -32,10 +34,11 @@ public class WeekViewPanel extends JPanel {
 
   @Override
   protected void paintComponent(Graphics g) {
-    super.paintComponent(g);
-    Rectangle bounds = getBounds();
-    setSize(bounds.width,bounds.height);
     Graphics2D g2d = (Graphics2D) g.create();
+    super.paintComponent(g2d);
+    this.bounds = getBounds();
+    setSize(this.bounds.width,this.bounds.height);
+    //drawLines(g2d);
     for (Event e : model.selectSchedule(this.selected.toString())) {
       drawEvent(e, g2d);
     }
@@ -43,33 +46,32 @@ public class WeekViewPanel extends JPanel {
   }
 
   private void drawLines(Graphics2D g2d) {
-    Rectangle bounds = getBounds();
-    int horizontalLineOffset = bounds.height / 23;
-    for (int line = horizontalLineOffset; line < bounds.height; line += horizontalLineOffset) {
+    int  horizontalLineOffset = this.bounds.height / 23;
+    for (int line = horizontalLineOffset; line < this.bounds.height;
+         line += horizontalLineOffset) {
       if ((line % (horizontalLineOffset * 4)) == 0) {
         g2d.setStroke(new BasicStroke(4));
       } else {
         g2d.setStroke(new BasicStroke(2));
       }
       g2d.setColor(Color.BLACK);
-      g2d.drawLine(0, line, bounds.width, line);
+      g2d.drawLine(0, line, this.bounds.width, line);
     }
-    int verticalLineOffset = bounds.width / 7;
-    for (int line = verticalLineOffset; line < bounds.width; line += verticalLineOffset) {
+    int verticalLineOffset = this.bounds.width / 7;
+    for (int line = verticalLineOffset; line < this.bounds.width; line += verticalLineOffset) {
       g2d.setColor(Color.BLACK);
-      g2d.drawLine(line, 0, line, bounds.height);
+      g2d.drawLine(line, 0, line, this.bounds.height);
     }
   }
 
-  private void drawEvent(Event e, Graphics g) {
-    Rectangle bounds = getBounds();
+  private void drawEvent(Event e, Graphics2D g) {
     java.util.List<Day> daysOrder = java.util.List.of(Day.Sunday,
             Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday,
             Day.Friday, Day.Saturday);
-    int verticalLineOffset = bounds.width / 7;
-    int horizontalLineOffset = bounds.height / 23;
+    int verticalLineOffset = this.bounds.width / 7;
+    int horizontalLineOffset = this.bounds.height / 23;
     int start = (e.observeStartTimeOfEvent() / 100) * horizontalLineOffset;
-    int end = bounds.height;
+    int end = this.bounds.height;
     if (e.observeStartDayOfEvent().equals(e.observeEndDayOfEvent())){
       end = (e.observeEndTimeOfEvent() / 100) * horizontalLineOffset;
     }else {
@@ -85,9 +87,8 @@ public class WeekViewPanel extends JPanel {
     java.util.List<Day> daysOrder = List.of(Day.Sunday,
             Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday,
             Day.Friday, Day.Saturday);
-    Rectangle bounds = getBounds();
-    int verticalLineOffset = bounds.width / 7;
-    int horizontalLineOffset = bounds.height / 23;
+    int verticalLineOffset = this.bounds.width / 7;
+    int horizontalLineOffset = this.bounds.height / 23;
     if (daysOrder.get(daysOrder.indexOf(lastDayDrawn) + 1).equals(e.observeEndDayOfEvent())){
       int end = (e.observeEndTimeOfEvent() / 100) * horizontalLineOffset;
       this.add(new EventRedPanel(e,
@@ -96,7 +97,7 @@ public class WeekViewPanel extends JPanel {
     }else{
       this.add(new EventRedPanel(e,
               (daysOrder.indexOf(lastDayDrawn) + 1) * verticalLineOffset, 0,
-              verticalLineOffset, bounds.height));
+              verticalLineOffset, this.bounds.height));
       drawEndOfEvent(e, g, daysOrder.get(daysOrder.indexOf(lastDayDrawn) + 1));
     }
   }

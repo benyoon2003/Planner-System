@@ -8,9 +8,8 @@ import java.util.Objects;
 
 import javax.swing.*;
 
-import model.Day;
 import model.Event;
-import model.ReadOnlyPlannerModel;
+
 import model.User;
 
 public class EventRedPanel extends JPanel implements MouseListener {
@@ -70,8 +69,9 @@ public class EventRedPanel extends JPanel implements MouseListener {
 
   @Override
   public void paintComponent(Graphics g) {
-    super.paintComponent(g);
-    this.setBackground(new Color(255,0,0,50));
+    Graphics2D g2d = (Graphics2D) g.create();
+    super.paintComponent(g2d);
+    this.setBackground(new Color(255,0,0,60));
   }
 
 }
