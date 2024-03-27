@@ -86,7 +86,7 @@ public class WeekViewPanel extends JPanel {
     }
     this.add(new EventRedPanel(e,
             daysOrder.indexOf(e.observeStartDayOfEvent()) * verticalLineOffset, start,
-            verticalLineOffset, end - start));
+            verticalLineOffset, end - start, horizontalLineOffset));
 
   }
 
@@ -100,11 +100,11 @@ public class WeekViewPanel extends JPanel {
       int end = (e.observeEndTimeOfEvent() / 100) * horizontalLineOffset;
       this.add(new EventRedPanel(e,
               daysOrder.indexOf(e.observeEndDayOfEvent()) * verticalLineOffset, 0,
-              verticalLineOffset, end));
+              verticalLineOffset, end, horizontalLineOffset));
     }else{
       this.add(new EventRedPanel(e,
               (daysOrder.indexOf(lastDayDrawn) + 1) * verticalLineOffset, 0,
-              verticalLineOffset, this.bounds.height));
+              verticalLineOffset, this.bounds.height, horizontalLineOffset));
       drawEndOfEvent(e, g, daysOrder.get(daysOrder.indexOf(lastDayDrawn) + 1));
     }
   }
