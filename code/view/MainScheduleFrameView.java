@@ -72,7 +72,6 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
   public void reMakeView(User selected) {
     this.getContentPane().removeAll();
     this.mainPanel = new JPanel();
-    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
     this.mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
     this.mainPanel.add(new WeekViewPanel(this.model, selected));
     this.mainPanel.add(this.bottom);

@@ -31,7 +31,6 @@ public class WeekViewPanel extends JPanel {
   public WeekViewPanel(ReadOnlyPlannerModel model, User selected) {
     this.model = Objects.requireNonNull(model);
     this.selected = selected;
-    System.out.println("Instantiating WeekViewPanel " + selected.toString());
   }
 
 
@@ -43,7 +42,6 @@ public class WeekViewPanel extends JPanel {
     super.paintComponent(g2d);
     this.bounds = getBounds();
     setSize(this.bounds.width,this.bounds.height);
-    //drawLines(g2d);
     for (Event e : model.selectSchedule(this.selected.toString())) {
       drawEvent(e, g2d);
     }

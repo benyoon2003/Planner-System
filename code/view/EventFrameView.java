@@ -241,7 +241,6 @@ public class EventFrameView extends JFrame implements EventView {
   public void outputEventDetails() {
     System.out.print("Create event: \n");
     System.out.print("Event name: ");
-    System.out.print(this.name.getText() + "\n");
     System.out.print("Location:\n");
     System.out.print(this.isOnline.getSelectedItem() + " ");
     System.out.print(this.location.getText());
