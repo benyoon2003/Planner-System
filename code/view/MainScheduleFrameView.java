@@ -57,7 +57,10 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
   /**
    * This method creates the Jmenu in the top left corner which leads to menu items
    * which would allow a user to add a calander or save a calendar. At this point
-   * these menu items
+   * these menu items cannot do much as there is no controller connected. The controller
+   * would take the given files and give them to the model but the view should not do this.
+   * The add calander item opens a JfileChooser window where users can choose a file but
+   * this does nothing.
    */
   private void makeFileChooser(){
     JMenuBar mb = new JMenuBar();
@@ -79,6 +82,12 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
   }
 
 
+  /**
+   * This is a method that updates the view after a new user has been selected
+   * from the JcomboBox in the mainBottomPanel and displays the new users
+   * schedule.
+   * @param selected is the user that is currently selected for the view.
+   */
   public void reMakeView(User selected) {
     this.getContentPane().removeAll();
     this.mainPanel = new JPanel();
@@ -90,23 +99,15 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     this.setVisible(true);
   }
 
+  /**
+   * This method is a method that this class inherits from the interface as
+   * it's purpose it to render/display the view but this method is not needed
+   * here as the Jframe automatically renders itself and displays itself.
+   * @throws IOException if the Jframe cannot open correctly.
+   */
   @Override
   public void render() throws IOException {
 
   }
 
-  public static void main(String[] args) {
-    NuPlanner testModel = new NuPlanner(new ArrayList<>());
-    testModel.addUser("Ben");
-    testModel.addUser("Nico");
-    testModel.addUser("Lucia");
-    testModel.createEvent("Ben", "Working on OOD", "Snell", false,
-            Day.Monday, 1000, Day.Wednesday, 2055, List.of());
-    testModel.createEvent("Nico", "Also working on OOD", "Snell", true,
-            Day.Thursday, 500, Day.Saturday, 2000, List.of());
-    testModel.createEvent("Lucia", "Also working on OOD", "Meserve", true,
-            Day.Sunday, 500, Day.Sunday, 900, List.of("Ben", "Nico"));
-    new MainScheduleFrameView(testModel);
-
-  }
 }
