@@ -14,7 +14,7 @@ public final class PlannerRunner {
   /**
    * This method is used to test the view and see it on a test model of users.
    * We used this to see how our implementation looked and what bugs there were.
-   * @param args
+   * @param args arguments for the main method.
    */
   public static void main(String[] args) {
     NuPlanner testModel = new NuPlanner(new ArrayList<>());

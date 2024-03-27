@@ -2,6 +2,11 @@ package model;
 
 import java.util.List;
 
+/**
+ * This is an interface for models that will be passed as read only later, this
+ * interface allows for only observation methods to be called and makes sure that
+ * the view cannot modify the model.
+ */
 public interface ReadOnlyPlannerModel {
 
   /**
@@ -15,6 +20,8 @@ public interface ReadOnlyPlannerModel {
    * See events occurring at a given time for the given user.
    */
   public List<Event> eventsAtThisTime(String user, int time);
+
+
   /**
    * Finds and returns a list of events for a specified user on a given day.
    *
@@ -26,14 +33,8 @@ public interface ReadOnlyPlannerModel {
 
   /**
    * This method returns the list of Users in the database.
-   *
    * @return the list of users in the database.
    */
   public List<User> getListOfUser();
 
-  /**
-   * Allows for the client to query the main event schedule.
-   * @return the main schedule
-   */
-  public List<Event> mainSchedule();
 }

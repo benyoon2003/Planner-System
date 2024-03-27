@@ -5,7 +5,14 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import model.Day;
 
@@ -19,11 +26,11 @@ import model.Day;
  * to the event.
  *
  * @implNote The eventPanel member variable is final because components are placed on top of it
- *           and the overarching panel itself does not change.
- *           The components that are laid on top of the eventPanel are the ones being modified,
- *           thus they are not final. The start time and end time are Strings to make it easier
- *           to modify components. This is package protected because there should not be any
- *           leakage of the Event panel information and this should be contained in the view.
+ * and the overarching panel itself does not change.
+ * The components that are laid on top of the eventPanel are the ones being modified,
+ * thus they are not final. The start time and end time are Strings to make it easier
+ * to modify components. This is package protected because there should not be any
+ * leakage of the Event panel information and this should be contained in the view.
  */
 class EventFrameView extends JFrame implements EventView {
   private final JPanel eventPanel;
@@ -39,9 +46,10 @@ class EventFrameView extends JFrame implements EventView {
   /**
    * Constructs a default EventFrameView that contains default components of an event and
    * sets the host according to the given username.
+   *
    * @param host a username in the form of a String
    */
- EventFrameView(String host) {
+  EventFrameView(String host) {
     this("", true, "", Day.Monday, "",
             Day.Monday, "", new String[]{host});
   }
@@ -49,18 +57,19 @@ class EventFrameView extends JFrame implements EventView {
   /**
    * Constructs a EventFrameView using the pre-existing details of the event allowing
    * for the user to choose to modify parts of an existing event.
-   * @param eventName a String
-   * @param isOnline a boolean
-   * @param location a String
-   * @param startDay a Day
-   * @param startTime a String
-   * @param endDay a Day
-   * @param endTime a Day
+   *
+   * @param eventName  a String
+   * @param isOnline   a boolean
+   * @param location   a String
+   * @param startDay   a Day
+   * @param startTime  a String
+   * @param endDay     a Day
+   * @param endTime    a Day
    * @param availUsers String array
    */
   EventFrameView(String eventName, boolean isOnline, String location,
-                        Day startDay, String startTime, Day endDay, String endTime,
-                        String[] availUsers) {
+                 Day startDay, String startTime, Day endDay, String endTime,
+                 String[] availUsers) {
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     this.eventPanel = new JPanel();
     this.eventPanel.setLayout(new BoxLayout(this.eventPanel, BoxLayout.Y_AXIS));
@@ -81,6 +90,7 @@ class EventFrameView extends JFrame implements EventView {
   /**
    * Creates the name panel that allows modification of the event name.
    * Rests on top of the main event panel.
+   *
    * @param eventName a String
    */
   private void makeNamePanel(String eventName) {
@@ -101,6 +111,7 @@ class EventFrameView extends JFrame implements EventView {
   /**
    * Creates the location panel which contains whether or not the event is available online
    * as well as the location of the event. Rests on top of the main event panel.
+   *
    * @param isOnline boolean
    * @param location String
    */
@@ -112,8 +123,7 @@ class EventFrameView extends JFrame implements EventView {
     this.isOnline = new JComboBox<>(isOnlineList);
     if (isOnline) {
       this.isOnline.setSelectedIndex(0);
-    }
-    else {
+    } else {
       this.isOnline.setSelectedIndex(1);
     }
     this.location = new JTextArea(location, 1, 10);
@@ -130,6 +140,7 @@ class EventFrameView extends JFrame implements EventView {
   /**
    * Creates the start day panel which allows modification of the start day of the event.
    * Rests on top of the main event panel.
+   *
    * @param day a Day
    */
   private void makeStartDayPanel(Day day) {
@@ -160,6 +171,9 @@ class EventFrameView extends JFrame implements EventView {
       case "Saturday":
         this.startingDay.setSelectedIndex(6);
         break;
+      default:
+        this.startingDay.setSelectedIndex(0);
+        break;
     }
     startingDayPanel.add(startingDayLabel);
     startingDayPanel.add(this.startingDay);
@@ -169,6 +183,7 @@ class EventFrameView extends JFrame implements EventView {
   /**
    * Creates the start time panel which allows for modification of the start time of the event.
    * Rests on top of the main event panel.
+   *
    * @param startTime a String
    */
   private void makeStartTimePanel(String startTime) {
@@ -185,6 +200,7 @@ class EventFrameView extends JFrame implements EventView {
   /**
    * Creates the end day panel which allows modification of the end day of the event.
    * Rests on top of the main event panel.
+   *
    * @param day a Day
    */
   private void makeEndDayPanel(Day day) {
@@ -215,6 +231,9 @@ class EventFrameView extends JFrame implements EventView {
       case "Saturday":
         this.startingDay.setSelectedIndex(6);
         break;
+      default:
+        this.startingDay.setSelectedIndex(0);
+        break;
     }
     endingDayPanel.add(endingDayLabel);
     endingDayPanel.add(this.endingDay);
@@ -224,12 +243,13 @@ class EventFrameView extends JFrame implements EventView {
   /**
    * Creates the end time panel which allows for modification of the end time of the event.
    * Rests on top of the main event panel.
+   *
    * @param endTime a String
    */
   private void makeEndTimePanel(String endTime) {
     JPanel endingTimePanel = new JPanel();
     JLabel endingTimeLabel = new JLabel("Ending time:");
-    this.endingTime = new JTextArea(endTime,1, 10);
+    this.endingTime = new JTextArea(endTime, 1, 10);
     this.endingTime.setLineWrap(true);
     this.endingTime.setWrapStyleWord(true);
     endingTimePanel.add(endingTimeLabel);
@@ -240,6 +260,7 @@ class EventFrameView extends JFrame implements EventView {
   /**
    * Creates the invited user panel which allows for modification of the list of invited users.
    * Rests on top of the main event panel.
+   *
    * @param availUsers a String array
    */
   private void makeAvailUserPanel(String[] availUsers) {
@@ -271,8 +292,7 @@ class EventFrameView extends JFrame implements EventView {
       public void actionPerformed(ActionEvent e) {
         if (validInput()) {
           outputEventDetails();
-        }
-        else {
+        } else {
           System.out.print("Enter all of the information first.\n");
         }
       }
@@ -291,8 +311,7 @@ class EventFrameView extends JFrame implements EventView {
           System.out.print("Remove event from " + availUser.getModel().getElementAt(0)
                   + "'s schedule.\n");
           outputEventDetails();
-        }
-        else {
+        } else {
           System.out.print("Enter all of the information first.\n");
         }
       }
@@ -305,6 +324,7 @@ class EventFrameView extends JFrame implements EventView {
 
   /**
    * Checks if any of the required text fields for an event are empty.
+   *
    * @return a boolean
    */
   private boolean validInput() {

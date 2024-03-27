@@ -16,15 +16,13 @@ import static org.junit.Assert.assertEquals;
  */
 public class NUPlannerTextViewTest {
 
-  private PlannerModel model;
-
   private NUPlannerTextView view;
 
   private void exampleView() {
-    model = new NuPlanner(new ArrayList<>());
-    this.model.addUser("Ben");
-    this.model.addUser("Nico");
-    this.model.createEvent("Ben", "OOD", "Snell", true,
+    PlannerModel model = new NuPlanner(new ArrayList<>());
+    model.addUser("Ben");
+    model.addUser("Nico");
+    model.createEvent("Ben", "OOD", "Snell", true,
             Day.Monday, 1000, Day.Monday, 1800, List.of("Nico"));
     view = new NUPlannerTextView(model);
   }
