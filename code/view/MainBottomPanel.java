@@ -17,39 +17,38 @@ import model.User;
 
 /**
  * This is the panel at the bottom of the main system frame which holds the select box to
- * select user, the create event button, and the schedule event button. This pannel allows for
- * more user control in this frame. In this file there are the fetures of this frame the connect
- * to the relevant Event Dialogue frame view which would then be connected to the controller. This
+ * select user, the create event button, and the schedule event button. This panel allows for
+ * more user control in this frame. In this file there are the features of this frame that connect
+ * to the relevant EventView which would then be connected to the controller. This
  * panel mutates the entire week view to show the selected users schedule.
  * We thought this should be a feature of the view and not controller as the user is merely
  * shifting their view throughout the model and not modifying any data. Therefore,
  * that functionality is in this class.
+ *
+ * @implNote This should be package protected because this panel should not leak
+ *           information outside the view package.
  */
-public class MainBottomPanel extends JPanel {
+class MainBottomPanel extends JPanel {
 
-  private ReadOnlyPlannerModel model;
+  private final ReadOnlyPlannerModel model;
 
   private User selected;
-
-  private WeekViewPanel weekView;
   private MainScheduleFrameView main;
 
 
   /**
-   * This should be package protected
-   * because this panel should not leak information outside the view package.
-   * This is the contructor for the bottom panel which takes in the following as parameters
-   * @param model the model being viewed
-   * @param weekView this is a param because this panel should change the week view and
-   *                 therefore the week view needs to be a parameter of this panel.
-   * @param main the entire view is changed when a new user is selected so the entire
-   *            view should also be passed as a parameter so that this panel can change it.
+   * This constructs the bottom panel of the main scheduler frame.
+   * which takes in the following as parameters.
+   * @param model the ReadOnlyPlannerModel being viewed
+   * @param main the MainScheduleFrameView
+   *
+   * @implNote the entire view is changed when a new user is selected so the entire
+   *           view should also be passed as a parameter so that this panel can change it.
    */
-  MainBottomPanel(ReadOnlyPlannerModel model, WeekViewPanel weekView, MainScheduleFrameView main){
+  MainBottomPanel(ReadOnlyPlannerModel model, MainScheduleFrameView main){
     this.model = Objects.requireNonNull(model);
     this.setBackground(Color.WHITE);
     this.setPreferredSize(new Dimension(800,-600));
-    this.weekView = weekView;
     this.main = main;
 
     makeSelectUserBox();
@@ -60,7 +59,8 @@ public class MainBottomPanel extends JPanel {
 
   /**
    * This creates the JComboBox in which the user can select a user to view. Changing
-   * the user changes the week view to reflect the schedule of the user selected in this
+   * the user changes the main schedule frame's view to reflect the schedule of
+   * the selected user.
    * box.
    */
   private void makeSelectUserBox() {
@@ -68,12 +68,15 @@ public class MainBottomPanel extends JPanel {
     this.add(selectedUser);
     this.selected = ((User) selectedUser.getSelectedItem());
     selectedUser.addActionListener(new ActionListener() {
+      /**
+       * Remakes the schedule view to reflect the change in selected user.
+       * @param e the event to be processed
+       */
       @Override
       public void actionPerformed(ActionEvent e) {
         selected = (User) selectedUser.getSelectedItem();
         selectedUser.setSelectedIndex(selectedUser.getSelectedIndex());
         main.reMakeView((User) selectedUser.getSelectedItem());
-
       }
     });
   }
@@ -103,6 +106,10 @@ public class MainBottomPanel extends JPanel {
   private void makeEventButtons(){
     JButton createEvent = new JButton("Create Event");
     createEvent.addActionListener(new ActionListener() {
+      /**
+       * Displays the EventView frame when action is performed on the button.
+       * @param e the event to be processed
+       */
       @Override
       public void actionPerformed(ActionEvent e) {
         EventView newEvent = new EventFrameView(selected.toString());
@@ -112,6 +119,10 @@ public class MainBottomPanel extends JPanel {
 
     JButton scheduleEvent = new JButton("Schedule Event");
     scheduleEvent.addActionListener(new ActionListener() {
+      /**
+       * Displays the EventView frame when action is performed on the button.
+       * @param e the event to be processed
+       */
       @Override
       public void actionPerformed(ActionEvent e) {
         EventView newEvent = new EventFrameView(selected.toString());
