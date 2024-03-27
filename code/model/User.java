@@ -35,7 +35,6 @@ public class User {
 
   /**
    * This method determines whether the given schedule has a conflict of events in it.
-   *
    * @param schedule the given schedule
    * @return a boolean value to whether there is a conflict, true for conflict false for
    * no conflict.
@@ -62,10 +61,14 @@ public class User {
     }
     List daysOrder = List.of(Day.Sunday, Day.Monday, Day.Tuesday, Day.Wednesday,
             Day.Thursday, Day.Friday, Day.Saturday);
-    int startTimeOfOne = daysOrder.indexOf(one.observeStartDayOfEvent()) * 2400 + one.observeStartTimeOfEvent();
-    int startTimeOfTwo = daysOrder.indexOf(two.observeStartDayOfEvent()) * 2400 + two.observeStartTimeOfEvent();
-    int endTimeOfOne = daysOrder.indexOf(one.observeEndDayOfEvent()) * 2400 + one.observeEndTimeOfEvent();
-    int endTimeOfTwo = daysOrder.indexOf(two.observeEndDayOfEvent()) * 2400 + two.observeEndTimeOfEvent();
+    int startTimeOfOne = daysOrder.indexOf(one.observeStartDayOfEvent())
+            * 2400 + one.observeStartTimeOfEvent();
+    int startTimeOfTwo = daysOrder.indexOf(two.observeStartDayOfEvent())
+            * 2400 + two.observeStartTimeOfEvent();
+    int endTimeOfOne = daysOrder.indexOf(one.observeEndDayOfEvent())
+            * 2400 + one.observeEndTimeOfEvent();
+    int endTimeOfTwo = daysOrder.indexOf(two.observeEndDayOfEvent())
+            * 2400 + two.observeEndTimeOfEvent();
     if (startTimeOfOne > endTimeOfOne) {
       endTimeOfOne = endTimeOfOne + 10080;
     }

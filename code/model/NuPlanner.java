@@ -24,7 +24,7 @@ public final class NuPlanner implements PlannerModel {
    *
    * @param database a list of User
    * @implNote The passed in list of User will always be valid if the planner
-   *           is instantiated following the steps described in the README
+   * is instantiated following the steps described in the README
    */
   public NuPlanner(List<User> database) {
     this.database = database;
@@ -179,9 +179,9 @@ public final class NuPlanner implements PlannerModel {
 
 
   @Override
-  public List<Event> mainSchedule(){
+  public List<Event> mainSchedule() {
     List<Event> events = new ArrayList<>();
-    for (User u : this.database){
+    for (User u : this.database) {
       events.addAll(u.observeSchedule());
     }
     return events;

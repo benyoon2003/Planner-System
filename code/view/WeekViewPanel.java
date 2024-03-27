@@ -24,8 +24,8 @@ import model.User;
  * gridlines. These are EventRedPanel and see the javadoc in that class for more information.
  * This panel is updated when a new user is selected from the main bottom panel.
  *
- * @implNote This is package protected because there should not be any leakage of the WeekViewPanel
- * information and this should be contained in the view.
+ *        @implNote This is package protected because there should not be any leakage of the WeekViewPanel
+ *        information and this should be contained in the view.
  */
 class WeekViewPanel extends JPanel {
   private final ReadOnlyPlannerModel model;

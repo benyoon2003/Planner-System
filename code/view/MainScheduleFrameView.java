@@ -69,12 +69,13 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
    * The add calander item opens a JfileChooser window where users can choose a file but
    * this does nothing.
    */
-  private void makeFileChooser(){
+  private void makeFileChooser() {
     JMenuBar mb = new JMenuBar();
     JMenu menu = new JMenu("File");
     JMenuItem add = new JMenuItem("Add Calendar");
     JMenuItem save = new JMenuItem("Save Calendar");
-    menu.add(add);menu.add(save);
+    menu.add(add);
+    menu.add(save);
     mb.add(menu);
     this.setJMenuBar(mb);
     add.addActionListener(new ActionListener() {
@@ -98,9 +99,9 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
    * from the JComboBox in the mainBottomPanel and displays the new users
    * schedule.
    *
-   * This is package protected as the MainBottomPanel uses this method to
+   * <p>This is package protected as the MainBottomPanel uses this method to
    * update the entire frame but a client shouldn't be able to remake the
-   * view outside the view.
+   * view outside the view.</p>
    *
    * @param selected is the user that is currently selected for the view.
    */

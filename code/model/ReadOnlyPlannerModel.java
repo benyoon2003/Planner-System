@@ -33,7 +33,7 @@ public interface ReadOnlyPlannerModel {
 
   /**
    * This method returns the list of Users in the database.
-   * @return the list of users in the database.
+   * @return the list of users in the database through the field database
    */
   public List<User> getListOfUser();
 

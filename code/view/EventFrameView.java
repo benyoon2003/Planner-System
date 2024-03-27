@@ -25,12 +25,12 @@ import model.Day;
  * event, the starting day, starting time, ending day, ending time, and a list of users invited
  * to the event.
  *
- * @implNote The eventPanel member variable is final because components are placed on top of it
- * and the overarching panel itself does not change.
- * The components that are laid on top of the eventPanel are the ones being modified,
- * thus they are not final. The start time and end time are Strings to make it easier
- * to modify components. This is package protected because there should not be any
- * leakage of the Event panel information and this should be contained in the view.
+ *        @implNote The eventPanel member variable is final because components are placed on top of it
+ *        and the overarching panel itself does not change.
+ *        The components that are laid on top of the eventPanel are the ones being modified,
+ *        thus they are not final. The start time and end time are Strings to make it easier
+ *        to modify components. This is package protected because there should not be any
+ *        leakage of the Event panel information and this should be contained in the view.
  */
 class EventFrameView extends JFrame implements EventView {
   private final JPanel eventPanel;
@@ -147,7 +147,7 @@ class EventFrameView extends JFrame implements EventView {
     JPanel startingDayPanel = new JPanel();
     JLabel startingDayLabel = new JLabel("Starting Day:");
     Day[] days = {Day.Sunday, Day.Monday, Day.Tuesday, Day.Wednesday,
-            Day.Thursday, Day.Friday, Day.Saturday};
+                  Day.Thursday, Day.Friday, Day.Saturday};
     this.startingDay = new JComboBox<>(days);
     switch (day.toString()) {
       case "Sunday":
@@ -207,7 +207,7 @@ class EventFrameView extends JFrame implements EventView {
     JPanel endingDayPanel = new JPanel();
     JLabel endingDayLabel = new JLabel("Ending Day:");
     Day[] days = {Day.Sunday, Day.Monday, Day.Tuesday, Day.Wednesday,
-            Day.Thursday, Day.Friday, Day.Saturday};
+                  Day.Thursday, Day.Friday, Day.Saturday};
     this.endingDay = new JComboBox<>(days);
     switch (day.toString()) {
       case "Sunday":

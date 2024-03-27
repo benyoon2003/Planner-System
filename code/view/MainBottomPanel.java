@@ -25,8 +25,8 @@ import model.User;
  * shifting their view throughout the model and not modifying any data. Therefore,
  * that functionality is in this class.
  *
- * @implNote This should be package protected because this panel should not leak
- * information outside the view package.
+ *        @implNote This should be package protected because this panel should not leak
+ *        information outside the view package.
  */
 class MainBottomPanel extends JPanel {
 
@@ -40,10 +40,10 @@ class MainBottomPanel extends JPanel {
    * This constructs the bottom panel of the main scheduler frame.
    * which takes in the following as parameters.
    *
-   * @param model the ReadOnlyPlannerModel being viewed
-   * @param main  the MainScheduleFrameView
-   * @implNote The entire view is changed when a new user is selected so the entire
-   * view (main) should also be passed as a parameter so that this panel can change it.
+   *      @param model the ReadOnlyPlannerModel being viewed
+   *      @param main  the MainScheduleFrameView
+   *      @implNote The entire view is changed when a new user is selected so the entire
+   *      view (main) should also be passed as a parameter so that this panel can change it.
    */
   MainBottomPanel(ReadOnlyPlannerModel model, MainScheduleFrameView main) {
     this.model = Objects.requireNonNull(model);
