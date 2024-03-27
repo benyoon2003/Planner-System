@@ -9,8 +9,14 @@ import javax.swing.*;
  */
 public interface EventView {
 
+  /**
+   * Displays the EventView.
+   */
   void display();
 
+  /**
+   * Outputs the event details from of the EventView.
+   */
   void outputEventDetails();
 
 }
