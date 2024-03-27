@@ -19,13 +19,13 @@ import static org.junit.Assert.assertTrue;
  */
 public class EventTest {
 
-  Event example;
+  private Event example;
 
-  Event event2;
+  private Event event2;
 
-  User user1;
+  private User user1;
 
-  User user2;
+  private User user2;
 
   private void exampleInvalidTimes() {
     this.user1 = new User("User1", new ArrayList<>());

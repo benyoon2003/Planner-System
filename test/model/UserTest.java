@@ -11,11 +11,11 @@ import static org.junit.Assert.assertEquals;
  */
 public class UserTest {
 
-  User example;
+  private User example;
 
-  Event one;
+  private Event one;
 
-  Event two;
+  private Event two;
 
   private void exampleSchedule() {
     one = new Event("Host Event", "Snell", false,

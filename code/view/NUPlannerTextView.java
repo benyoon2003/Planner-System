@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import model.Day;
 import model.Event;
-import model.PlannerModel;
 import model.ReadOnlyPlannerModel;
 import model.User;
 
