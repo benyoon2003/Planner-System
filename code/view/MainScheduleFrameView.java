@@ -18,10 +18,15 @@ import model.ReadOnlyPlannerModel;
 import model.User;
 
 /**
+ * MainScheduleFrameView is a custom JFrame that implements PlannerView.
  * This is the main GUI view of the planner system in which a user can view any users
  * schedule and add or modify events in the system. This code cannot modify the model
  * and does not have an attached controller. Actions made in the view now will not
  * affect users at all.
+ *
+ * @implNote The mainPanel member variable is modified in reMakeView, thus it cannot be final. The
+ *           selected User also changes depending on the JComboBox selection in MainBottomPanel.
+ *
  */
 public class MainScheduleFrameView extends JFrame implements PlannerView {
   private final ReadOnlyPlannerModel model;

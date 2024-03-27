@@ -3,7 +3,8 @@ package view;
 import java.io.IOException;
 
 /**
- * This is the interface for a Planner view.
+ * This is the interface for a Planner view, which allows the user to view the schedule and
+ * "modify" any available user's schedule in the model's database.
  */
 public interface PlannerView {
 

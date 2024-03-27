@@ -42,7 +42,7 @@ class MainBottomPanel extends JPanel {
    * @param model the ReadOnlyPlannerModel being viewed
    * @param main the MainScheduleFrameView
    *
-   * @implNote the entire view is changed when a new user is selected so the entire
+   * @implNote The entire view is changed when a new user is selected so the entire
    *           view should also be passed as a parameter so that this panel can change it.
    */
   MainBottomPanel(ReadOnlyPlannerModel model, MainScheduleFrameView main){
@@ -61,7 +61,6 @@ class MainBottomPanel extends JPanel {
    * This creates the JComboBox in which the user can select a user to view. Changing
    * the user changes the main schedule frame's view to reflect the schedule of
    * the selected user.
-   * box.
    */
   private void makeSelectUserBox() {
     JComboBox selectedUser = new JComboBox<>(convertToUserArray(model.getListOfUser()));
