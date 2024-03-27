@@ -18,17 +18,21 @@ public class MainBottomPanel extends JPanel {
   private User selected;
 
   private WeekViewPanel weekView;
+  private MainScheduleFrameView main;
+
 
   /**
    * This should be package protected
    * because this panel should not leak information outside of the view package.
    * @param model the given model of the planner system
    */
-  MainBottomPanel(ReadOnlyPlannerModel model, WeekViewPanel weekView){
+  MainBottomPanel(ReadOnlyPlannerModel model, WeekViewPanel weekView, MainScheduleFrameView main){
     this.model = Objects.requireNonNull(model);
     this.setBackground(Color.WHITE);
     this.setPreferredSize(new Dimension(800,-600));
     this.weekView = weekView;
+    this.main = main;
+
     makeSelectUserBox();
     makeEventButtons();
 
@@ -42,14 +46,14 @@ public class MainBottomPanel extends JPanel {
   private void makeSelectUserBox() {
     JComboBox selectedUser = new JComboBox<>(convertToUserArray(model.getListOfUser()));
     this.add(selectedUser);
-    setSelected((User) selectedUser.getSelectedItem());
+    this.selected = ((User) selectedUser.getSelectedItem());
     selectedUser.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        MainScheduleFrameView frame = new MainScheduleFrameView(observeModel(),
-                (User) selectedUser.getSelectedItem());
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        selected = (User) selectedUser.getSelectedItem();
+        selectedUser.setSelectedIndex(selectedUser.getSelectedIndex());
+        main.reMakeView((User) selectedUser.getSelectedItem());
+
       }
     });
   }
@@ -64,10 +68,6 @@ public class MainBottomPanel extends JPanel {
 
   User getSelected(){
     return this.selected;
-  }
-
-  public void setSelected(User u) {
-    this.selected = u;
   }
 
   private void makeEventButtons(){
