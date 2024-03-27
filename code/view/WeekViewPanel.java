@@ -37,8 +37,7 @@ public class WeekViewPanel extends JPanel {
     setSize(bounds.width,bounds.height);
     Graphics2D g2d = (Graphics2D) g.create();
     for (Event e : model.selectSchedule(this.selected.toString())) {
-      EventRedPanel erp = new EventRedPanel(e, g, bounds);
-      this.add(erp);
+      drawEvent(e, g2d);
     }
     drawLines(g2d);
   }
