@@ -7,7 +7,7 @@ import java.util.List;
  * called PlannerModel where someone can manipulate events on multiple users'
  * schedules.
  */
-public interface PlannerModel extends ReadOnlyPlannerModel{
+public interface PlannerModel extends ReadOnlyPlannerModel {
 
   /**
    * Upload an XML file representing a single user's schedule.
@@ -23,6 +23,7 @@ public interface PlannerModel extends ReadOnlyPlannerModel{
 
   /**
    * Select one of the users to display their schedule.
+   *
    * @param user a String
    * @return List of Event
    */
@@ -51,23 +52,24 @@ public interface PlannerModel extends ReadOnlyPlannerModel{
    * Remove an event from a user's schedule.
    *
    * @param user the given User
-   * @param e the given Event
+   * @param e    the given Event
    */
   public void removeEvent(String user, Event e);
 
   /**
    * Create, modify, or remove an event on a user’s schedule,
    * which may affect other user’s schedule.
-   * @param e the event wanting to be modified
-   * @param name the new name of the event
-   * @param location the new location
-   * @param online still online?
-   * @param startDay the new startDay
-   * @param startTime the new startTime
-   * @param endDay the new endDay
-   * @param endTime the new endTime
+   *
+   * @param e            the event wanting to be modified
+   * @param name         the new name of the event
+   * @param location     the new location
+   * @param online       still online?
+   * @param startDay     the new startDay
+   * @param startTime    the new startTime
+   * @param endDay       the new endDay
+   * @param endTime      the new endTime
    * @param invitedUsers the new list of invited users
-   * @param user the new host
+   * @param user         the new host
    */
   public void modifyEvent(Event e, String name, String location, boolean online,
                           Day startDay, int startTime, Day endDay,
@@ -76,6 +78,7 @@ public interface PlannerModel extends ReadOnlyPlannerModel{
 
   /**
    * See events occurring at a given time for the given user.
+   *
    * @param user a String
    * @param time an int
    * @return a List of Event
@@ -119,6 +122,7 @@ public interface PlannerModel extends ReadOnlyPlannerModel{
 
   /**
    * Allows for the client to query the main event schedule.
+   *
    * @return the main schedule
    */
   public List<Event> mainSchedule();

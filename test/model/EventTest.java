@@ -21,7 +21,6 @@ public class EventTest {
 
   private Event example;
 
-  private Event event2;
 
   private User user1;
 
@@ -64,9 +63,9 @@ public class EventTest {
     this.user2 = new User("User 2", new ArrayList<>());
     this.example = new Event("Host Event", "Snell", false,
             Day.Monday, 1000, Day.Tuesday, 1800, List.of(user1, user2));
-    this.event2 = new Event("Event 2", "Snell", false,
+    Event event2 = new Event("Event 2", "Snell", false,
             Day.Monday, 1000, Day.Tuesday, 1800, List.of(user2));
-    this.event2.sendInvite();
+    event2.sendInvite();
     this.example.sendInvite();
   }
 

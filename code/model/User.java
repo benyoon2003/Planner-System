@@ -38,7 +38,7 @@ public class User {
    *
    * @param schedule the given schedule
    * @return a boolean value to whether there is a conflict, true for conflict false for
-   *         no conflict.
+   * no conflict.
    */
   private boolean conflict(List<Event> schedule) {
     List<Event> copy = new ArrayList<Event>(schedule);
@@ -60,8 +60,8 @@ public class User {
     if (one.equals(two)) {
       return false;
     }
-    List daysOrder = List.of(Day.Sunday, Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday
-            , Day.Friday, Day.Saturday);
+    List daysOrder = List.of(Day.Sunday, Day.Monday, Day.Tuesday, Day.Wednesday,
+            Day.Thursday, Day.Friday, Day.Saturday);
     int startTimeOfOne = daysOrder.indexOf(one.observeStartDayOfEvent()) * 2400 + one.observeStartTimeOfEvent();
     int startTimeOfTwo = daysOrder.indexOf(two.observeStartDayOfEvent()) * 2400 + two.observeStartTimeOfEvent();
     int endTimeOfOne = daysOrder.indexOf(one.observeEndDayOfEvent()) * 2400 + one.observeEndTimeOfEvent();
@@ -72,8 +72,8 @@ public class User {
     if (startTimeOfTwo > endTimeOfTwo) {
       endTimeOfTwo = endTimeOfTwo + 10080;
     }
-    return (startTimeOfOne <= startTimeOfTwo && endTimeOfOne > startTimeOfTwo) ||
-            (startTimeOfTwo <= startTimeOfOne && endTimeOfTwo > startTimeOfOne);
+    return (startTimeOfOne <= startTimeOfTwo && endTimeOfOne > startTimeOfTwo)
+            || (startTimeOfTwo <= startTimeOfOne && endTimeOfTwo > startTimeOfOne);
   }
 
   /**
@@ -144,7 +144,7 @@ public class User {
     return events;
   }
 
-  public List<Event> userEvents(){
+  public List<Event> userEvents() {
     return this.schedule;
   }
 

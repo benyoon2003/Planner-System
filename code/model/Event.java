@@ -8,9 +8,9 @@ import java.util.Objects;
  * the name of the event, the location, whether or not it is available online, the
  * start day, start time, end day, end time, a list of invited users (including the host).
  *
- * This class should be public as clients would assume and also know that Events are objects
+ * <p>This class should be public as clients would assume and also know that Events are objects
  * in the system. The context through which we discuss events is used as a noun and is
- * mirrored here. Only users and Events should be public.
+ * mirrored here. Only users and Events should be public.</p>
  *
  * @implNote The event class's methods arte package protected meaning only other classes within the
  *           model are able to access them.

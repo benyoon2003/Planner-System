@@ -31,7 +31,7 @@ import model.User;
 public class MainScheduleFrameView extends JFrame implements PlannerView {
   private final ReadOnlyPlannerModel model;
   private JPanel mainPanel;
-  private final WeekViewPanel planner;
+  private WeekViewPanel planner;
 
   private final MainBottomPanel bottom;
 
@@ -108,7 +108,9 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     this.getContentPane().removeAll();
     this.mainPanel = new JPanel();
     this.mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
-    this.mainPanel.add(new WeekViewPanel(this.model, selected));
+    this.planner = new WeekViewPanel(this.model, selected);
+    this.selected = selected;
+    this.mainPanel.add(this.planner);
     this.mainPanel.add(this.bottom);
     this.add(mainPanel);
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
