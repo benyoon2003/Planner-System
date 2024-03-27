@@ -69,10 +69,13 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     NuPlanner testModel = new NuPlanner(new ArrayList<>());
     testModel.addUser("Ben");
     testModel.addUser("Nico");
+    testModel.addUser("Lucia");
     testModel.createEvent("Ben", "Working on OOD", "Snell", false,
             Day.Monday, 1000, Day.Wednesday, 2055, List.of());
     testModel.createEvent("Nico", "Also working on OOD", "Snell", true,
             Day.Thursday, 500, Day.Saturday, 2000, List.of());
+    testModel.createEvent("Lucia", "Also working on OOD", "Meserve", true,
+            Day.Sunday, 500, Day.Sunday, 900, List.of("Ben", "Nico"));
     new MainScheduleFrameView(testModel);
 
   }
