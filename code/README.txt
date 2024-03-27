@@ -13,10 +13,30 @@ the model works. All that is necessary is only the model's public method's to be
 There are package protected methods that can be called when inside the package that can
 alter the model. These methods had to be package protected and not private for implementation.
 
-    For the purposes of this project, the view can be used simply by initializing the
-MainScheduleFrameView, which is the only public class within the view package. The PlannerView
-interface provides a render method, which exists for all types of PlannerView, but does not
-need to be called in order to produce a MainScheduleFrameView due to the nature of JFrame. 
+    The PlannerView produces a graphical user interface of the ReadOnlyPlannerModel version
+of the previously implemented mode. This means that the view is only able to utilize the following
+methods: selectSchedule, eventsAtThisTime, scheduleOnDay, and getListOfUser, making the model
+read only and not mutable. For the purposes of this project, the view can be used simply by
+initializing the MainScheduleFrameView. The PlannerView interface provides a render method,
+which exists for all types of PlannerView, but does not need to be called in order to produce a
+MainScheduleFrameView due to the nature of JFrame. As a result of this, the MainScheduleFrameView
+is the only public class within view. All other classes: EventFrameView, EventRedPanel,
+MainBottomPanel, and WeekViewPanel are package protected.
+
+    The MainScheduleFrameView is a custom JFrame that implements PlannerView and provides the
+overarching frame for all subcomponents to overlay onto. One of the two main subcomponents on the
+MainScheduleFrameView is the WeekViewPanel, which is a custom JPanel containing grid lines that
+indicate days and hours of the week. TheWeekViewPanel is then overlaid with events represented
+by EventRedPanels, which are clickable red panels that are resized on the WeekViewPanel
+depending on the duration of the event. On click of the red panel, another custom interactive
+JFrame, EventFrameView pops up. This frame contains multiple panels that allows the user to input
+details for a new Event, modify the details of a pre-existing event, or remove the Event from the
+user's schedule.
+
+    Below the WeekViewPanel is the other main subcomponent of the MainScheduleFrameView, the
+MainBottomPanel, which is another interactive panel containing a JComboBox, which allows the user
+to select who's schedule to display on the WeekViewPanel, as well as two buttons that provide
+options to create and schedule new events. These buttons also pop up an EventFrameView.
 
 Quick Start:
     To start the model first you must create an instance of the model:
@@ -37,6 +57,14 @@ Quick Start:
     ***Another thing to take note of is that createEvent will throw an exception if
     a user in the invitee list does not exist.
 
+    In order to run the view, the user must simply initialize MainScheduleFrameView with
+    the PlannerModel as the parameter:
+        new MainScheduleFrameView(this.example);
+
+    ***Notice that although this.example is a NuPlanner, when passed into the
+    MainScheduleFrameView constructor, it automatically becomes a ReadOnlyPlannerModel
+
+
  Key Components:
     The main driver for this control flow is the model, the system and
  all its actions are contained in the model. The view is then driven to render
@@ -49,7 +77,7 @@ Quick Start:
 
  Source Organization:
     All the subcomponents can be found inside the model package of this project as
- following suit the view class and interface cna be found in the view package. We created a
+ following suit the view class and interface can be found in the view package. We created a
  controller package that is empty as that was not a part of the assignment but will be in the
  future.
 
