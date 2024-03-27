@@ -28,10 +28,12 @@ public class WeekViewPanel extends JPanel {
   public WeekViewPanel(ReadOnlyPlannerModel model, User selected) {
     this.model = Objects.requireNonNull(model);
     this.selected = selected;
+    System.out.println("Instantiating WeekViewPanel");
   }
 
   @Override
   protected void paintComponent(Graphics g) {
+    System.out.println("Painting Component");
     super.paintComponent(g);
     Rectangle bounds = getBounds();
     setSize(bounds.width,bounds.height);

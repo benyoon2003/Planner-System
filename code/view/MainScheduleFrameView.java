@@ -24,6 +24,12 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
   private User selected;
 
   //private final PlannerPanel bottom;
+
+  /**
+   * Creates a default main frame view that displays the schedule of the first
+   * User in the database.
+   * @param model
+   */
   public MainScheduleFrameView(ReadOnlyPlannerModel model) {
     super();
     setTitle("Main System View");
@@ -31,14 +37,36 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     this.model = Objects.requireNonNull(model);
     this.mainPanel = new JPanel();
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
-    this.bottom = new MainBottomPanel(this.model);
-    this.selected = this.bottom.getSelected();
+    this.selected = this.model.getListOfUser().get(0);
     this.planner = new WeekViewPanel(this.model, this.selected);
+    this.bottom = new MainBottomPanel(this.model, this.planner);
     this.mainPanel.add(this.planner);
     this.mainPanel.add(this.bottom);
     this.add(mainPanel);
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
   }
+
+  /**
+   * Creates a main frame view that displays the given user's schedule.
+   * @param model
+   * @param selected
+   */
+  public MainScheduleFrameView(ReadOnlyPlannerModel model, User selected) {
+    super();
+    setTitle("Main System View");
+    setSize(800, 800);
+    this.model = Objects.requireNonNull(model);
+    this.mainPanel = new JPanel();
+    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
+    this.selected = selected;
+    this.planner = new WeekViewPanel(this.model, this.selected);
+    this.bottom = new MainBottomPanel(this.model, this.planner);
+    this.mainPanel.add(this.planner);
+    this.mainPanel.add(this.bottom);
+    this.add(mainPanel);
+    this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+  }
+
 
 
   @Override
@@ -51,7 +79,7 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     testModel.addUser("Ben");
     testModel.addUser("Nico");
     testModel.createEvent("Ben", "Working on OOD", "Snell", false,
-            Day.Monday, 1000, Day.Wednesday, 2055, List.of("Nico"));
+            Day.Monday, 1000, Day.Wednesday, 2055, List.of());
     testModel.createEvent("Nico", "Also working on OOD", "Snell", true,
             Day.Thursday, 500, Day.Saturday, 2000, List.of());
     MainScheduleFrameView frame = new MainScheduleFrameView(testModel);
