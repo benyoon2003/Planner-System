@@ -160,7 +160,7 @@ public final class Event {
   private void updateUsers(List<User> old, List<User> update) {
     for (User u : old) {
       if (!update.contains(u)) {
-        u.schedule.remove(this);
+        u.observeSchedule().remove(this);
       }
     }
     for (User u : update) {
@@ -189,7 +189,7 @@ public final class Event {
    */
   void removeAll() {
     for (User attendee : this.invitedUsers) {
-      attendee.schedule.remove(this);
+      attendee.observeSchedule().remove(this);
     }
   }
 
@@ -290,7 +290,7 @@ public final class Event {
   private String convertListOfInvitees() {
     String invitees = "";
     for (User u : this.invitedUsers) {
-      invitees += u.uid + "\n       ";
+      invitees += u.toString() + "\n       ";
     }
     return invitees;
   }

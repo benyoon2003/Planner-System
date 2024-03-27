@@ -95,13 +95,13 @@ public class EventTest {
   @Test
   public void testSendInvite() {
     exampleHostUserEvent();
-    assertTrue(user2.schedule.contains(this.example));
+    assertTrue(user2.observeSchedule().contains(this.example));
   }
 
   @Test
   public void testSendInviteWithConflict() {
     exampleHostUserEventConflict();
-    assertFalse(user2.schedule.contains(this.example));
+    assertFalse(user2.observeSchedule().contains(this.example));
   }
 
 }

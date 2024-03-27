@@ -60,7 +60,7 @@ public final class NuPlanner implements PlannerModel {
 
   @Override
   public List<Event> selectSchedule(String user) {
-    return Utils.findUser(user, this.database).schedule;
+    return Utils.findUser(user, this.database).observeSchedule();
   }
 
   @Override
@@ -88,7 +88,7 @@ public final class NuPlanner implements PlannerModel {
       if (e.observeHost().equals(u)) {
         e.removeAll();
       } else {
-        u.schedule.remove(e);
+        u.observeSchedule().remove(e);
       }
     }
   }
@@ -118,7 +118,7 @@ public final class NuPlanner implements PlannerModel {
   public List<Event> eventsAtThisTime(String user, int time) {
     User selected = Utils.findUser(user, this.database);
     List<Event> list = new ArrayList<>();
-    for (Event e : selected.schedule) {
+    for (Event e : selected.observeSchedule()) {
       if (e.observeStartTimeOfEvent() == time) {
         list.add(e);
       }
@@ -145,24 +145,24 @@ public final class NuPlanner implements PlannerModel {
   @Override
   public void addUser(User user) {
     try {
-      User userInDatabase = Utils.findUser(user.uid, this.database);
-      List<Event> copyOfUserInDatabaseSchedule = userInDatabase.schedule;
+      User userInDatabase = Utils.findUser(user.toString(), this.database);
+      List<Event> copyOfUserInDatabaseSchedule = userInDatabase.observeSchedule();
 
       // Add event from new schedule if it doesn't conflict with pre-existing user's schedule
-      for (Event e : user.schedule) {
+      for (Event e : user.observeSchedule()) {
         try {
           userInDatabase.addEvent(e);
         } catch (IllegalArgumentException ignored) {
 
           // Reset schedule if any of the events from the given user
           // conflict with the pre-existing user
-          userInDatabase.schedule = copyOfUserInDatabaseSchedule;
+          userInDatabase.setSchedule(copyOfUserInDatabaseSchedule);
           throw new IllegalArgumentException("The given user conflicts with " +
                   "the pre-existing user's schedule.");
         }
       }
     } catch (IllegalArgumentException e) {
-      this.database.add(new User(user.uid, user.schedule));
+      this.database.add(new User(user.toString(), user.observeSchedule()));
     }
   }
 
@@ -182,7 +182,7 @@ public final class NuPlanner implements PlannerModel {
   public List<Event> mainSchedule(){
     List<Event> events = new ArrayList<>();
     for (User u : this.database){
-      events.addAll(u.schedule);
+      events.addAll(u.observeSchedule());
     }
     return events;
   }

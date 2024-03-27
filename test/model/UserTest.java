@@ -78,14 +78,14 @@ public class UserTest {
   @Test
   public void testSortEvents() {
     exampleSchedule();
-    assertEquals(this.example.schedule.get(0), two);
+    assertEquals(this.example.observeSchedule().get(0), two);
   }
 
   @Test
   public void testAddEvent() {
     exampleAddEvent();
     this.example.addEvent(two);
-    assertEquals(this.example.schedule.get(0), two);
+    assertEquals(this.example.observeSchedule().get(0), two);
   }
 
   @Test(expected = IllegalArgumentException.class)

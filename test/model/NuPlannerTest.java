@@ -107,7 +107,7 @@ public class NuPlannerTest {
     exampleNuPlanner();
     Event e2 = this.example.createEvent("Ben", "OOD", "Snell", true
             , Day.Friday, 1800, Day.Saturday, 1800, List.of("Nico"));
-    assertTrue(ben.schedule.contains(e2));
+    assertTrue(ben.observeSchedule().contains(e2));
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -122,23 +122,23 @@ public class NuPlannerTest {
     exampleNuPlanner2();
     Event e5 = this.example2.createEvent("Lucia", "OOD", "Snell", true
             , Day.Wednesday, 1800, Day.Wednesday, 2000, List.of("Patrick"));
-    assertFalse(this.patrick.schedule.contains(e5));
+    assertFalse(this.patrick.observeSchedule().contains(e5));
     //makes sure that the event is not removed from the host's schedule.
-    assertTrue(this.lucia.schedule.contains(e5));
+    assertTrue(this.lucia.observeSchedule().contains(e5));
   }
 
   @Test
   public void testRemoveEventAsHost() {
     exampleNuPlanner();
     this.example.removeEvent("Ben", e1);
-    assertFalse(this.nico.schedule.contains(e1));
+    assertFalse(this.nico.observeSchedule().contains(e1));
   }
 
   @Test
   public void testRemoveEventAsAttendee() {
     exampleNuPlanner();
     this.example.removeEvent("Nico", e1);
-    assertTrue(this.ben.schedule.contains(e1));
+    assertTrue(this.ben.observeSchedule().contains(e1));
   }
 
   @Test
@@ -146,7 +146,7 @@ public class NuPlannerTest {
     exampleNuPlanner();
     this.example.modifyEvent(e1, "OOD", "Snell", false
             , Day.Wednesday, 1000, Day.Wednesday, 1200, List.of(), "Ben");
-    assertFalse(this.nico.schedule.contains(e1));
+    assertFalse(this.nico.observeSchedule().contains(e1));
   }
 
   @Test(expected = IllegalArgumentException.class)
