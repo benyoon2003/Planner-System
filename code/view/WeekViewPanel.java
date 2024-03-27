@@ -4,16 +4,12 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.List;
 
-import javax.swing.*;
-import javax.swing.event.MouseInputAdapter;
+import javax.swing.JPanel;
 
 import model.Day;
 import model.Event;
