@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.List;
@@ -50,6 +51,7 @@ public class WeekViewPanel extends JPanel {
   }
 
   private void drawLines(Graphics2D g2d) {
+    AffineTransform old =g2d.getTransform();
     int  horizontalLineOffset = this.bounds.height / 23;
     for (int line = horizontalLineOffset; line < this.bounds.height;
          line += horizontalLineOffset) {
@@ -66,6 +68,7 @@ public class WeekViewPanel extends JPanel {
       g2d.setColor(Color.BLACK);
       g2d.drawLine(line, 0, line, this.bounds.height);
     }
+    g2d.setTransform(old);
   }
 
   private void drawEvent(Event e, Graphics2D g) {

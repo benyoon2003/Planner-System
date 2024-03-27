@@ -3,6 +3,7 @@ package view;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.AffineTransform;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,6 +18,14 @@ public class EventRedPanel extends JPanel implements MouseListener {
 
   private Event event;
 
+  private int x;
+
+  private int y;
+
+  private int width;
+
+  private int height;
+
   /**
    * This is package protected because there should not be any leakage of the Event panel
    * information and this should be contained in the view.
@@ -26,6 +35,10 @@ public class EventRedPanel extends JPanel implements MouseListener {
     this.event = Objects.requireNonNull(e);
     this.setBounds(x, y, width, height);
     this.addMouseListener(this);
+    this.x = x;
+    this.y = y;
+    this.height = height;
+    //this.setBackground(Color.RED);
   }
 
   @Override
@@ -71,7 +84,23 @@ public class EventRedPanel extends JPanel implements MouseListener {
   public void paintComponent(Graphics g) {
     Graphics2D g2d = (Graphics2D) g.create();
     super.paintComponent(g2d);
-    this.setBackground(new Color(255,0,0,60));
+    drawLines(g2d);
+    this.setBackground(Color.RED);
   }
 
+  private void drawLines(Graphics2D g2d) {
+    AffineTransform old = g2d.getTransform();
+    int  horizontalLineOffset = 29;
+    for (int line = horizontalLineOffset; line < this.height;
+         line += horizontalLineOffset) {
+      if ((line % (horizontalLineOffset * 4)) == 0) {
+        g2d.setStroke(new BasicStroke(4));
+      } else {
+        g2d.setStroke(new BasicStroke(2));
+      }
+      g2d.setColor(Color.BLACK);
+      g2d.drawLine(0, line, 110, line);
+    }
+    g2d.setTransform(old);
+  }
 }
