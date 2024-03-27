@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -9,11 +8,9 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.swing.*;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
+
 
 import model.Day;
-import model.Event;
 import model.NuPlanner;
 import model.ReadOnlyPlannerModel;
 import model.User;
