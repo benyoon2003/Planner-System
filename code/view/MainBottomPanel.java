@@ -39,12 +39,6 @@ public class MainBottomPanel extends JPanel {
   private void makeSelectUserBox(){
     this.selectedUser = new JComboBox<User>(model.getListOfUser().toArray(new User[0]));
     this.selected = model.getListOfUser().get(this.selectedUser.getSelectedIndex());
-    this.selectedUser.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        selected = (User) selectedUser.getSelectedItem();
-      }
-    });
     this.add(this.selectedUser);
   }
 
