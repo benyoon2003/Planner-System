@@ -1,12 +1,16 @@
 package view;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 
 import model.Day;
 import model.Event;
@@ -43,8 +47,28 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     this.mainPanel.add(this.planner);
     this.mainPanel.add(this.bottom);
     this.add(mainPanel);
+    makeFileChooser();
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     this.setVisible(true);
+  }
+
+  private void makeFileChooser(){
+    JMenuBar mb = new JMenuBar();
+    JMenu menu = new JMenu("File");
+    JMenuItem add = new JMenuItem("Add Calendar");
+    JMenuItem save = new JMenuItem("Save Calendar");
+    menu.add(add);menu.add(save);
+    mb.add(menu);
+    this.setJMenuBar(mb);
+    add.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        JFileChooser j = new JFileChooser();
+        j.showSaveDialog(null);
+        String path = j.getSelectedFile().getPath();
+        System.out.println(path);
+      }
+    });
   }
 
 
