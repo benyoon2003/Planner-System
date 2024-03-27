@@ -21,9 +21,10 @@ import model.Day;
  *           and the overarching panel itself does not change.
  *           The components that are laid on top of the eventPanel are the ones being modified,
  *           thus they are not final. The start time and end time are Strings to make it easier
- *           to modify components.
+ *           to modify components. This is package protected because there should not be any
+ *           leakage of the Event panel information and this should be contained in the view.
  */
-public class EventFrameView extends JFrame implements EventView {
+class EventFrameView extends JFrame implements EventView {
   private final JPanel eventPanel;
   private JTextArea name;
   private JComboBox<String> isOnline;
@@ -32,9 +33,6 @@ public class EventFrameView extends JFrame implements EventView {
   private JTextArea startingTime;
   private JComboBox<Day> endingDay;
   private JTextArea endingTime;
-  private JButton createButton;
-  private JButton modifyButton;
-  private JButton removeButton;
   private JList<String> availUser;
 
   /**
@@ -42,7 +40,7 @@ public class EventFrameView extends JFrame implements EventView {
    * sets the host according to the given username.
    * @param host a username in the form of a String
    */
-  public EventFrameView(String host) {
+ EventFrameView(String host) {
     this("", true, "", Day.Monday, "",
             Day.Monday, "", new String[]{host});
   }
@@ -59,7 +57,7 @@ public class EventFrameView extends JFrame implements EventView {
    * @param endTime a Day
    * @param availUsers String array
    */
-  public EventFrameView(String eventName, boolean isOnline, String location,
+  EventFrameView(String eventName, boolean isOnline, String location,
                         Day startDay, String startTime, Day endDay, String endTime,
                         String[] availUsers) {
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -262,8 +260,8 @@ public class EventFrameView extends JFrame implements EventView {
    */
   private void makeButtonPanel() {
     JPanel buttonPanel = new JPanel();
-    this.createButton = new JButton("Create event");
-    this.createButton.addActionListener(new ActionListener() {
+    JButton createButton = new JButton("Create event");
+    createButton.addActionListener(new ActionListener() {
       /**
        // Outputs the details of the event when action is performed on the button.
        * @param e the event to be processed
@@ -278,9 +276,9 @@ public class EventFrameView extends JFrame implements EventView {
         }
       }
     });
-    this.modifyButton = new JButton("Modify event");
-    this.removeButton = new JButton("Remove event");
-    this.removeButton.addActionListener(new ActionListener() {
+    JButton modifyButton = new JButton("Modify event");
+    JButton removeButton = new JButton("Remove event");
+    removeButton.addActionListener(new ActionListener() {
       /**
        * Outputs a message alerting the user that a event is being removed from the host's
        * schedule and outputs the event details.
@@ -298,9 +296,9 @@ public class EventFrameView extends JFrame implements EventView {
         }
       }
     });
-    buttonPanel.add(this.createButton);
-    buttonPanel.add(this.modifyButton);
-    buttonPanel.add(this.removeButton);
+    buttonPanel.add(createButton);
+    buttonPanel.add(modifyButton);
+    buttonPanel.add(removeButton);
     this.eventPanel.add(buttonPanel);
   }
 
