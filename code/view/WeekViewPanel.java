@@ -16,7 +16,15 @@ import model.Event;
 import model.ReadOnlyPlannerModel;
 import model.User;
 
-public class WeekViewPanel extends JPanel {
+/**
+ * This panel is used to view a users schedule for the week. It shows 7 columns
+ * denoting a day of the week from Sunday to Saturday. In each column there
+ * is 24 rows denoting a hour of the day. Within this panel there are other
+ * panels denoting events at the specified time and day as seen through the view and
+ * gridlines. These are EventRedPanel and see the javadoc in that class for more information.
+ * This panel is updated when a new user is selected from the main bottom panel.
+ */
+class WeekViewPanel extends JPanel {
 
 
   private ReadOnlyPlannerModel model;
@@ -24,6 +32,12 @@ public class WeekViewPanel extends JPanel {
 
   private Rectangle bounds;
 
+  /**
+   * This is the constructor for a weekViewPanel which takes in the model for which
+   * it is trying to view and the selected user whose schedule is being viewed.
+   * @param model the given model being viewed
+   * @param selected the selected user for the view.
+   */
   public WeekViewPanel(ReadOnlyPlannerModel model, User selected) {
     this.model = Objects.requireNonNull(model);
     this.selected = selected;
@@ -39,11 +53,17 @@ public class WeekViewPanel extends JPanel {
     this.bounds = getBounds();
     setSize(this.bounds.width,this.bounds.height);
     for (Event e : model.selectSchedule(this.selected.toString())) {
-      drawEvent(e, g2d);
+      drawEvent(e);
     }
     drawLines(g2d);
   }
 
+  /**
+   * This method draws the gridlines to give the user a better visualization
+   * of the time at when events are taking place. They utilize bounds so that
+   * they stay proportional even after window resizing.
+   * @param g2d the graphics object which the lines are being drawn.
+   */
   private void drawLines(Graphics2D g2d) {
     AffineTransform old =g2d.getTransform();
     int  horizontalLineOffset = this.bounds.height / 23;
@@ -65,7 +85,13 @@ public class WeekViewPanel extends JPanel {
     g2d.setTransform(old);
   }
 
-  private void drawEvent(Event e, Graphics2D g) {
+  /**
+   * This is the method that takes a given event and creates an EventRedPanel for the
+   * user to view on this panel in its respective place on the WeekViewPanel. This
+   * method takes in the event it is trying to display and the graphic through which it can draw
+   * @param e the given event trying to be displayed.
+   */
+  private void drawEvent(Event e) {
     java.util.List<Day> daysOrder = java.util.List.of(Day.Sunday,
             Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday,
             Day.Friday, Day.Saturday);
@@ -76,7 +102,7 @@ public class WeekViewPanel extends JPanel {
     if (e.observeStartDayOfEvent().equals(e.observeEndDayOfEvent())){
       end = (e.observeEndTimeOfEvent() / 100) * horizontalLineOffset;
     }else {
-      drawEndOfEvent(e, g, e.observeStartDayOfEvent());
+      drawEndOfEvent(e, e.observeStartDayOfEvent());
     }
     this.add(new EventRedPanel(e,
             daysOrder.indexOf(e.observeStartDayOfEvent()) * verticalLineOffset, start,
@@ -84,7 +110,15 @@ public class WeekViewPanel extends JPanel {
 
   }
 
-  private void drawEndOfEvent(Event e, Graphics g, Day lastDayDrawn){
+  /**
+   * This method is an extension of the drawEvent method and continues to draw
+   * the event if the event spans several days. This is a different but similar
+   * method because it draws the event but due to how event spanning more than one day
+   * are it draws the event from the top till end time or fills the entire day.
+   * @param e the event being continued to be drawn.
+   * @param lastDayDrawn the previous day of the event drawn.
+   */
+  private void drawEndOfEvent(Event e, Day lastDayDrawn){
     java.util.List<Day> daysOrder = List.of(Day.Sunday,
             Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday,
             Day.Friday, Day.Saturday);
@@ -99,11 +133,7 @@ public class WeekViewPanel extends JPanel {
       this.add(new EventRedPanel(e,
               (daysOrder.indexOf(lastDayDrawn) + 1) * verticalLineOffset, 0,
               verticalLineOffset, this.bounds.height, horizontalLineOffset));
-      drawEndOfEvent(e, g, daysOrder.get(daysOrder.indexOf(lastDayDrawn) + 1));
+      drawEndOfEvent(e, daysOrder.get(daysOrder.indexOf(lastDayDrawn) + 1));
     }
   }
-
-
-
-
 }
