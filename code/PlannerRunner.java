@@ -5,6 +5,11 @@ import model.Day;
 import model.NuPlanner;
 import view.MainScheduleFrameView;
 
+/**
+ * This is the class to run the planner system. Right now the system has not controller and
+ * because of that the view has no effect on the model but the controller will be added
+ * soon.
+ */
 public final class PlannerRunner {
   /**
    * This method is used to test the view and see it on a test model of users.

@@ -16,9 +16,9 @@ import static org.junit.Assert.assertEquals;
  */
 public class NUPlannerTextViewTest {
 
-  PlannerModel model;
+  private PlannerModel model;
 
-  NUPlannerTextView view;
+  private NUPlannerTextView view;
 
   private void exampleView() {
     model = new NuPlanner(new ArrayList<>());
