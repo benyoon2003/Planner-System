@@ -33,10 +33,11 @@ public class MainBottomPanel extends JPanel {
     this.setPreferredSize(new Dimension(800,-600));
     makeSelectUserBox();
     makeEventButtons();
+
   }
 
 
-  private void makeSelectUserBox(){
+  private void makeSelectUserBox() {
     this.selectedUser = new JComboBox<User>(model.getListOfUser().toArray(new User[0]));
     this.selected = model.getListOfUser().get(this.selectedUser.getSelectedIndex());
     this.selectedUser.addActionListener(new ActionListener() {

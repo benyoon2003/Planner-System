@@ -33,7 +33,7 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
     this.bottom = new MainBottomPanel(this.model);
     this.selected = this.bottom.getSelected();
-    this.planner = new WeekViewPanel(this.model);
+    this.planner = new WeekViewPanel(this.model, this.selected);
     this.mainPanel.add(this.planner);
     this.mainPanel.add(this.bottom);
     this.add(mainPanel);
@@ -52,6 +52,8 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     testModel.addUser("Nico");
     testModel.createEvent("Ben", "Working on OOD", "Snell", false,
             Day.Monday, 1000, Day.Wednesday, 2055, List.of("Nico"));
+    testModel.createEvent("Nico", "Also working on OOD", "Snell", true,
+            Day.Thursday, 500, Day.Saturday, 2000, List.of());
     MainScheduleFrameView frame = new MainScheduleFrameView(testModel);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setVisible(true);

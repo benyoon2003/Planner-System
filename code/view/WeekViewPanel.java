@@ -23,9 +23,11 @@ public class WeekViewPanel extends JPanel {
 
 
   private ReadOnlyPlannerModel model;
+  private User selected;
 
-  public WeekViewPanel(ReadOnlyPlannerModel model) {
+  public WeekViewPanel(ReadOnlyPlannerModel model, User selected) {
     this.model = Objects.requireNonNull(model);
+    this.selected = selected;
   }
 
   @Override
@@ -34,7 +36,7 @@ public class WeekViewPanel extends JPanel {
     Rectangle bounds = getBounds();
     setSize(bounds.width,bounds.height);
     Graphics2D g2d = (Graphics2D) g.create();
-    for (Event e : model.mainSchedule()) {
+    for (Event e : model.selectSchedule(this.selected.toString())) {
       EventRedPanel erp = new EventRedPanel(e, g, bounds);
       this.add(erp);
     }

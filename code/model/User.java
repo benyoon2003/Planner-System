@@ -157,9 +157,11 @@ public class User {
   public boolean equals(Object o) {
     User u = (User) o;
     boolean sameSchedule = true;
-    for (int index = 0; index < this.schedule.size(); index++) {
-      if (!this.schedule.get(index).equals(u.schedule.get(index))) {
-        sameSchedule = false;
+    if (this.schedule.size() == u.schedule.size()) {
+      for (int index = 0; index < this.schedule.size(); index++) {
+        if (!this.schedule.get(index).equals(u.schedule.get(index))) {
+          sameSchedule = false;
+        }
       }
     }
     return this.uid.equals(u.uid) && sameSchedule;
