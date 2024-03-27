@@ -16,7 +16,7 @@ import model.User;
 
 public class MainScheduleFrameView extends JFrame implements PlannerView {
   private final ReadOnlyPlannerModel model;
-  private final JPanel mainPanel;
+  private JPanel mainPanel;
   private final WeekViewPanel planner;
 
   private final MainBottomPanel bottom;
@@ -24,6 +24,12 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
   private User selected;
 
   //private final PlannerPanel bottom;
+
+  /**
+   * Creates a default main frame view that displays the schedule of the first
+   * User in the database.
+   * @param model
+   */
   public MainScheduleFrameView(ReadOnlyPlannerModel model) {
     super();
     setTitle("Main System View");
@@ -31,15 +37,28 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     this.model = Objects.requireNonNull(model);
     this.mainPanel = new JPanel();
     mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
-    this.bottom = new MainBottomPanel(this.model);
-    this.selected = this.bottom.getSelected();
+    this.selected = this.model.getListOfUser().get(0);
     this.planner = new WeekViewPanel(this.model, this.selected);
+    this.bottom = new MainBottomPanel(this.model, this.planner, this);
     this.mainPanel.add(this.planner);
     this.mainPanel.add(this.bottom);
     this.add(mainPanel);
     this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    this.setVisible(true);
   }
 
+
+  public void reMakeView(User selected) {
+    this.getContentPane().removeAll();
+    this.mainPanel = new JPanel();
+    mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
+    this.mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
+    this.mainPanel.add(new WeekViewPanel(this.model, selected));
+    this.mainPanel.add(this.bottom);
+    this.add(mainPanel);
+    this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    this.setVisible(true);
+  }
 
   @Override
   public void render() throws IOException {
@@ -50,13 +69,14 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     NuPlanner testModel = new NuPlanner(new ArrayList<>());
     testModel.addUser("Ben");
     testModel.addUser("Nico");
+    testModel.addUser("Lucia");
     testModel.createEvent("Ben", "Working on OOD", "Snell", false,
-            Day.Monday, 1000, Day.Wednesday, 2055, List.of("Nico"));
+            Day.Monday, 1000, Day.Wednesday, 2055, List.of());
     testModel.createEvent("Nico", "Also working on OOD", "Snell", true,
             Day.Thursday, 500, Day.Saturday, 2000, List.of());
-    MainScheduleFrameView frame = new MainScheduleFrameView(testModel);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setVisible(true);
+    testModel.createEvent("Lucia", "Also working on OOD", "Meserve", true,
+            Day.Sunday, 500, Day.Sunday, 900, List.of("Ben", "Nico"));
+    new MainScheduleFrameView(testModel);
 
   }
 }

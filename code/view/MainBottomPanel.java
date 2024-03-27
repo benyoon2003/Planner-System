@@ -3,6 +3,7 @@ package view;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Objects;
 
 import javax.swing.*;
@@ -14,33 +15,55 @@ public class MainBottomPanel extends JPanel {
 
   private ReadOnlyPlannerModel model;
 
-  private JComboBox<User> selectedUser;
+  private User selected;
 
-  private JButton createEvent;
+  private WeekViewPanel weekView;
+  private MainScheduleFrameView main;
 
-  private JButton scheduleEvent;
-
-  User selected;
 
   /**
    * This should be package protected
    * because this panel should not leak information outside of the view package.
    * @param model the given model of the planner system
    */
-  MainBottomPanel(ReadOnlyPlannerModel model){
+  MainBottomPanel(ReadOnlyPlannerModel model, WeekViewPanel weekView, MainScheduleFrameView main){
     this.model = Objects.requireNonNull(model);
     this.setBackground(Color.WHITE);
     this.setPreferredSize(new Dimension(800,-600));
+    this.weekView = weekView;
+    this.main = main;
+
     makeSelectUserBox();
     makeEventButtons();
 
   }
 
+  public ReadOnlyPlannerModel observeModel() {
+    return this.model;
+  }
+
 
   private void makeSelectUserBox() {
-    this.selectedUser = new JComboBox<User>(model.getListOfUser().toArray(new User[0]));
-    this.selected = model.getListOfUser().get(this.selectedUser.getSelectedIndex());
-    this.add(this.selectedUser);
+    JComboBox selectedUser = new JComboBox<>(convertToUserArray(model.getListOfUser()));
+    this.add(selectedUser);
+    this.selected = ((User) selectedUser.getSelectedItem());
+    selectedUser.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        selected = (User) selectedUser.getSelectedItem();
+        selectedUser.setSelectedIndex(selectedUser.getSelectedIndex());
+        main.reMakeView((User) selectedUser.getSelectedItem());
+
+      }
+    });
+  }
+
+  private User[] convertToUserArray(List<User> users) {
+    User[] usernames = new User[users.size()];
+    for (int index = 0; index < users.size(); index++) {
+      usernames[index] = users.get(index);
+    }
+    return usernames;
   }
 
   User getSelected(){
@@ -48,8 +71,8 @@ public class MainBottomPanel extends JPanel {
   }
 
   private void makeEventButtons(){
-    this.createEvent = new JButton("Create Event");
-    this.createEvent.addActionListener(new ActionListener() {
+    JButton createEvent = new JButton("Create Event");
+    createEvent.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         EventView newEvent = new EventFrameView(selected.toString());
@@ -57,16 +80,16 @@ public class MainBottomPanel extends JPanel {
       }
     });
 
-    this.scheduleEvent = new JButton("Schedule Event");
-    this.scheduleEvent.addActionListener(new ActionListener() {
+    JButton scheduleEvent = new JButton("Schedule Event");
+    scheduleEvent.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         EventView newEvent = new EventFrameView(selected.toString());
         newEvent.display();
       }
     });
-    this.add(this.createEvent);
-    this.add(this.scheduleEvent);
+    this.add(createEvent);
+    this.add(scheduleEvent);
   }
 
 }
