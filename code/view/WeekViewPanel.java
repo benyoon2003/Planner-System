@@ -23,11 +23,12 @@ import model.User;
  * panels denoting events at the specified time and day as seen through the view and
  * gridlines. These are EventRedPanel and see the javadoc in that class for more information.
  * This panel is updated when a new user is selected from the main bottom panel.
+ *
+ * @implNote This is package protected because there should not be any leakage of the WeekViewPanel
+ *           information and this should be contained in the view.
  */
 class WeekViewPanel extends JPanel {
-
-
-  private ReadOnlyPlannerModel model;
+  private final ReadOnlyPlannerModel model;
   private User selected;
 
   private Rectangle bounds;
@@ -38,7 +39,7 @@ class WeekViewPanel extends JPanel {
    * @param model the given model being viewed
    * @param selected the selected user for the view.
    */
-  public WeekViewPanel(ReadOnlyPlannerModel model, User selected) {
+  WeekViewPanel(ReadOnlyPlannerModel model, User selected) {
     this.model = Objects.requireNonNull(model);
     this.selected = selected;
   }

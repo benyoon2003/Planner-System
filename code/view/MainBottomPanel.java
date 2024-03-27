@@ -43,7 +43,7 @@ class MainBottomPanel extends JPanel {
    * @param main the MainScheduleFrameView
    *
    * @implNote The entire view is changed when a new user is selected so the entire
-   *           view should also be passed as a parameter so that this panel can change it.
+   *           view (main) should also be passed as a parameter so that this panel can change it.
    */
   MainBottomPanel(ReadOnlyPlannerModel model, MainScheduleFrameView main){
     this.model = Objects.requireNonNull(model);

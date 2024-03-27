@@ -79,7 +79,7 @@ class EventFrameView extends JFrame implements EventView {
   }
 
   /**
-   * Creates the name panel that allows modification of the event name. '
+   * Creates the name panel that allows modification of the event name.
    * Rests on top of the main event panel.
    * @param eventName a String
    */

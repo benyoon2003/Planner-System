@@ -11,7 +11,12 @@ this is not to say that there is no thought into information hiding. We designed
 this model so that interacting with the model requires little understanding in how
 the model works. All that is necessary is only the model's public method's to be used.
 There are package protected methods that can be called when inside the package that can
-alter the model. These methods had to package protected and not private for implementation.
+alter the model. These methods had to be package protected and not private for implementation.
+
+    For the purposes of this project, the view can be used simply by initializing the
+MainScheduleFrameView, which is the only public class within the view package. The PlannerView
+interface provides a render method, which exists for all types of PlannerView, but does not
+need to be called in order to produce a MainScheduleFrameView due to the nature of JFrame. 
 
 Quick Start:
     To start the model first you must create an instance of the model:
@@ -47,3 +52,8 @@ Quick Start:
  following suit the view class and interface cna be found in the view package. We created a
  controller package that is empty as that was not a part of the assignment but will be in the
  future.
+
+ Changes for part 2:
+    To reflect on the comments made from the TA on our previous model implementation, we
+ fixed memory leakage in the User class, documented the PlannerView better, and made the
+ observation methods within Event public.

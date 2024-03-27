@@ -78,6 +78,10 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
     mb.add(menu);
     this.setJMenuBar(mb);
     add.addActionListener(new ActionListener() {
+      /**
+       * Opens file chooser and prints file path when action is performed on the JMenu.
+       * @param e the event to be processed
+       */
       @Override
       public void actionPerformed(ActionEvent e) {
         JFileChooser j = new JFileChooser();
@@ -91,7 +95,7 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
 
   /**
    * This is a method that updates the view after a new user has been selected
-   * from the JcomboBox in the mainBottomPanel and displays the new users
+   * from the JComboBox in the mainBottomPanel and displays the new users
    * schedule.
    * @param selected is the user that is currently selected for the view.
    */
@@ -114,7 +118,7 @@ public class MainScheduleFrameView extends JFrame implements PlannerView {
    */
   @Override
   public void render() throws IOException {
-
+    // Unimplemented
   }
 
 }
