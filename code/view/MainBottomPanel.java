@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
@@ -28,13 +29,17 @@ public class MainBottomPanel extends JPanel {
    */
   MainBottomPanel(ReadOnlyPlannerModel model){
     this.model = Objects.requireNonNull(model);
+    this.setBackground(Color.WHITE);
+    this.setPreferredSize(new Dimension(800,-600));
     makeSelectUserBox();
     makeEventButtons();
   }
 
+
   private void makeSelectUserBox(){
     this.selectedUser = new JComboBox<User>(model.getListOfUser().toArray(new User[0]));
     this.selected = model.getListOfUser().get(this.selectedUser.getSelectedIndex());
+    this.add(this.selectedUser);
   }
 
   User getSelected(){
@@ -59,6 +64,8 @@ public class MainBottomPanel extends JPanel {
         newEvent.display();
       }
     });
+    this.add(this.createEvent);
+    this.add(this.scheduleEvent);
   }
 
 }
